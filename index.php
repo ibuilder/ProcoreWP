@@ -20,6 +20,10 @@ define('PROCORE_INTEGRATION_VERSION', '1.0.0');
 define('PROCORE_INTEGRATION_PATH', plugin_dir_path(__FILE__));
 define('PROCORE_INTEGRATION_URL', plugin_dir_url(__FILE__));
 
+// Include required files
+require_once PROCORE_INTEGRATION_PATH . 'includes/styles.php';
+require_once PROCORE_INTEGRATION_PATH . 'includes/activation.php';
+
 class Procore_Integration {
 
     // Singleton instance
@@ -40,6 +44,7 @@ class Procore_Integration {
             'token' => '',
             'token_expires' => 0,
             'refresh_token' => '',
+            'default_company_id' => '',
         ]);
 
         // Initialize hooks
@@ -71,6 +76,7 @@ class Procore_Integration {
         add_shortcode('procore_drawings', [$this, 'drawings_shortcode']);
         add_shortcode('procore_specifications', [$this, 'specifications_shortcode']);
         add_shortcode('procore_project_data', [$this, 'project_data_shortcode']);
+        add_shortcode('procore_project_list', [$this, 'project_list_shortcode']);
     }
 
     /**
@@ -122,6 +128,14 @@ class Procore_Integration {
             'procore-integration',
             'procore_integration_main_section'
         );
+        
+        add_settings_field(
+            'procore_default_company_id',
+            'Default Company ID',
+            [$this, 'render_default_company_id_field'],
+            'procore-integration',
+            'procore_integration_main_section'
+        );
     }
 
     /**
@@ -153,6 +167,15 @@ class Procore_Integration {
     public function render_api_url_field() {
         $value = isset($this->settings['api_url']) ? $this->settings['api_url'] : 'https://api.procore.com';
         echo '<input type="text" name="procore_integration_settings[api_url]" value="' . esc_attr($value) . '" class="regular-text">';
+    }
+    
+    /**
+     * Render default company ID field
+     */
+    public function render_default_company_id_field() {
+        $value = isset($this->settings['default_company_id']) ? $this->settings['default_company_id'] : '';
+        echo '<input type="text" name="procore_integration_settings[default_company_id]" value="' . esc_attr($value) . '" class="regular-text">';
+        echo '<p class="description">Enter your default Procore Company ID. This will be used if not specified in shortcodes.</p>';
     }
 
     /**
@@ -193,12 +216,13 @@ class Procore_Integration {
             <h2>Shortcode Reference</h2>
             <p>Use these shortcodes to display Procore information on your WordPress site:</p>
             <ul style="margin-left: 20px; list-style-type: disc;">
-                <li><code>[procore_project id="123"]</code> - Display project information</li>
-                <li><code>[procore_team id="123"]</code> - Display project team members</li>
-                <li><code>[procore_featured_image id="123"]</code> - Display project featured image</li>
-                <li><code>[procore_drawings id="123"]</code> - Display project drawings</li>
-                <li><code>[procore_specifications id="123"]</code> - Display project specifications</li>
-                <li><code>[procore_project_data id="123" field="field_name"]</code> - Display specific project data</li>
+                <li><code>[procore_project_list company_id="123"]</code> - Display a list of all project IDs and names</li>
+                <li><code>[procore_project id="123" company_id="123"]</code> - Display project information</li>
+                <li><code>[procore_team id="123" company_id="123"]</code> - Display project team members</li>
+                <li><code>[procore_featured_image id="123" company_id="123"]</code> - Display project featured image</li>
+                <li><code>[procore_drawings id="123" company_id="123"]</code> - Display project drawings</li>
+                <li><code>[procore_specifications id="123" company_id="123"]</code> - Display project specifications</li>
+                <li><code>[procore_project_data id="123" company_id="123" field="field_name"]</code> - Display specific project data</li>
             </ul>
         </div>
         <?php
@@ -334,7 +358,7 @@ class Procore_Integration {
     /**
      * Make a request to the Procore API
      */
-    private function api_request($endpoint, $method = 'GET', $data = null) {
+    private function api_request($endpoint, $method = 'GET', $data = null, $company_id = null) {
         // Get token
         $token_result = $this->get_token();
         if (is_wp_error($token_result)) {
@@ -343,6 +367,17 @@ class Procore_Integration {
 
         $api_url = $this->settings['api_url'];
         $token = $this->settings['token'];
+        
+        // Use company ID if provided, otherwise use default
+        if ($company_id === null) {
+            $company_id = $this->settings['default_company_id'];
+        }
+        
+        // Add company ID to endpoint if it's not already included
+        if (!empty($company_id) && strpos($endpoint, 'company_id=') === false) {
+            $endpoint .= (strpos($endpoint, '?') === false) ? '?' : '&';
+            $endpoint .= 'company_id=' . $company_id;
+        }
 
         $args = [
             'method' => $method,
@@ -378,36 +413,36 @@ class Procore_Integration {
     /**
      * Get project details
      */
-    private function get_project($project_id) {
-        return $this->api_request('/rest/v1.0/projects/' . $project_id);
+    private function get_project($project_id, $company_id = null) {
+        return $this->api_request('/rest/v1.0/projects/' . $project_id, 'GET', null, $company_id);
     }
 
     /**
      * Get project team members
      */
-    private function get_project_team($project_id) {
-        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/users');
+    private function get_project_team($project_id, $company_id = null) {
+        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/users', 'GET', null, $company_id);
     }
 
     /**
      * Get project drawings
      */
-    private function get_project_drawings($project_id) {
-        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/drawing_areas');
+    private function get_project_drawings($project_id, $company_id = null) {
+        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/drawing_areas', 'GET', null, $company_id);
     }
 
     /**
      * Get project specifications
      */
-    private function get_project_specifications($project_id) {
-        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/specification_sections');
+    private function get_project_specifications($project_id, $company_id = null) {
+        return $this->api_request('/rest/v1.0/projects/' . $project_id . '/specification_sections', 'GET', null, $company_id);
     }
 
     /**
      * Get project image
      */
-    private function get_project_image($project_id) {
-        $project = $this->get_project($project_id);
+    private function get_project_image($project_id, $company_id = null) {
+        $project = $this->get_project($project_id, $company_id);
         if (is_wp_error($project)) {
             return $project;
         }
@@ -419,6 +454,13 @@ class Procore_Integration {
         
         return '';
     }
+    
+    /**
+     * Get all available projects
+     */
+    private function get_projects($company_id = null) {
+        return $this->api_request('/rest/v1.0/projects', 'GET', null, $company_id);
+    }
 
     /**
      * Project information shortcode
@@ -426,13 +468,14 @@ class Procore_Integration {
     public function project_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
         ], $atts, 'procore_project');
 
         if (empty($atts['id'])) {
             return '<p class="error">Error: Project ID is required</p>';
         }
 
-        $project = $this->get_project($atts['id']);
+        $project = $this->get_project($atts['id'], $atts['company_id']);
         if (is_wp_error($project)) {
             return '<p class="error">Error: ' . esc_html($project->get_error_message()) . '</p>';
         }
@@ -461,13 +504,14 @@ class Procore_Integration {
     public function team_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
         ], $atts, 'procore_team');
 
         if (empty($atts['id'])) {
             return '<p class="error">Error: Project ID is required</p>';
         }
 
-        $team = $this->get_project_team($atts['id']);
+        $team = $this->get_project_team($atts['id'], $atts['company_id']);
         if (is_wp_error($team)) {
             return '<p class="error">Error: ' . esc_html($team->get_error_message()) . '</p>';
         }
@@ -500,6 +544,7 @@ class Procore_Integration {
     public function featured_image_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
             'width' => '300',
             'height' => 'auto',
         ], $atts, 'procore_featured_image');
@@ -508,7 +553,7 @@ class Procore_Integration {
             return '<p class="error">Error: Project ID is required</p>';
         }
 
-        $image_url = $this->get_project_image($atts['id']);
+        $image_url = $this->get_project_image($atts['id'], $atts['company_id']);
         if (is_wp_error($image_url)) {
             return '<p class="error">Error: ' . esc_html($image_url->get_error_message()) . '</p>';
         }
@@ -535,6 +580,7 @@ class Procore_Integration {
     public function drawings_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
             'limit' => 10,
         ], $atts, 'procore_drawings');
 
@@ -542,7 +588,7 @@ class Procore_Integration {
             return '<p class="error">Error: Project ID is required</p>';
         }
 
-        $drawings = $this->get_project_drawings($atts['id']);
+        $drawings = $this->get_project_drawings($atts['id'], $atts['company_id']);
         if (is_wp_error($drawings)) {
             return '<p class="error">Error: ' . esc_html($drawings->get_error_message()) . '</p>';
         }
@@ -582,6 +628,7 @@ class Procore_Integration {
     public function specifications_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
             'limit' => 10,
         ], $atts, 'procore_specifications');
 
@@ -589,7 +636,7 @@ class Procore_Integration {
             return '<p class="error">Error: Project ID is required</p>';
         }
 
-        $specs = $this->get_project_specifications($atts['id']);
+        $specs = $this->get_project_specifications($atts['id'], $atts['company_id']);
         if (is_wp_error($specs)) {
             return '<p class="error">Error: ' . esc_html($specs->get_error_message()) . '</p>';
         }
@@ -630,6 +677,7 @@ class Procore_Integration {
     public function project_data_shortcode($atts) {
         $atts = shortcode_atts([
             'id' => '',
+            'company_id' => '',
             'field' => '',
             'label' => '',
         ], $atts, 'procore_project_data');
@@ -642,7 +690,7 @@ class Procore_Integration {
             return '<p class="error">Error: Field name is required</p>';
         }
 
-        $project = $this->get_project($atts['id']);
+        $project = $this->get_project($atts['id'], $atts['company_id']);
         if (is_wp_error($project)) {
             return '<p class="error">Error: ' . esc_html($project->get_error_message()) . '</p>';
         }
@@ -672,7 +720,96 @@ class Procore_Integration {
         <?php
         return ob_get_clean();
     }
-}
+
+    /**
+     * Project list shortcode
+     */
+    public function project_list_shortcode($atts) {
+        $atts = shortcode_atts([
+            'limit' => 0,
+            'company_id' => '',
+            'show_details' => 'false',
+            'active_only' => 'true',
+            'sort_by' => 'name', // name, id, created_at
+            'sort_order' => 'asc', // asc, desc
+        ], $atts, 'procore_project_list');
+        
+        $projects = $this->get_projects($atts['company_id']);
+        if (is_wp_error($projects)) {
+            return '<p class="error">Error: ' . esc_html($projects->get_error_message()) . '</p>';
+        }
+        
+        if (empty($projects)) {
+            return '<p>No projects found.</p>';
+        }
+        
+        // Filter projects by active status if needed
+        if ($atts['active_only'] === 'true') {
+            $projects = array_filter($projects, function($project) {
+                return isset($project['active']) && $project['active'] === true;
+            });
+        }
+        
+        // Sort projects
+        $sort_by = $atts['sort_by'];
+        $sort_order = strtolower($atts['sort_order']) === 'desc' ? SORT_DESC : SORT_ASC;
+        
+        if (in_array($sort_by, ['name', 'id', 'created_at'])) {
+            $sort_column = array_column($projects, $sort_by);
+            array_multisort($sort_column, $sort_order, $projects);
+        }
+        
+        // Limit the number of projects if needed
+        $limit = intval($atts['limit']);
+        if ($limit > 0 && count($projects) > $limit) {
+            $projects = array_slice($projects, 0, $limit);
+        }
+        
+        $show_details = $atts['show_details'] === 'true';
+        
+        ob_start();
+        ?>
+        <div class="procore-project-list">
+            <h3>Procore Projects</h3>
+            
+            <table class="procore-projects-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Project Name</th>
+                        <?php if ($show_details) : ?>
+                        <th>Location</th>
+                        <th>Status</th>
+                        <?php endif; ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($projects as $project) : ?>
+                        <tr class="procore-project-row">
+                            <td class="procore-project-id"><?php echo esc_html($project['id']); ?></td>
+                            <td class="procore-project-name"><?php echo esc_html($project['name']); ?></td>
+                            <?php if ($show_details) : ?>
+                            <td class="procore-project-location">
+                                <?php
+                                $location_parts = [];
+                                if (!empty($project['city'])) $location_parts[] = $project['city'];
+                                if (!empty($project['state_code'])) $location_parts[] = $project['state_code'];
+                                echo esc_html(implode(', ', $location_parts));
+                                ?>
+                            </td>
+                            <td class="procore-project-status">
+                                <?php echo isset($project['active']) && $project['active'] ? 'Active' : 'Inactive'; ?>
+                            </td>
+                            <?php endif; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+} // End of class
 
 // Initialize the plugin
 function procore_integration_init() {
@@ -681,74 +818,3 @@ function procore_integration_init() {
 
 // Start the plugin
 add_action('plugins_loaded', 'procore_integration_init');
-
-// Add plugin CSS
-function procore_integration_enqueue_styles() {
-    wp_enqueue_style(
-        'procore-integration-styles',
-        PROCORE_INTEGRATION_URL . 'assets/css/procore-integration.css',
-        [],
-        PROCORE_INTEGRATION_VERSION
-    );
-}
-add_action('wp_enqueue_scripts', 'procore_integration_enqueue_styles');
-
-// Create default CSS file on activation
-function procore_integration_activate() {
-    // Create assets directory if it doesn't exist
-    $css_dir = PROCORE_INTEGRATION_PATH . 'assets/css';
-    if (!file_exists($css_dir)) {
-        wp_mkdir_p($css_dir);
-    }
-
-    // Create default CSS file
-    $css_file = $css_dir . '/procore-integration.css';
-    if (!file_exists($css_file)) {
-        $css_content = <<<CSS
-/* Procore Integration Styles */
-.procore-project {
-    margin-bottom: 30px;
-}
-.procore-project-details {
-    margin-top: 15px;
-}
-.procore-team-list, 
-.procore-drawings-list, 
-.procore-specifications-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-.procore-team-member, 
-.procore-drawing, 
-.procore-specification {
-    margin-bottom: 15px;
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 4px;
-}
-.procore-member-name, 
-.procore-drawing-name, 
-.procore-spec-title {
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-.procore-project-image img {
-    max-width: 100%;
-    height: auto;
-}
-.procore-project-data {
-    margin: 10px 0;
-}
-.procore-data-label {
-    font-weight: bold;
-}
-.error {
-    color: #d63638;
-    font-weight: bold;
-}
-CSS;
-        file_put_contents($css_file, $css_content);
-    }
-}
-register_activation_hook(__FILE__, 'procore_integration_activate');

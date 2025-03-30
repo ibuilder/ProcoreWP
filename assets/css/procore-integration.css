@@ -1,0 +1,64 @@
+/* Procore Integration Styles */
+.procore-project {
+    margin-bottom: 30px;
+}
+.procore-project-details {
+    margin-top: 15px;
+}
+.procore-team-list, 
+.procore-drawings-list, 
+.procore-specifications-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.procore-team-member, 
+.procore-drawing, 
+.procore-specification {
+    margin-bottom: 15px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+.procore-member-name, 
+.procore-drawing-name, 
+.procore-spec-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.procore-project-image img {
+    max-width: 100%;
+    height: auto;
+}
+.procore-project-data {
+    margin: 10px 0;
+}
+.procore-data-label {
+    font-weight: bold;
+}
+.procore-projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+}
+.procore-projects-table th,
+.procore-projects-table td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+.procore-projects-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+.procore-projects-table tr:hover {
+    background-color: #f5f5f5;
+}
+.procore-project-id {
+    font-family: monospace;
+    white-space: nowrap;
+}
+.error {
+    color: #d63638;
+    font-weight: bold;
+}

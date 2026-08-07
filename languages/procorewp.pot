@@ -1,0 +1,1275 @@
+# Copyright (C) 2026 ibuilder
+# This file is distributed under the GPL-2.0-or-later license.
+msgid ""
+msgstr ""
+"Project-Id-Version: ProcoreWP 2.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/ibuilder/ProcoreWP/issues\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-07T00:00:00+00:00\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: ProcoreWP build script\n"
+"X-Domain: procorewp\n"
+
+#. translators: 1: number of companies, 2: comma-separated company names.
+#: src/Admin/ConnectionTester.php:193
+msgid "%1$d company available: %2$s"
+msgid_plural "%1$d companies available: %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: remaining requests, 2: total allowed requests, 3: human readable time until reset.
+#: src/Admin/ConnectionTester.php:269
+msgid "%1$d of %2$d requests remaining; resets in %3$s."
+msgstr ""
+
+#. translators: 1: number of projects, 2: company ID.
+#: src/Admin/ConnectionTester.php:243
+msgid "%1$d project visible in company %2$d."
+msgid_plural "%1$d projects visible in company %2$d."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of cached responses.
+#: src/Admin/SettingsPage.php:528
+msgid "%d cached response."
+msgid_plural "%d cached responses."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of failed checks.
+#: src/Admin/ConnectionTester.php:421
+msgid "%d check needs attention."
+msgid_plural "%d checks need attention."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: project name.
+#: src/Frontend/Shortcodes/ImageShortcode.php:76
+msgid "%s project image"
+msgstr ""
+
+#: src/Api/Endpoints.php:341
+msgid "A Procore company ID is required for this request."
+msgstr ""
+
+#: src/Api/Endpoints.php:349
+#: src/Api/Endpoints.php:356
+msgid "A Procore project ID is required for this request."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:293
+msgid "A service account keeps working when staff change and is installed by a Procore company administrator from the App Marketplace. A user connection inherits one person's permissions and breaks if their access is revoked."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:234
+msgid "A single allow-listed field from a project record."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:67
+msgid "A table of Procore projects for a company."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:656
+msgid "API host"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:109
+#: src/Admin/ConnectionTester.php:115
+#: src/Admin/ConnectionTester.php:122
+msgid "Access token"
+msgstr ""
+
+#: src/Support/Format.php:162
+msgid "Active"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:457
+msgid "Added inline after the plugin stylesheet. This survives plugin updates — editing files inside the plugin directory does not."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:112
+#: src/Frontend/Shortcodes/Registrar.php:488
+msgid "Address"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:587
+msgid "Adds a block for each shortcode with a live preview. Shortcodes keep working either way."
+msgstr ""
+
+#: src/Api/Auth/ClientCredentials.php:45
+msgid "Another request is currently authenticating with Procore. Please try again in a moment."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:67
+msgid "Another request is currently refreshing the Procore connection. Please try again in a moment."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:562
+msgid "Anyone"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:142
+#: src/Admin/ConnectionTester.php:149
+#: src/Api/Endpoints.php:66
+msgid "Authenticated account"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:276
+#: src/Admin/SettingsPage.php:659
+msgid "Authentication"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:228
+msgid "Authorize this site"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:637
+msgid "Available endpoints for [procore_data]"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:470
+msgid "Available templates: collection, record, field, image, map."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:583
+msgid "Block editor"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:145
+msgid "Cache"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:487
+msgid "Cache Procore responses"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:519
+#: src/Admin/SettingsPage.php:676
+msgid "Cached responses"
+msgstr ""
+
+#: src/Api/Endpoints.php:249
+msgid "Change Orders: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:243
+msgid "Change order packages"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:388
+msgid "Change order packages raised on a project."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:387
+msgid "Change orders"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:669
+msgid "Circuit breaker"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:536
+msgid "Clear cache now"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:114
+msgid "Clearing…"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:341
+msgid "Client ID"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:352
+msgid "Client Secret"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:675
+msgid "Closed"
+msgstr ""
+
+#: src/Api/Endpoints.php:76
+msgid "Companies"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:450
+msgid "Companies in the Procore company directory."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:171
+#: src/Frontend/Shortcodes/Registrar.php:454
+msgid "Company"
+msgstr ""
+
+#: src/Api/Endpoints.php:116
+msgid "Company Admin / Project Directory: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:91
+msgid "Company Admin: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:81
+#: src/Api/Endpoints.php:102
+msgid "Company Directory: Read Only"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:171
+#: src/Admin/ConnectionTester.php:176
+#: src/Admin/ConnectionTester.php:189
+msgid "Company access"
+msgstr ""
+
+#: src/Api/Endpoints.php:96
+msgid "Company directory (vendors)"
+msgstr ""
+
+#: src/Api/Endpoints.php:86
+msgid "Company offices"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:437
+msgid "Complete"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:142
+msgid "Completion date"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:86
+msgid "Configuration"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:248
+msgid "Connect to Procore"
+msgstr ""
+
+#. translators: 1: account display name, 2: account login.
+#: src/Admin/ConnectionTester.php:154
+msgid "Connected as %1$s (%2$s)."
+msgstr ""
+
+#: src/Admin/Notices.php:68
+msgid "Connected to Procore."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:158
+msgid "Connected."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:143
+msgid "Connection"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:117
+msgid "Copied"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:234
+msgid "Copy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:660
+msgid "Credential storage"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:334
+msgid "Credentials"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:109
+msgid "Credentials are incomplete."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:336
+msgid "Credentials are supplied by PROCOREWP_CLIENT_ID and PROCOREWP_CLIENT_SECRET in wp-config.php and are not stored in the database. Remove those constants to manage credentials here."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:433
+msgid "Currency symbol"
+msgstr ""
+
+#: src/Api/Environment.php:56
+msgid "Custom (regional or federal zone)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:323
+msgid "Custom API host"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:449
+msgid "Custom CSS"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:316
+msgid "Custom login host"
+msgstr ""
+
+#: src/Api/Endpoints.php:238
+msgid "Daily Log: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:232
+msgid "Daily construction report logs"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:364
+msgid "Daily construction report logs for a project."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:363
+msgid "Daily logs"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:677
+msgid "Database transients"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:368
+msgid "Date"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:425
+msgid "Date format"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:210
+#: src/Admin/ConnectionTester.php:227
+#: src/Admin/ConnectionTester.php:233
+#: src/Admin/SettingsPage.php:376
+msgid "Default company"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:395
+msgid "Default project"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:366
+msgid "Delete the stored secret"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:623
+msgid "Depends on the endpoint attribute"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:201
+#: src/Frontend/Shortcodes/Registrar.php:220
+#: src/Frontend/Shortcodes/Registrar.php:314
+msgid "Description"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:108
+msgid "Detail panel for a single Procore project."
+msgstr ""
+
+#: src/Api/Environment.php:54
+msgid "Developer Sandbox"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:591
+msgid "Diagnostics"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:242
+msgid "Disconnect from Procore"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:118
+msgid "Disconnect this site from Procore?"
+msgstr ""
+
+#: src/Admin/Ajax.php:160
+msgid "Disconnected from Procore."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:144
+msgid "Display"
+msgstr ""
+
+#: src/Api/Endpoints.php:154
+msgid "Drawing areas"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:192
+msgid "Drawing areas published for a project."
+msgstr ""
+
+#: src/Api/Endpoints.php:165
+msgid "Drawing revisions"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:191
+msgid "Drawings"
+msgstr ""
+
+#: src/Api/Endpoints.php:160
+#: src/Api/Endpoints.php:171
+msgid "Drawings: Read Only"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:264
+#: src/Frontend/Shortcodes/Registrar.php:294
+#: src/Frontend/Shortcodes/Registrar.php:324
+#: src/Frontend/Shortcodes/Registrar.php:354
+msgid "Due"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:312
+msgid "Each environment needs its own credentials; tokens are not shared between them."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:176
+msgid "Email"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:662
+msgid "Encrypted (AES-256-GCM)"
+msgstr ""
+
+#: src/Admin/Notices.php:77
+msgid "Enter a Client ID and Client Secret before connecting."
+msgstr ""
+
+#: src/Api/Auth/AbstractAuth.php:40
+msgid "Enter your Procore Client ID and Client Secret before connecting."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:298
+#: src/Admin/SettingsPage.php:655
+msgid "Environment"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:701
+msgid "Event"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:613
+msgid "Every shortcode below accepts the shared attributes company_id, project_id, limit, page, orderby, order, columns, template, class, title, cache and empty_text. The legacy id attribute is still accepted as an alias for project_id."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:418
+msgid "Everything checked out."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:554
+msgid "Expose cached Procore data at /wp-json/procorewp/v1/"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:432
+msgid "Finish"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:370
+msgid "For the strongest protection, define PROCOREWP_CLIENT_SECRET in wp-config.php instead of storing it here."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:79
+msgid "ID"
+msgstr ""
+
+#: src/Support/Format.php:162
+msgid "Inactive"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:309
+msgid "Item"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:602
+msgid "Keep settings and cached data when the plugin is deleted"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:595
+msgid "Keeps the last 50 events for the Status tab. Credentials and tokens are redacted before anything is written."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:428
+msgid "Leave blank to use the site date format."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:555
+msgid "Lets themes and JavaScript read Procore data without ever seeing your credentials. Only endpoints published in the registry are reachable."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:700
+msgid "Level"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:444
+msgid "Load the ProcoreWP stylesheet"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:115
+msgid "Loading…"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:94
+#: src/Frontend/Shortcodes/Registrar.php:117
+#: src/Frontend/Shortcodes/Registrar.php:459
+#: src/Frontend/Shortcodes/Registrar.php:493
+msgid "Location"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:563
+msgid "Logged-in users"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:657
+msgid "Login host"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:386
+msgid "Look up companies"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:492
+msgid "Minimum cache lifetime"
+msgstr ""
+
+#: src/Api/Environment.php:55
+msgid "Monthly Sandbox"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:161
+#: src/Frontend/Shortcodes/Registrar.php:196
+msgid "Name"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:420
+msgid "Never output email addresses on the front end"
+msgstr ""
+
+#: src/Support/Arr.php:82
+msgid "No"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:74
+msgid "No Client ID is set."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:78
+msgid "No Client Secret is set."
+msgstr ""
+
+#: src/Api/Client.php:182
+msgid "No Procore company ID is available. Set a default company in Procore → Connection, or pass company_id."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:212
+msgid "No default company is set. Choose one below, or pass company_id in every shortcode."
+msgstr ""
+
+#: src/Frontend/Shortcodes/ImageShortcode.php:104
+msgid "No project image is available."
+msgstr ""
+
+#: src/Frontend/Shortcodes/MapShortcode.php:105
+msgid "No project locations are available."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:298
+msgid "No project was available to test against."
+msgstr ""
+
+#: src/Frontend/Shortcodes/AbstractShortcode.php:392
+msgid "No records were found."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:665
+msgid "No token stored"
+msgstr ""
+
+#: src/Api/Endpoints.php:71
+msgid "None (identity endpoint)"
+msgstr ""
+
+#: src/Frontend/Shortcodes/FieldShortcode.php:181
+msgid "Not available."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:668
+msgid "Not reported yet"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:357
+msgid "Not set"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:373
+msgid "Notes"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:693
+msgid "Nothing recorded. Turn on diagnostics under Tools to start collecting events."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:89
+#: src/Frontend/Shortcodes/Registrar.php:215
+#: src/Frontend/Shortcodes/Registrar.php:249
+#: src/Frontend/Shortcodes/Registrar.php:279
+#: src/Frontend/Shortcodes/Registrar.php:339
+#: src/Frontend/Shortcodes/Registrar.php:393
+msgid "Number"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:677
+msgid "Object cache"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:344
+msgid "Observation"
+msgstr ""
+
+#: src/Api/Endpoints.php:221
+#: src/Frontend/Shortcodes/Registrar.php:333
+msgid "Observations"
+msgstr ""
+
+#: src/Api/Endpoints.php:227
+msgid "Observations: Read Only"
+msgstr ""
+
+#. translators: 1: grant type label, 2: human readable time difference.
+#: src/Admin/ConnectionTester.php:126
+msgid "Obtained via %1$s. Valid for another %2$s."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:603
+msgid "Off by default, so deleting the plugin removes its credentials, tokens and cache."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:483
+msgid "Office"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:478
+msgid "Offices"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:479
+msgid "Offices registered against the Procore company."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:328
+msgid "Only used when the environment is set to Custom, for regional and federal zones."
+msgstr ""
+
+#. translators: %s: human readable time difference.
+#: src/Admin/SettingsPage.php:672
+msgid "Open — resumes in %s"
+msgstr ""
+
+#: src/Admin/Notices.php:123
+msgid "OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:82
+msgid "OpenSSL is unavailable, so credentials cannot be encrypted at rest. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:403
+msgid "Optional. Used whenever a project-scoped shortcode omits project_id."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:304
+msgid "Outstanding punch list items for a project."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:654
+msgid "PHP"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:677
+msgid "Persistent"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:464
+#: src/Frontend/Shortcodes/Registrar.php:498
+msgid "Phone"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:652
+msgid "Plugin version"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:122
+msgid "Postcode"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:436
+msgid "Prefixed to monetary values such as change order totals."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:417
+msgid "Privacy"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:60
+#: src/Frontend/Shortcodes/ImageShortcode.php:77
+msgid "Procore"
+msgstr ""
+
+#: src/Api/Auth/AbstractAuth.php:101
+msgid "Procore did not return an access token."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:158
+msgid "Procore did not return an authorization code."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:259
+msgid "Procore has not reported a rate limit yet."
+msgstr ""
+
+#: src/Api/Client.php:415
+msgid "Procore is rate limiting this site. Cached data will be shown until the limit resets."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:618
+msgid "Procore permission needed"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:506
+msgid "Procore recommends keeping this at or below 2000."
+msgstr ""
+
+#: src/Api/Client.php:394
+msgid "Procore rejected the access token."
+msgstr ""
+
+#: src/Api/Auth/AbstractAuth.php:84
+msgid "Procore rejected the authentication request (HTTP %d)."
+msgstr ""
+
+#. translators: %s: human readable time difference.
+#: src/Admin/Notices.php:164
+msgid "Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime."
+msgstr ""
+
+#: src/Api/Client.php:225
+msgid "Procore requests are paused after repeated failures. They will resume automatically."
+msgstr ""
+
+#: src/Api/Client.php:467
+msgid "Procore returned HTTP %d."
+msgstr ""
+
+#: src/Api/Client.php:482
+msgid "Procore returned a response that could not be decoded."
+msgstr ""
+
+#: src/Api/Auth/AbstractAuth.php:75
+msgid "Procore returned an unreadable authentication response."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:178
+msgid "Procore returned no companies. Ask a company administrator to install the app and grant it access."
+msgstr ""
+
+#. translators: %s: shortcode display name, e.g. "RFIs".
+#: src/Blocks/Registrar.php:149
+#: src/Blocks/Registrar.php:156
+msgid "Procore: %s"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:59
+#: src/Admin/SettingsPage.php:156
+msgid "ProcoreWP"
+msgstr ""
+
+#. translators: %s: error message from the Procore API.
+#: src/Frontend/Shortcodes/AbstractShortcode.php:359
+msgid "ProcoreWP (visible to administrators only): %s"
+msgstr ""
+
+#. translators: %s: settings screen URL.
+#: src/Admin/Notices.php:102
+msgid "ProcoreWP imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
+msgstr ""
+
+#. translators: 1: environment label, 2: API host.
+#: src/Admin/Notices.php:141
+msgid "ProcoreWP is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
+msgstr ""
+
+#: src/Api/Environment.php:53
+msgid "Production"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:84
+msgid "Project"
+msgstr ""
+
+#: src/Api/Endpoints.php:126
+msgid "Project Admin: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:136
+#: src/Api/Endpoints.php:146
+msgid "Project Directory: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:121
+msgid "Project detail"
+msgstr ""
+
+#: src/Frontend/Shortcodes/AbstractShortcode.php:366
+#: src/Rest/Controller.php:209
+msgid "Project information is temporarily unavailable."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:507
+msgid "Project locations"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:127
+msgid "Project number"
+msgstr ""
+
+#: src/Api/Endpoints.php:131
+#: src/Frontend/Shortcodes/Registrar.php:156
+msgid "Project team"
+msgstr ""
+
+#: src/Api/Endpoints.php:141
+msgid "Project vendors"
+msgstr ""
+
+#: src/Api/Endpoints.php:110
+#: src/Frontend/Shortcodes/Registrar.php:66
+msgid "Projects"
+msgstr ""
+
+#. translators: %d: company ID.
+#: src/Admin/ConnectionTester.php:238
+msgid "Projects are readable for company %d."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:508
+msgid "Projects that have coordinates, as an accessible location list with geo microdata."
+msgstr ""
+
+#: src/Api/Endpoints.php:216
+msgid "Punch List: Read Only"
+msgstr ""
+
+#: src/Api/Endpoints.php:210
+#: src/Frontend/Shortcodes/Registrar.php:303
+msgid "Punch list"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:334
+msgid "Quality and safety observations recorded on a project."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:559
+msgid "REST access"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:551
+msgid "REST proxy"
+msgstr ""
+
+#: src/Api/Endpoints.php:190
+#: src/Frontend/Shortcodes/Registrar.php:243
+msgid "RFIs"
+msgstr ""
+
+#: src/Api/Endpoints.php:195
+msgid "RFIs: Read Only"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:259
+#: src/Admin/ConnectionTester.php:265
+#: src/Admin/SettingsPage.php:666
+msgid "Rate limit"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:330
+msgid "Readable."
+msgstr ""
+
+#. translators: 1: environment label, 2: API host.
+#: src/Admin/ConnectionTester.php:91
+msgid "Ready. Environment: %1$s (%2$s)."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:690
+msgid "Recent diagnostics"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:421
+msgid "Recommended. Procore project directories contain personal data; publishing them exposes staff and subcontractors to harvesting. When this is off, addresses are still obfuscated and each shortcode must additionally opt in with show_email=\"true\"."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:594
+msgid "Record API diagnostics"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:501
+msgid "Records per request"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:658
+msgid "Redirect URI"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:586
+msgid "Register ProcoreWP blocks"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:229
+msgid "Register this exact redirect URI in the Procore Developer Portal before connecting:"
+msgstr ""
+
+#. translators: %d: number of cache entries removed.
+#: src/Admin/Ajax.php:77
+#: src/Cli/Commands.php:101
+msgid "Removed %d cached response."
+msgid_plural "Removed %d cached responses."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Frontend/Shortcodes/Registrar.php:517
+msgid "Render any endpoint published in the Procore endpoint registry."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:510
+msgid "Request timeout"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:244
+msgid "Requests for information raised on a project."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:484
+msgid "Response cache"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:225
+msgid "Revision"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:166
+msgid "Role"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:113
+msgid "Running checks…"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:257
+msgid "Runs through authentication, company access and every endpoint the shortcodes use, so you can see exactly which Procore tool permissions your credentials have."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:417
+msgid "Schedule"
+msgstr ""
+
+#: src/Api/Endpoints.php:254
+msgid "Schedule tasks"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:418
+msgid "Schedule tasks and milestones for a project."
+msgstr ""
+
+#: src/Api/Endpoints.php:259
+msgid "Schedule: Read Only"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:515
+msgid "Seconds to wait for Procore before giving up."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:497
+msgid "Seconds. Shortcodes may request a longer lifetime but never a shorter one, so a single page cannot be configured into a rate-limit breach."
+msgstr ""
+
+#: src/Api/Auth/ClientCredentials.php:94
+msgid "Service Account (Client Credentials)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:279
+msgid "Service Account (Client Credentials) — recommended"
+msgstr ""
+
+#: src/Plugin.php:162
+msgid "Settings"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:616
+msgid "Shortcode"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:146
+msgid "Shortcodes"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:119
+msgid "Skipped"
+msgstr ""
+
+#: src/Api/Endpoints.php:176
+msgid "Specification sections"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:211
+msgid "Specification sections published for a project."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:210
+msgid "Specifications"
+msgstr ""
+
+#: src/Api/Endpoints.php:182
+msgid "Specifications: Read Only"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:132
+msgid "Stage"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:427
+msgid "Start"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:137
+msgid "Start date"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:147
+#: src/Frontend/Shortcodes/Registrar.php:99
+#: src/Frontend/Shortcodes/Registrar.php:147
+#: src/Frontend/Shortcodes/Registrar.php:259
+#: src/Frontend/Shortcodes/Registrar.php:289
+#: src/Frontend/Shortcodes/Registrar.php:319
+#: src/Frontend/Shortcodes/Registrar.php:349
+#: src/Frontend/Shortcodes/Registrar.php:378
+#: src/Frontend/Shortcodes/Registrar.php:403
+msgid "Status"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:488
+msgid "Strongly recommended. Procore enforces both an hourly and a ten-second rate limit; an uncached page will exhaust the quota quickly. When caching is on, a Procore outage serves the last good response instead of an error."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:441
+msgid "Stylesheet"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:254
+msgid "Subject"
+msgstr ""
+
+#: src/Api/Endpoints.php:200
+#: src/Frontend/Shortcodes/Registrar.php:273
+msgid "Submittals"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:274
+msgid "Submittals tracked on a project."
+msgstr ""
+
+#: src/Api/Endpoints.php:205
+msgid "Submittals: Read Only"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:422
+msgid "Task"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:157
+msgid "Team members assigned to a project. Email addresses are hidden unless explicitly enabled."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:462
+msgid "Template overrides"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:260
+msgid "Test connection"
+msgstr ""
+
+#: src/Admin/Notices.php:76
+msgid "The Procore authorization request was declined."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:149
+msgid "The Procore authorization response could not be verified. Please start the connection again."
+msgstr ""
+
+#: src/Admin/Notices.php:78
+msgid "The Procore connection could not be completed."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:101
+msgid "The Procore connection has expired. Open Procore → Connection and reconnect."
+msgstr ""
+
+#: src/Api/Client.php:425
+msgid "The Procore request could not be completed."
+msgstr ""
+
+#: src/Rest/Controller.php:177
+msgid "The ProcoreWP REST proxy is disabled."
+msgstr ""
+
+#. translators: 1: requested endpoint slug, 2: comma-separated list of endpoint slugs.
+#: src/Frontend/Shortcodes/DataShortcode.php:66
+msgid "The endpoint \"%1$s\" is not available to shortcodes. Available endpoints: %2$s"
+msgstr ""
+
+#. translators: %s: comma-separated list of endpoint slugs.
+#: src/Frontend/Shortcodes/DataShortcode.php:55
+msgid "The endpoint attribute is required. Available endpoints: %s"
+msgstr ""
+
+#. translators: %s: requested field name.
+#: src/Frontend/Shortcodes/FieldShortcode.php:112
+msgid "The field \"%s\" is not available for display. Add it with the procorewp_allowed_project_fields filter."
+msgstr ""
+
+#: src/Frontend/Shortcodes/FieldShortcode.php:103
+msgid "The field attribute is required."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:185
+msgid "The logo or featured image for a project."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:116
+msgid "The request failed. Check your connection and try again."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:360
+msgid "The stored secret is never shown. Leave this blank to keep the current value."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:445
+msgid "The stylesheet loads only on pages that actually contain ProcoreWP output. Turn it off entirely if your theme styles the markup itself."
+msgstr ""
+
+#: src/Frontend/Shortcodes/AbstractShortcode.php:216
+msgid "This shortcode is not bound to a known Procore endpoint."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:81
+msgid "This site is not connected to Procore."
+msgstr ""
+
+#: src/Api/Auth/AuthorizationCode.php:56
+msgid "This site is not connected to Procore. Open Procore → Connection and choose \"Connect to Procore\"."
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:284
+#: src/Frontend/Shortcodes/Registrar.php:398
+msgid "Title"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:464
+msgid "To change the markup, copy a file from the plugin's templates directory into your theme:"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:663
+msgid "Token expires"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:148
+msgid "Tools"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:662
+msgid "Unencrypted — OpenSSL unavailable"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:599
+msgid "Uninstall"
+msgstr ""
+
+#: src/Api/Client.php:172
+#: src/Api/Endpoints.php:333
+msgid "Unknown Procore endpoint: %s"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:390
+msgid "Used whenever a shortcode omits company_id. Also visible in your Procore URL: app.procore.com/companies/XXXX/."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:280
+#: src/Api/Auth/AuthorizationCode.php:213
+msgid "User Account (Authorization Code)"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:564
+msgid "Users who can edit posts"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:408
+msgid "Value"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:449
+msgid "Vendors"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:256
+msgid "Verify the connection"
+msgstr ""
+
+#. translators: %s: project name.
+#: templates/map.php:56
+msgid "View %s on a map"
+msgstr ""
+
+#: src/Frontend/Shortcodes/Registrar.php:469
+msgid "Website"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:617
+msgid "What it shows"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:699
+msgid "When"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:653
+msgid "WordPress"
+msgstr ""
+
+#: src/Support/Arr.php:82
+msgid "Yes"
+msgstr ""
+
+#: src/Admin/OAuthController.php:77
+msgid "You do not have permission to complete this connection."
+msgstr ""
+
+#: src/Admin/OAuthController.php:48
+msgid "You do not have permission to connect this site to Procore."
+msgstr ""
+
+#: src/Admin/Ajax.php:170
+msgid "You do not have permission to do that."
+msgstr ""
+
+#: src/Admin/SettingsPage.php:139
+msgid "You do not have permission to view this page."
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:156
+msgid "no login"
+msgstr ""
+
+#: src/Admin/ConnectionTester.php:155
+msgid "service account"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:661
+msgid "wp-config.php constants"
+msgstr ""

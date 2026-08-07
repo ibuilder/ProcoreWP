@@ -6,6 +6,8 @@ group :jekyll_plugins do
   gem "jekyll-remote-theme", "~> 0.4"
   gem "jekyll-seo-tag", "~> 2.8"
   gem "jekyll-sitemap", "~> 1.4"
+  # Required by the just-the-docs remote theme.
+  gem "jekyll-include-cache", "~> 0.2"
 end
 
 # Required on Ruby 3.x, where these left the standard library.

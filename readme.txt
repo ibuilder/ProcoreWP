@@ -2,7 +2,7 @@
 Contributors: ibuilder
 Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
-Tested up to: 6.9
+Tested up to: 7.0
 Requires PHP: 7.4
 Stable tag: 2.0.0
 License: GPLv2 or later
@@ -168,4 +168,4 @@ A complete rewrite. See the upgrade notice below before updating.
 == Upgrade Notice ==
 
 = 2.0.0 =
-Complete rewrite that fixes authentication, adds caching and rate-limit handling, and encrypts stored credentials. Your settings are imported and all 1.x shortcodes still work, but the main plugin file was renamed, so you must activate the plugin once after updating and then re-run the connection test.
+Rewrite. Fixes authentication, adds caching and encrypts credentials. Settings migrate and all 1.x shortcodes still work, but the main file was renamed: activate the plugin once, re-run the connection test, and rotate your client secret.

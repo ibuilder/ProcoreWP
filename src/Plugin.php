@@ -65,7 +65,6 @@ final class Plugin {
 	 * @return void
 	 */
 	private function boot(): void {
-		add_action( 'init', array( $this, 'load_textdomain' ) );
 		add_action( 'init', array( $this, 'maybe_upgrade' ) );
 
 		( new ShortcodeRegistrar() )->register();
@@ -95,14 +94,11 @@ final class Plugin {
 		}
 	}
 
-	/**
-	 * Load the plugin text domain.
-	 *
-	 * @return void
+	/*
+	 * No load_plugin_textdomain() call: WordPress has loaded translations
+	 * just-in-time since 4.6 for any plugin whose text domain matches its
+	 * directory name, and calling it explicitly is now flagged by Plugin Check.
 	 */
-	public function load_textdomain(): void {
-		load_plugin_textdomain( 'procorewp', false, dirname( PROCOREWP_BASENAME ) . '/languages' );
-	}
 
 	/**
 	 * Run upgrade routines when the stored version is behind the running one.

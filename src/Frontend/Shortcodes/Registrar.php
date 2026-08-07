@@ -2,12 +2,12 @@
 /**
  * Shortcode definitions and registration.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -63,8 +63,8 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'projects',
 				'template'    => 'collection',
-				'title'       => __( 'Projects', 'procorewp' ),
-				'description' => __( 'A table of Procore projects for a company.', 'procorewp' ),
+				'title'       => __( 'Projects', 'procore-connect' ),
+				'description' => __( 'A table of Procore projects for a company.', 'procore-connect' ),
 				// show_details, sort_by and sort_order are ProcoreWP 1.x aliases,
 				// still honoured so existing pages render the same way.
 				'atts'        => array(
@@ -76,27 +76,27 @@ final class Registrar {
 				'columns'     => array(
 					array(
 						'key'    => 'id',
-						'label'  => __( 'ID', 'procorewp' ),
+						'label'  => __( 'ID', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Project', 'procorewp' ),
+						'label'  => __( 'Project', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'project_number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => '__location',
-						'label'  => __( 'Location', 'procorewp' ),
+						'label'  => __( 'Location', 'procore-connect' ),
 						'format' => 'location',
 					),
 					array(
 						'key'    => 'active',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'status',
 					),
 				),
@@ -105,46 +105,46 @@ final class Registrar {
 				'handler'     => RecordShortcode::class,
 				'endpoint'    => 'project',
 				'template'    => 'record',
-				'description' => __( 'Detail panel for a single Procore project.', 'procorewp' ),
+				'description' => __( 'Detail panel for a single Procore project.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'address',
-						'label'  => __( 'Address', 'procorewp' ),
+						'label'  => __( 'Address', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => '__location',
-						'label'  => __( 'Location', 'procorewp' ),
+						'label'  => __( 'Location', 'procore-connect' ),
 						'format' => 'location',
 					),
 					array(
 						'key'    => 'zip',
-						'label'  => __( 'Postcode', 'procorewp' ),
+						'label'  => __( 'Postcode', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'project_number',
-						'label'  => __( 'Project number', 'procorewp' ),
+						'label'  => __( 'Project number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'stage',
-						'label'  => __( 'Stage', 'procorewp' ),
+						'label'  => __( 'Stage', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'start_date',
-						'label'  => __( 'Start date', 'procorewp' ),
+						'label'  => __( 'Start date', 'procore-connect' ),
 						'format' => 'date',
 					),
 					array(
 						'key'    => 'completion_date',
-						'label'  => __( 'Completion date', 'procorewp' ),
+						'label'  => __( 'Completion date', 'procore-connect' ),
 						'format' => 'date',
 					),
 					array(
 						'key'    => 'active',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'status',
 					),
 				),
@@ -153,27 +153,27 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'project_users',
 				'template'    => 'collection',
-				'title'       => __( 'Project team', 'procorewp' ),
-				'description' => __( 'Team members assigned to a project. Email addresses are hidden unless explicitly enabled.', 'procorewp' ),
+				'title'       => __( 'Project team', 'procore-connect' ),
+				'description' => __( 'Team members assigned to a project. Email addresses are hidden unless explicitly enabled.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Name', 'procorewp' ),
+						'label'  => __( 'Name', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'job_title',
-						'label'  => __( 'Role', 'procorewp' ),
+						'label'  => __( 'Role', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'vendor.name',
-						'label'  => __( 'Company', 'procorewp' ),
+						'label'  => __( 'Company', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'email_address',
-						'label'  => __( 'Email', 'procorewp' ),
+						'label'  => __( 'Email', 'procore-connect' ),
 						'format' => 'email',
 					),
 				),
@@ -182,23 +182,23 @@ final class Registrar {
 				'handler'     => ImageShortcode::class,
 				'endpoint'    => 'project',
 				'template'    => 'image',
-				'description' => __( 'The logo or featured image for a project.', 'procorewp' ),
+				'description' => __( 'The logo or featured image for a project.', 'procore-connect' ),
 			),
 			'procore_drawings'       => array(
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'drawing_areas',
 				'template'    => 'collection',
-				'title'       => __( 'Drawings', 'procorewp' ),
-				'description' => __( 'Drawing areas published for a project.', 'procorewp' ),
+				'title'       => __( 'Drawings', 'procore-connect' ),
+				'description' => __( 'Drawing areas published for a project.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Name', 'procorewp' ),
+						'label'  => __( 'Name', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'description',
-						'label'  => __( 'Description', 'procorewp' ),
+						'label'  => __( 'Description', 'procore-connect' ),
 						'format' => 'text',
 					),
 				),
@@ -207,22 +207,22 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'specification_sections',
 				'template'    => 'collection',
-				'title'       => __( 'Specifications', 'procorewp' ),
-				'description' => __( 'Specification sections published for a project.', 'procorewp' ),
+				'title'       => __( 'Specifications', 'procore-connect' ),
+				'description' => __( 'Specification sections published for a project.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'description',
-						'label'  => __( 'Description', 'procorewp' ),
+						'label'  => __( 'Description', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'revision',
-						'label'  => __( 'Revision', 'procorewp' ),
+						'label'  => __( 'Revision', 'procore-connect' ),
 						'format' => 'text',
 					),
 				),
@@ -231,7 +231,7 @@ final class Registrar {
 				'handler'     => FieldShortcode::class,
 				'endpoint'    => 'project',
 				'template'    => 'field',
-				'description' => __( 'A single allow-listed field from a project record.', 'procorewp' ),
+				'description' => __( 'A single allow-listed field from a project record.', 'procore-connect' ),
 			),
 
 			/* ---- Project management tools ---- */
@@ -240,28 +240,28 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'rfis',
 				'template'    => 'collection',
-				'title'       => __( 'RFIs', 'procorewp' ),
-				'description' => __( 'Requests for information raised on a project.', 'procorewp' ),
+				'title'       => __( 'RFIs', 'procore-connect' ),
+				'description' => __( 'Requests for information raised on a project.', 'procore-connect' ),
 				'atts'        => array( 'status' => '' ),
 				'columns'     => array(
 					array(
 						'key'    => 'number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'subject',
-						'label'  => __( 'Subject', 'procorewp' ),
+						'label'  => __( 'Subject', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'due_date',
-						'label'  => __( 'Due', 'procorewp' ),
+						'label'  => __( 'Due', 'procore-connect' ),
 						'format' => 'date',
 					),
 				),
@@ -270,28 +270,28 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'submittals',
 				'template'    => 'collection',
-				'title'       => __( 'Submittals', 'procorewp' ),
-				'description' => __( 'Submittals tracked on a project.', 'procorewp' ),
+				'title'       => __( 'Submittals', 'procore-connect' ),
+				'description' => __( 'Submittals tracked on a project.', 'procore-connect' ),
 				'atts'        => array( 'status' => '' ),
 				'columns'     => array(
 					array(
 						'key'    => 'number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'title',
-						'label'  => __( 'Title', 'procorewp' ),
+						'label'  => __( 'Title', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'due_date',
-						'label'  => __( 'Due', 'procorewp' ),
+						'label'  => __( 'Due', 'procore-connect' ),
 						'format' => 'date',
 					),
 				),
@@ -300,28 +300,28 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'punch_items',
 				'template'    => 'collection',
-				'title'       => __( 'Punch list', 'procorewp' ),
-				'description' => __( 'Outstanding punch list items for a project.', 'procorewp' ),
+				'title'       => __( 'Punch list', 'procore-connect' ),
+				'description' => __( 'Outstanding punch list items for a project.', 'procore-connect' ),
 				'atts'        => array( 'status' => '' ),
 				'columns'     => array(
 					array(
 						'key'    => 'position',
-						'label'  => __( 'Item', 'procorewp' ),
+						'label'  => __( 'Item', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Description', 'procorewp' ),
+						'label'  => __( 'Description', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'due_date',
-						'label'  => __( 'Due', 'procorewp' ),
+						'label'  => __( 'Due', 'procore-connect' ),
 						'format' => 'date',
 					),
 				),
@@ -330,28 +330,28 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'observations',
 				'template'    => 'collection',
-				'title'       => __( 'Observations', 'procorewp' ),
-				'description' => __( 'Quality and safety observations recorded on a project.', 'procorewp' ),
+				'title'       => __( 'Observations', 'procore-connect' ),
+				'description' => __( 'Quality and safety observations recorded on a project.', 'procore-connect' ),
 				'atts'        => array( 'status' => '' ),
 				'columns'     => array(
 					array(
 						'key'    => 'number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Observation', 'procorewp' ),
+						'label'  => __( 'Observation', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'due_date',
-						'label'  => __( 'Due', 'procorewp' ),
+						'label'  => __( 'Due', 'procore-connect' ),
 						'format' => 'date',
 					),
 				),
@@ -360,22 +360,22 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'daily_logs',
 				'template'    => 'collection',
-				'title'       => __( 'Daily logs', 'procorewp' ),
-				'description' => __( 'Daily construction report logs for a project.', 'procorewp' ),
+				'title'       => __( 'Daily logs', 'procore-connect' ),
+				'description' => __( 'Daily construction report logs for a project.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'date',
-						'label'  => __( 'Date', 'procorewp' ),
+						'label'  => __( 'Date', 'procore-connect' ),
 						'format' => 'date',
 					),
 					array(
 						'key'    => 'comments',
-						'label'  => __( 'Notes', 'procorewp' ),
+						'label'  => __( 'Notes', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 				),
@@ -384,28 +384,28 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'change_orders',
 				'template'    => 'collection',
-				'title'       => __( 'Change orders', 'procorewp' ),
-				'description' => __( 'Change order packages raised on a project.', 'procorewp' ),
+				'title'       => __( 'Change orders', 'procore-connect' ),
+				'description' => __( 'Change order packages raised on a project.', 'procore-connect' ),
 				'atts'        => array( 'status' => '' ),
 				'columns'     => array(
 					array(
 						'key'    => 'number',
-						'label'  => __( 'Number', 'procorewp' ),
+						'label'  => __( 'Number', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'title',
-						'label'  => __( 'Title', 'procorewp' ),
+						'label'  => __( 'Title', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'status',
-						'label'  => __( 'Status', 'procorewp' ),
+						'label'  => __( 'Status', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'grand_total',
-						'label'  => __( 'Value', 'procorewp' ),
+						'label'  => __( 'Value', 'procore-connect' ),
 						'format' => 'currency',
 					),
 				),
@@ -414,27 +414,27 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'milestones',
 				'template'    => 'collection',
-				'title'       => __( 'Schedule', 'procorewp' ),
-				'description' => __( 'Schedule tasks and milestones for a project.', 'procorewp' ),
+				'title'       => __( 'Schedule', 'procore-connect' ),
+				'description' => __( 'Schedule tasks and milestones for a project.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Task', 'procorewp' ),
+						'label'  => __( 'Task', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'start_date',
-						'label'  => __( 'Start', 'procorewp' ),
+						'label'  => __( 'Start', 'procore-connect' ),
 						'format' => 'date',
 					),
 					array(
 						'key'    => 'finish_date',
-						'label'  => __( 'Finish', 'procorewp' ),
+						'label'  => __( 'Finish', 'procore-connect' ),
 						'format' => 'date',
 					),
 					array(
 						'key'    => 'percent_complete',
-						'label'  => __( 'Complete', 'procorewp' ),
+						'label'  => __( 'Complete', 'procore-connect' ),
 						'format' => 'percent',
 					),
 				),
@@ -446,27 +446,27 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'company_vendors',
 				'template'    => 'collection',
-				'title'       => __( 'Vendors', 'procorewp' ),
-				'description' => __( 'Companies in the Procore company directory.', 'procorewp' ),
+				'title'       => __( 'Vendors', 'procore-connect' ),
+				'description' => __( 'Companies in the Procore company directory.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Company', 'procorewp' ),
+						'label'  => __( 'Company', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => '__location',
-						'label'  => __( 'Location', 'procorewp' ),
+						'label'  => __( 'Location', 'procore-connect' ),
 						'format' => 'location',
 					),
 					array(
 						'key'    => 'business_phone',
-						'label'  => __( 'Phone', 'procorewp' ),
+						'label'  => __( 'Phone', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'website',
-						'label'  => __( 'Website', 'procorewp' ),
+						'label'  => __( 'Website', 'procore-connect' ),
 						'format' => 'url',
 					),
 				),
@@ -475,27 +475,27 @@ final class Registrar {
 				'handler'     => CollectionShortcode::class,
 				'endpoint'    => 'offices',
 				'template'    => 'collection',
-				'title'       => __( 'Offices', 'procorewp' ),
-				'description' => __( 'Offices registered against the Procore company.', 'procorewp' ),
+				'title'       => __( 'Offices', 'procore-connect' ),
+				'description' => __( 'Offices registered against the Procore company.', 'procore-connect' ),
 				'columns'     => array(
 					array(
 						'key'    => 'name',
-						'label'  => __( 'Office', 'procorewp' ),
+						'label'  => __( 'Office', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => 'address',
-						'label'  => __( 'Address', 'procorewp' ),
+						'label'  => __( 'Address', 'procore-connect' ),
 						'format' => 'text',
 					),
 					array(
 						'key'    => '__location',
-						'label'  => __( 'Location', 'procorewp' ),
+						'label'  => __( 'Location', 'procore-connect' ),
 						'format' => 'location',
 					),
 					array(
 						'key'    => 'phone',
-						'label'  => __( 'Phone', 'procorewp' ),
+						'label'  => __( 'Phone', 'procore-connect' ),
 						'format' => 'text',
 					),
 				),
@@ -504,8 +504,8 @@ final class Registrar {
 				'handler'     => MapShortcode::class,
 				'endpoint'    => 'projects',
 				'template'    => 'map',
-				'title'       => __( 'Project locations', 'procorewp' ),
-				'description' => __( 'Projects that have coordinates, as an accessible location list with geo microdata.', 'procorewp' ),
+				'title'       => __( 'Project locations', 'procore-connect' ),
+				'description' => __( 'Projects that have coordinates, as an accessible location list with geo microdata.', 'procore-connect' ),
 			),
 
 			/* ---- Generic ---- */
@@ -514,7 +514,7 @@ final class Registrar {
 				'handler'     => DataShortcode::class,
 				'endpoint'    => '',
 				'template'    => 'collection',
-				'description' => __( 'Render any endpoint published in the Procore endpoint registry.', 'procorewp' ),
+				'description' => __( 'Render any endpoint published in the Procore endpoint registry.', 'procore-connect' ),
 			),
 		);
 
@@ -525,7 +525,7 @@ final class Registrar {
 		 *
 		 * @param array<string, array<string, mixed>> $definitions Shortcode definitions keyed by tag.
 		 */
-		$definitions = (array) apply_filters( 'procorewp_shortcodes', $definitions );
+		$definitions = (array) apply_filters( 'procore_connect_shortcodes', $definitions );
 
 		foreach ( $definitions as $tag => $definition ) {
 			$definitions[ $tag ]['tag'] = $tag;

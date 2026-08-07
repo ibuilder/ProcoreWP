@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ProcoreWP are documented here.
+All notable changes to Procore Connect are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -12,9 +12,13 @@ every install was non-functional regardless of configuration.
 
 ### ⚠️ Action required when upgrading
 
-- The main plugin file was renamed from `index.php` to `procorewp.php`. WordPress treats
-  this as a different plugin, so **ProcoreWP must be activated once** after updating.
-  Settings are imported automatically by the upgrade routine.
+- **The plugin is now called Procore Connect**, with the slug `procore-connect`. The
+  previous name contained "wp", which wordpress.org disallows in both a plugin name and
+  a slug, making the directory listing impossible. The GitHub repository stays at
+  `ibuilder/ProcoreWP`.
+- The main plugin file was renamed from `index.php` to `procore-connect.php`. WordPress
+  treats this as a different plugin, so **Procore Connect must be activated once** after
+  updating. Settings are imported automatically by the upgrade routine.
 - Because 1.x never obtained a token, any stored token is discarded. **Re-run
   Procore → Connection → Test connection** after upgrading.
 - All 1.x shortcode tags are unchanged, and the legacy `id` attribute is still accepted
@@ -49,8 +53,8 @@ every install was non-functional regardless of configuration.
   1.x stored all three as plaintext in an option loaded on every request site-wide.
 - The secret is never rendered back into a form field. The input shows a masked
   placeholder; submitting it blank leaves the stored value untouched.
-- Credentials may be defined as `PROCOREWP_CLIENT_ID` / `PROCOREWP_CLIENT_SECRET` /
-  `PROCOREWP_COMPANY_ID` in `wp-config.php`, taking precedence and never reaching the
+- Credentials may be defined as `PROCORE_CONNECT_CLIENT_ID` / `PROCORE_CONNECT_CLIENT_SECRET` /
+  `PROCORE_CONNECT_COMPANY_ID` in `wp-config.php`, taking precedence and never reaching the
   database.
 - Every admin action verifies a nonce and the `manage_options` capability. 1.x ran its
   connection test from an unverified `$_POST` key.
@@ -84,11 +88,11 @@ every install was non-functional regardless of configuration.
   the generic allow-listed `procore_data`.
 - **A Procore block** with one inserter variation per shortcode, a settings sidebar and a
   live server-rendered preview. No build step; the shipped editor script is the source.
-- **An optional read-only REST proxy** at `/wp-json/procorewp/v1/`, serving cached data
+- **An optional read-only REST proxy** at `/wp-json/procore-connect/v1/`, serving cached data
   from allow-listed endpoints with configurable access.
 - **WP-CLI commands**: `test`, `doctor`, `projects`, `cache-clear`, `cache-warm`,
   `reset-token`.
-- **Theme template overrides** via `yourtheme/procorewp/`, replacing the 1.x advice to
+- **Theme template overrides** via `yourtheme/procore-connect/`, replacing the 1.x advice to
   edit files inside the plugin directory — which lost customisations on every update.
 - **A connection diagnostic** that reports each stage separately and probes every
   registered endpoint, revealing exactly which Procore tool permissions the credentials
@@ -109,7 +113,7 @@ every install was non-functional regardless of configuration.
 - Plugin headers completed: `License URI`, `Requires at least`, `Requires PHP`,
   `Domain Path`, `Update URI`, and real `Plugin URI` and `Author` values in place of
   `https://example.com` and `Your Name`.
-- Namespaced (`ProcoreWP\`) and consistently prefixed (`procorewp_`, `PROCOREWP_`).
+- Namespaced (`ProcoreConnect\`) and consistently prefixed (`procore_connect_`, `PROCORE_CONNECT_`).
 - Added `uninstall.php`, which removes credentials, tokens, cache and options unless the
   site opts to keep its data.
 - Removed all direct filesystem writes into the plugin directory.

@@ -1,10 +1,10 @@
 /**
- * ProcoreWP block editor integration.
+ * Procore Connect block editor integration.
  *
  * Hand-written ES5 against the global `wp.*` runtime, with no build step, so
  * the file that ships is the file that was authored.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 ( function ( wp, config ) {
@@ -34,24 +34,24 @@
 	 * Everything else remains reachable through the equivalent shortcode.
 	 */
 	var CONTROLS = [
-		{ key: 'project_id', label: __( 'Project ID', 'procorewp' ), type: 'number' },
-		{ key: 'company_id', label: __( 'Company ID', 'procorewp' ), type: 'number' },
-		{ key: 'endpoint', label: __( 'Endpoint', 'procorewp' ), type: 'text' },
-		{ key: 'field', label: __( 'Field', 'procorewp' ), type: 'text' },
-		{ key: 'label', label: __( 'Label', 'procorewp' ), type: 'text' },
-		{ key: 'title', label: __( 'Heading', 'procorewp' ), type: 'text' },
-		{ key: 'limit', label: __( 'Maximum rows', 'procorewp' ), type: 'number' },
-		{ key: 'status', label: __( 'Filter by status', 'procorewp' ), type: 'text' },
-		{ key: 'orderby', label: __( 'Sort by field', 'procorewp' ), type: 'text' },
-		{ key: 'order', label: __( 'Sort direction', 'procorewp' ), type: 'select', options: [
-			{ label: __( 'Ascending', 'procorewp' ), value: 'asc' },
-			{ label: __( 'Descending', 'procorewp' ), value: 'desc' },
+		{ key: 'project_id', label: __( 'Project ID', 'procore-connect' ), type: 'number' },
+		{ key: 'company_id', label: __( 'Company ID', 'procore-connect' ), type: 'number' },
+		{ key: 'endpoint', label: __( 'Endpoint', 'procore-connect' ), type: 'text' },
+		{ key: 'field', label: __( 'Field', 'procore-connect' ), type: 'text' },
+		{ key: 'label', label: __( 'Label', 'procore-connect' ), type: 'text' },
+		{ key: 'title', label: __( 'Heading', 'procore-connect' ), type: 'text' },
+		{ key: 'limit', label: __( 'Maximum rows', 'procore-connect' ), type: 'number' },
+		{ key: 'status', label: __( 'Filter by status', 'procore-connect' ), type: 'text' },
+		{ key: 'orderby', label: __( 'Sort by field', 'procore-connect' ), type: 'text' },
+		{ key: 'order', label: __( 'Sort direction', 'procore-connect' ), type: 'select', options: [
+			{ label: __( 'Ascending', 'procore-connect' ), value: 'asc' },
+			{ label: __( 'Descending', 'procore-connect' ), value: 'desc' },
 		] },
-		{ key: 'columns', label: __( 'Columns', 'procorewp' ), type: 'text' },
-		{ key: 'width', label: __( 'Image width', 'procorewp' ), type: 'number' },
-		{ key: 'show_email', label: __( 'Show email addresses', 'procorewp' ), type: 'toggle' },
-		{ key: 'all', label: __( 'Fetch every page', 'procorewp' ), type: 'toggle' },
-		{ key: 'class', label: __( 'Extra CSS classes', 'procorewp' ), type: 'text' },
+		{ key: 'columns', label: __( 'Columns', 'procore-connect' ), type: 'text' },
+		{ key: 'width', label: __( 'Image width', 'procore-connect' ), type: 'number' },
+		{ key: 'show_email', label: __( 'Show email addresses', 'procore-connect' ), type: 'toggle' },
+		{ key: 'all', label: __( 'Fetch every page', 'procore-connect' ), type: 'toggle' },
+		{ key: 'class', label: __( 'Extra CSS classes', 'procore-connect' ), type: 'text' },
 	];
 
 	/**
@@ -122,7 +122,7 @@
 					key: control.key,
 					label: control.label,
 					value: value,
-					options: [ { label: __( 'Default', 'procorewp' ), value: '' } ].concat( control.options ),
+					options: [ { label: __( 'Default', 'procore-connect' ), value: '' } ].concat( control.options ),
 					onChange: function ( next ) {
 						update( control.key, next );
 					},
@@ -143,7 +143,7 @@
 		} );
 	}
 
-	wp.blocks.registerBlockType( 'procorewp/procore', {
+	wp.blocks.registerBlockType( 'procore-connect/procore', {
 		edit: function ( props ) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
@@ -155,9 +155,9 @@
 				{},
 				el(
 					PanelBody,
-					{ title: __( 'Procore data', 'procorewp' ), initialOpen: true },
+					{ title: __( 'Procore data', 'procore-connect' ), initialOpen: true },
 					el( SelectControl, {
-						label: __( 'Show', 'procorewp' ),
+						label: __( 'Show', 'procore-connect' ),
 						value: attributes.shortcode,
 						options: variations.map( function ( item ) {
 							return { label: item.title, value: item.shortcode };
@@ -171,26 +171,26 @@
 				),
 				el(
 					PanelBody,
-					{ title: __( 'Options', 'procorewp' ), initialOpen: true },
+					{ title: __( 'Options', 'procore-connect' ), initialOpen: true },
 					buildControls( attributes, setAttributes )
 				)
 			);
 
 			var preview = ServerSideRender
 				? el( ServerSideRender, {
-						block: 'procorewp/procore',
+						block: 'procore-connect/procore',
 						attributes: attributes,
 						EmptyResponsePlaceholder: function () {
 							return el(
 								Placeholder,
-								{ icon: 'building', label: __( 'Procore', 'procorewp' ) },
-								__( 'Nothing to display yet. Check the project and company IDs in the block settings.', 'procorewp' )
+								{ icon: 'building', label: __( 'Procore', 'procore-connect' ) },
+								__( 'Nothing to display yet. Check the project and company IDs in the block settings.', 'procore-connect' )
 							);
 						},
 				  } )
 				: el(
 						Placeholder,
-						{ icon: 'building', label: __( 'Procore', 'procorewp' ) },
+						{ icon: 'building', label: __( 'Procore', 'procore-connect' ) },
 						variation ? variation.title : attributes.shortcode
 				  );
 
@@ -216,4 +216,4 @@
 			};
 		} ),
 	} );
-} )( window.wp, window.procorewpBlocks );
+} )( window.wp, window.procoreConnectBlocks );

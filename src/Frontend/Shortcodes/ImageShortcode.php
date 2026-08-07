@@ -2,16 +2,16 @@
 /**
  * Renders a project's featured image.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -73,8 +73,8 @@ final class ImageShortcode extends AbstractShortcode {
 			? (string) $atts['alt']
 			: sprintf(
 				/* translators: %s: project name. */
-				__( '%s project image', 'procorewp' ),
-				Arr::str( $data, 'name', __( 'Procore', 'procorewp' ) )
+				__( '%s project image', 'procore-connect' ),
+				Arr::str( $data, 'name', __( 'Procore', 'procore-connect' ) )
 			);
 
 		return Renderer::render(
@@ -85,7 +85,7 @@ final class ImageShortcode extends AbstractShortcode {
 				'width'  => absint( $atts['width'] ),
 				'height' => absint( $atts['height'] ),
 				'lazy'   => in_array( strtolower( (string) $atts['lazy'] ), array( 'true', '1', 'yes', 'on' ), true ),
-				'class'  => Format::classes( 'procorewp procorewp-image', (string) $atts['class'] ),
+				'class'  => Format::classes( 'procore-connect procore-connect-image', (string) $atts['class'] ),
 				'atts'   => $atts,
 				'tag'    => $this->tag,
 			)
@@ -101,6 +101,6 @@ final class ImageShortcode extends AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No project image is available.', 'procorewp' );
+			: __( 'No project image is available.', 'procore-connect' );
 	}
 }

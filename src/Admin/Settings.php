@@ -2,15 +2,15 @@
 /**
  * Plugin settings storage, defaults and sanitization.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Support\Encryption;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Support\Encryption;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -19,8 +19,8 @@ defined( 'ABSPATH' ) || exit;
  *
  * The client secret is encrypted before it reaches the database and is never
  * echoed back into a form field. Sites that prefer to keep credentials out of
- * the database entirely can define `PROCOREWP_CLIENT_ID` and
- * `PROCOREWP_CLIENT_SECRET` in `wp-config.php`; those take precedence and are
+ * the database entirely can define `PROCORE_CONNECT_CLIENT_ID` and
+ * `PROCORE_CONNECT_CLIENT_SECRET` in `wp-config.php`; those take precedence and are
  * never written to an option.
  */
 final class Settings {
@@ -28,12 +28,12 @@ final class Settings {
 	/**
 	 * Option name.
 	 */
-	public const OPTION = 'procorewp_settings';
+	public const OPTION = 'procore_connect_settings';
 
 	/**
 	 * Settings group used by the Settings API.
 	 */
-	public const GROUP = 'procorewp_settings_group';
+	public const GROUP = 'procore_connect_settings_group';
 
 	/**
 	 * Legacy option written by ProcoreWP 1.x.
@@ -143,8 +143,8 @@ final class Settings {
 	 * @return string Client ID.
 	 */
 	public static function client_id(): string {
-		if ( defined( 'PROCOREWP_CLIENT_ID' ) && '' !== (string) constant( 'PROCOREWP_CLIENT_ID' ) ) {
-			return (string) constant( 'PROCOREWP_CLIENT_ID' );
+		if ( defined( 'PROCORE_CONNECT_CLIENT_ID' ) && '' !== (string) constant( 'PROCORE_CONNECT_CLIENT_ID' ) ) {
+			return (string) constant( 'PROCORE_CONNECT_CLIENT_ID' );
 		}
 
 		return (string) self::get( 'client_id', '' );
@@ -156,8 +156,8 @@ final class Settings {
 	 * @return string Client secret.
 	 */
 	public static function client_secret(): string {
-		if ( defined( 'PROCOREWP_CLIENT_SECRET' ) && '' !== (string) constant( 'PROCOREWP_CLIENT_SECRET' ) ) {
-			return (string) constant( 'PROCOREWP_CLIENT_SECRET' );
+		if ( defined( 'PROCORE_CONNECT_CLIENT_SECRET' ) && '' !== (string) constant( 'PROCORE_CONNECT_CLIENT_SECRET' ) ) {
+			return (string) constant( 'PROCORE_CONNECT_CLIENT_SECRET' );
 		}
 
 		return Encryption::decrypt( (string) self::get( 'client_secret', '' ) );
@@ -169,7 +169,7 @@ final class Settings {
 	 * @return bool True when constants are in use.
 	 */
 	public static function credentials_are_constants(): bool {
-		return defined( 'PROCOREWP_CLIENT_SECRET' ) && '' !== (string) constant( 'PROCOREWP_CLIENT_SECRET' );
+		return defined( 'PROCORE_CONNECT_CLIENT_SECRET' ) && '' !== (string) constant( 'PROCORE_CONNECT_CLIENT_SECRET' );
 	}
 
 	/**
@@ -178,8 +178,8 @@ final class Settings {
 	 * @return int Company ID, or zero when unset.
 	 */
 	public static function default_company_id(): int {
-		if ( defined( 'PROCOREWP_COMPANY_ID' ) ) {
-			return absint( constant( 'PROCOREWP_COMPANY_ID' ) );
+		if ( defined( 'PROCORE_CONNECT_COMPANY_ID' ) ) {
+			return absint( constant( 'PROCORE_CONNECT_COMPANY_ID' ) );
 		}
 
 		return absint( self::get( 'default_company_id', 0 ) );
@@ -266,7 +266,7 @@ final class Settings {
 		 * @param array<string, mixed> $clean Sanitized settings.
 		 * @param array<string, mixed> $input Raw submitted values.
 		 */
-		return (array) apply_filters( 'procorewp_sanitize_settings', $clean, $input );
+		return (array) apply_filters( 'procore_connect_sanitize_settings', $clean, $input );
 	}
 
 	/**
@@ -299,7 +299,7 @@ final class Settings {
 		}
 
 		update_option( self::OPTION, $current, false );
-		update_option( 'procorewp_migrated_from', '1.x', false );
+		update_option( 'procore_connect_migrated_from', '1.x', false );
 		delete_option( self::LEGACY_OPTION );
 
 		self::flush();

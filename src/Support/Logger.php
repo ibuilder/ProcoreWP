@@ -2,14 +2,14 @@
 /**
  * Opt-in diagnostic logging.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Support;
+namespace ProcoreConnect\Support;
 
-use ProcoreWP\Admin\Settings;
+use ProcoreConnect\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -25,7 +25,7 @@ final class Logger {
 	/**
 	 * Option name holding the recent-events ring buffer.
 	 */
-	public const OPTION = 'procorewp_log';
+	public const OPTION = 'procore_connect_log';
 
 	/**
 	 * Maximum number of retained entries.
@@ -115,7 +115,7 @@ final class Logger {
 			$suffix = empty( $entry['context'] ) ? '' : ' ' . wp_json_encode( $entry['context'] );
 
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Gated behind WP_DEBUG_LOG and an explicit opt-in setting.
-			error_log( sprintf( '[ProcoreWP][%s] %s%s', $level, $message, $suffix ) );
+			error_log( sprintf( '[Procore Connect][%s] %s%s', $level, $message, $suffix ) );
 		}
 	}
 

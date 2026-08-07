@@ -2,9 +2,9 @@
 /**
  * Renders a project image.
  *
- * Override by copying this file to `yourtheme/procorewp/image.php`.
+ * Override by copying this file to `yourtheme/procore-connect/image.php`.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  *
  * @var array<string, mixed> $data Template data supplied by the Renderer.
  */
@@ -13,28 +13,28 @@ declare( strict_types = 1 );
 
 defined( 'ABSPATH' ) || exit;
 
-$procorewp_url    = (string) ( $data['url'] ?? '' );
-$procorewp_alt    = (string) ( $data['alt'] ?? '' );
-$procorewp_width  = (int) ( $data['width'] ?? 0 );
-$procorewp_height = (int) ( $data['height'] ?? 0 );
-$procorewp_lazy   = ! empty( $data['lazy'] );
-$procorewp_class  = (string) ( $data['class'] ?? 'procorewp' );
+$procore_connect_url    = (string) ( $data['url'] ?? '' );
+$procore_connect_alt    = (string) ( $data['alt'] ?? '' );
+$procore_connect_width  = (int) ( $data['width'] ?? 0 );
+$procore_connect_height = (int) ( $data['height'] ?? 0 );
+$procore_connect_lazy   = ! empty( $data['lazy'] );
+$procore_connect_class  = (string) ( $data['class'] ?? 'procore-connect' );
 
-if ( '' === $procorewp_url ) {
+if ( '' === $procore_connect_url ) {
 	return;
 }
 ?>
-<figure class="<?php echo esc_attr( $procorewp_class ); ?>">
+<figure class="<?php echo esc_attr( $procore_connect_class ); ?>">
 	<img
-		src="<?php echo esc_url( $procorewp_url ); ?>"
-		alt="<?php echo esc_attr( $procorewp_alt ); ?>"
-		<?php if ( $procorewp_width > 0 ) : ?>
-			width="<?php echo esc_attr( (string) $procorewp_width ); ?>"
+		src="<?php echo esc_url( $procore_connect_url ); ?>"
+		alt="<?php echo esc_attr( $procore_connect_alt ); ?>"
+		<?php if ( $procore_connect_width > 0 ) : ?>
+			width="<?php echo esc_attr( (string) $procore_connect_width ); ?>"
 		<?php endif; ?>
-		<?php if ( $procorewp_height > 0 ) : ?>
-			height="<?php echo esc_attr( (string) $procorewp_height ); ?>"
+		<?php if ( $procore_connect_height > 0 ) : ?>
+			height="<?php echo esc_attr( (string) $procore_connect_height ); ?>"
 		<?php endif; ?>
-		<?php if ( $procorewp_lazy ) : ?>
+		<?php if ( $procore_connect_lazy ) : ?>
 			loading="lazy" decoding="async"
 		<?php endif; ?>
 		referrerpolicy="no-referrer"

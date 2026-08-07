@@ -2,17 +2,17 @@
 /**
  * Encryption, array access and value formatting.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Encryption;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Encryption;
+use ProcoreConnect\Support\Format;
 
 /**
  * Covers the helpers that guard credentials and escape output.
@@ -235,9 +235,9 @@ final class SupportTest extends TestCase {
 	 * @return void
 	 */
 	public function test_classes_are_sanitized(): void {
-		$result = Format::classes( 'procorewp', 'my-class "onerror=alert(1) <img>' );
+		$result = Format::classes( 'procore-connect', 'my-class "onerror=alert(1) <img>' );
 
-		$this->assertStringStartsWith( 'procorewp my-class', $result );
+		$this->assertStringStartsWith( 'procore-connect my-class', $result );
 
 		foreach ( array( '"', "'", '=', '(', ')', '<', '>', '/' ) as $character ) {
 			$this->assertStringNotContainsString( $character, $result );

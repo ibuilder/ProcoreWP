@@ -2,16 +2,16 @@
 /**
  * Admin notices.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Support\Encryption;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Support\Encryption;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,27 +58,27 @@ final class Notices {
 	 */
 	private function oauth_result(): void {
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only display flag set by our own redirect.
-		$status = isset( $_GET['procorewp_oauth'] ) ? sanitize_key( wp_unslash( $_GET['procorewp_oauth'] ) ) : '';
+		$status = isset( $_GET['procore_connect_oauth'] ) ? sanitize_key( wp_unslash( $_GET['procore_connect_oauth'] ) ) : '';
 
 		if ( '' === $status ) {
 			return;
 		}
 
 		if ( 'connected' === $status ) {
-			$this->notice( 'success', __( 'Connected to Procore.', 'procorewp' ) );
+			$this->notice( 'success', __( 'Connected to Procore.', 'procore-connect' ) );
 
 			return;
 		}
 
-		$stored_error = (string) get_transient( 'procorewp_oauth_error' );
+		$stored_error = (string) get_transient( 'procore_connect_oauth_error' );
 
 		$messages = array(
-			'denied'              => __( 'The Procore authorization request was declined.', 'procorewp' ),
-			'missing_credentials' => __( 'Enter a Client ID and Client Secret before connecting.', 'procorewp' ),
-			'failed'              => '' !== $stored_error ? $stored_error : __( 'The Procore connection could not be completed.', 'procorewp' ),
+			'denied'              => __( 'The Procore authorization request was declined.', 'procore-connect' ),
+			'missing_credentials' => __( 'Enter a Client ID and Client Secret before connecting.', 'procore-connect' ),
+			'failed'              => '' !== $stored_error ? $stored_error : __( 'The Procore connection could not be completed.', 'procore-connect' ),
 		);
 
-		delete_transient( 'procorewp_oauth_error' );
+		delete_transient( 'procore_connect_oauth_error' );
 
 		if ( isset( $messages[ $status ] ) ) {
 			$this->notice( 'error', $messages[ $status ] );
@@ -91,7 +91,7 @@ final class Notices {
 	 * @return void
 	 */
 	private function migration_notice(): void {
-		if ( '1.x' !== get_option( 'procorewp_migrated_from' ) ) {
+		if ( '1.x' !== get_option( 'procore_connect_migrated_from' ) ) {
 			return;
 		}
 
@@ -99,13 +99,13 @@ final class Notices {
 			'warning',
 			sprintf(
 				/* translators: %s: settings screen URL. */
-				__( 'ProcoreWP imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href="%s">re-run the connection test</a> before shortcodes will return data.', 'procorewp' ),
-				esc_url( admin_url( 'admin.php?page=procorewp' ) )
+				__( 'Procore Connect imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href="%s">re-run the connection test</a> before shortcodes will return data.', 'procore-connect' ),
+				esc_url( admin_url( 'admin.php?page=procore-connect' ) )
 			),
 			true
 		);
 
-		delete_option( 'procorewp_migrated_from' );
+		delete_option( 'procore_connect_migrated_from' );
 	}
 
 	/**
@@ -120,7 +120,7 @@ final class Notices {
 
 		$this->notice(
 			'warning',
-			__( 'OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead.', 'procorewp' )
+			__( 'OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead.', 'procore-connect' )
 		);
 	}
 
@@ -138,7 +138,7 @@ final class Notices {
 			'info',
 			sprintf(
 				/* translators: 1: environment label, 2: API host. */
-				__( 'ProcoreWP is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data.', 'procorewp' ),
+				__( 'Procore Connect is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data.', 'procore-connect' ),
 				Environment::choices()[ Environment::current() ],
 				Environment::api_host()
 			)
@@ -161,7 +161,7 @@ final class Notices {
 			'error',
 			sprintf(
 				/* translators: %s: human readable time difference. */
-				__( 'Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime.', 'procorewp' ),
+				__( 'Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime.', 'procore-connect' ),
 				human_time_diff( time(), $state['open_until'] )
 			)
 		);
@@ -170,12 +170,12 @@ final class Notices {
 	/**
 	 * Whether the current screen belongs to this plugin.
 	 *
-	 * @return bool True on a ProcoreWP screen.
+	 * @return bool True on a Procore Connect screen.
 	 */
 	private function on_plugin_screen(): bool {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
-		return $screen instanceof \WP_Screen && false !== strpos( (string) $screen->id, 'procorewp' );
+		return $screen instanceof \WP_Screen && false !== strpos( (string) $screen->id, 'procore-connect' );
 	}
 
 	/**

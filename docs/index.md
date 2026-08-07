@@ -4,12 +4,12 @@ layout: default
 nav_order: 1
 ---
 
-# ProcoreWP
+# Procore Connect
 
 Publish live [Procore](https://www.procore.com/) construction project data on a WordPress
 site — with shortcodes, blocks, and a cached REST proxy.
 
-Everything ProcoreWP does is **read-only**. It never writes to Procore.
+Everything Procore Connect does is **read-only**. It never writes to Procore.
 
 ```
 [procore_project_list company_id="4242" limit="10"]
@@ -26,8 +26,8 @@ Everything ProcoreWP does is **read-only**. It never writes to Procore.
 | [Installation](installation/) | Get the plugin running |
 | [Authentication](authentication/) | Create a Procore app and connect |
 | [Shortcodes](shortcodes/) | Full reference for all eighteen |
-| [Blocks](blocks/) | Using ProcoreWP in the block editor |
-| [Caching & rate limits](caching/) | How ProcoreWP stays inside Procore's quotas |
+| [Blocks](blocks/) | Using Procore Connect in the block editor |
+| [Caching & rate limits](caching/) | How Procore Connect stays inside Procore's quotas |
 | [Templating & styling](templating/) | Change the markup and the CSS |
 | [REST API](rest-api/) | The optional read-only proxy |
 | [WP-CLI](wp-cli/) | Command line operations |
@@ -81,7 +81,7 @@ WP-CLI. The complete list is in the
 
 ## Third-party service
 
-ProcoreWP contacts Procore to retrieve the data you ask it to display: `login.procore.com`
+Procore Connect contacts Procore to retrieve the data you ask it to display: `login.procore.com`
 for authentication and `api.procore.com` for data, or the sandbox or regional hosts you
 configure.
 

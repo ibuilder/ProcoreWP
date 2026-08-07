@@ -2,15 +2,15 @@
 /**
  * Renders a single Procore record.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -37,7 +37,7 @@ class RecordShortcode extends AbstractShortcode {
 				'record'     => $data,
 				'columns'    => $this->resolve_columns( $atts ),
 				'title'      => '' !== $this->title( $atts ) ? $this->title( $atts ) : (string) ( $data['name'] ?? '' ),
-				'class'      => Format::classes( 'procorewp procorewp-record procorewp-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
+				'class'      => Format::classes( 'procore-connect procore-connect-record procore-connect-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
 				'show_email' => ! empty( $atts['show_email'] ),
 				'atts'       => $atts,
 				'tag'        => $this->tag,

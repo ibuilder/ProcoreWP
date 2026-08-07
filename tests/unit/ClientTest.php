@@ -2,16 +2,16 @@
 /**
  * Transport behaviour: headers, pagination, throttling and fallbacks.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Api\Client;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\Client;
 
 /**
  * Covers the failure modes that made ProcoreWP 1.x unusable in production.
@@ -62,7 +62,7 @@ final class ClientTest extends TestCase {
 
 		$this->assertSame( 15, $calls[0]['args']['timeout'] );
 		$this->assertTrue( $calls[0]['args']['sslverify'] );
-		$this->assertStringContainsString( 'ProcoreWP/2.0.0', $calls[0]['args']['user-agent'] );
+		$this->assertStringContainsString( 'Procore Connect/2.0.0', $calls[0]['args']['user-agent'] );
 	}
 
 	/**
@@ -205,8 +205,8 @@ final class ClientTest extends TestCase {
 		$client->fetch( 'projects', array(), array( 'company_id' => 1 ) );
 
 		// Expire the fresh entry but leave the stale copy in place.
-		foreach ( array_keys( $GLOBALS['procorewp_test_transients'] ) as $key ) {
-			if ( 0 === strpos( (string) $key, 'procorewp_c_' ) ) {
+		foreach ( array_keys( $GLOBALS['procore_connect_test_transients'] ) as $key ) {
+			if ( 0 === strpos( (string) $key, 'procore_connect_c_' ) ) {
 				delete_transient( (string) $key );
 			}
 		}
@@ -249,7 +249,7 @@ final class ClientTest extends TestCase {
 		$result = $client->fetch( 'projects' );
 
 		$this->assertTrue( is_wp_error( $result ) );
-		$this->assertSame( 'procorewp_missing_company', $result->get_error_code() );
+		$this->assertSame( 'procore_connect_missing_company', $result->get_error_code() );
 	}
 
 	/**
@@ -263,7 +263,7 @@ final class ClientTest extends TestCase {
 		$result = $client->fetch( 'rfis', array(), array( 'company_id' => 1 ) );
 
 		$this->assertTrue( is_wp_error( $result ) );
-		$this->assertSame( 'procorewp_missing_project', $result->get_error_code() );
+		$this->assertSame( 'procore_connect_missing_project', $result->get_error_code() );
 	}
 
 	/**

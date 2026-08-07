@@ -41,7 +41,7 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: Output of `wp procorewp doctor`
+      label: Output of `wp procore-connect doctor`
       description: >
         Reports whether credentials are set without printing them, so it is safe to
         share. If WP-CLI is unavailable, paste the **Procore → Status** table instead.
@@ -60,7 +60,7 @@ body:
     id: versions
     attributes:
       label: Versions
-      placeholder: 'ProcoreWP 2.0.0, WordPress 6.9, PHP 8.2'
+      placeholder: 'Procore Connect 2.0.0, WordPress 6.9, PHP 8.2'
     validations:
       required: true
 

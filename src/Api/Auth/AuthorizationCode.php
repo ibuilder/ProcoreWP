@@ -2,17 +2,17 @@
 /**
  * OAuth 2.0 Authorization Code grant.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api\Auth;
+namespace ProcoreConnect\Api\Auth;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Logger;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -33,7 +33,7 @@ final class AuthorizationCode extends AbstractAuth {
 	/**
 	 * Transient prefix for pending CSRF state values.
 	 */
-	private const STATE_PREFIX = 'procorewp_oauth_state_';
+	private const STATE_PREFIX = 'procore_connect_oauth_state_';
 
 	/**
 	 * Lifetime of a pending state value, in seconds.
@@ -52,8 +52,8 @@ final class AuthorizationCode extends AbstractAuth {
 
 		if ( '' === TokenStore::refresh_token() ) {
 			return new \WP_Error(
-				'procorewp_not_connected',
-				__( 'This site is not connected to Procore. Open Procore → Connection and choose "Connect to Procore".', 'procorewp' )
+				'procore_connect_not_connected',
+				__( 'This site is not connected to Procore. Open Procore → Connection and choose "Connect to Procore".', 'procore-connect' )
 			);
 		}
 
@@ -63,8 +63,8 @@ final class AuthorizationCode extends AbstractAuth {
 			}
 
 			return new \WP_Error(
-				'procorewp_token_busy',
-				__( 'Another request is currently refreshing the Procore connection. Please try again in a moment.', 'procorewp' )
+				'procore_connect_token_busy',
+				__( 'Another request is currently refreshing the Procore connection. Please try again in a moment.', 'procore-connect' )
 			);
 		}
 
@@ -77,8 +77,8 @@ final class AuthorizationCode extends AbstractAuth {
 
 			if ( '' === $refresh_token ) {
 				return new \WP_Error(
-					'procorewp_not_connected',
-					__( 'This site is not connected to Procore.', 'procorewp' )
+					'procore_connect_not_connected',
+					__( 'This site is not connected to Procore.', 'procore-connect' )
 				);
 			}
 
@@ -92,13 +92,13 @@ final class AuthorizationCode extends AbstractAuth {
 
 			if ( is_wp_error( $response ) ) {
 				// A rejected refresh token can never recover; force a reconnect.
-				if ( 'procorewp_token_rejected' === $response->get_error_code() ) {
+				if ( 'procore_connect_token_rejected' === $response->get_error_code() ) {
 					TokenStore::clear();
 					Logger::error( 'Refresh token rejected by Procore; the connection has been reset.' );
 
 					return new \WP_Error(
-						'procorewp_reconnect_required',
-						__( 'The Procore connection has expired. Open Procore → Connection and reconnect.', 'procorewp' )
+						'procore_connect_reconnect_required',
+						__( 'The Procore connection has expired. Open Procore → Connection and reconnect.', 'procore-connect' )
 					);
 				}
 
@@ -145,8 +145,8 @@ final class AuthorizationCode extends AbstractAuth {
 	public function exchange_code( string $code, string $state ) {
 		if ( '' === $state || false === get_transient( self::STATE_PREFIX . $state ) ) {
 			return new \WP_Error(
-				'procorewp_bad_state',
-				__( 'The Procore authorization response could not be verified. Please start the connection again.', 'procorewp' )
+				'procore_connect_bad_state',
+				__( 'The Procore authorization response could not be verified. Please start the connection again.', 'procore-connect' )
 			);
 		}
 
@@ -154,8 +154,8 @@ final class AuthorizationCode extends AbstractAuth {
 
 		if ( '' === $code ) {
 			return new \WP_Error(
-				'procorewp_missing_code',
-				__( 'Procore did not return an authorization code.', 'procorewp' )
+				'procore_connect_missing_code',
+				__( 'Procore did not return an authorization code.', 'procore-connect' )
 			);
 		}
 
@@ -210,6 +210,6 @@ final class AuthorizationCode extends AbstractAuth {
 	 * @return string Label.
 	 */
 	public function label(): string {
-		return __( 'User Account (Authorization Code)', 'procorewp' );
+		return __( 'User Account (Authorization Code)', 'procore-connect' );
 	}
 }

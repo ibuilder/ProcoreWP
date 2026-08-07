@@ -2,12 +2,12 @@
 /**
  * Template resolution and rendering.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend;
+namespace ProcoreConnect\Frontend;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  * Locates and renders the partials that produce shortcode and block output.
  *
  * Markup lives in `templates/` and can be overridden by copying a file into
- * `yourtheme/procorewp/`. This replaces the ProcoreWP 1.x advice to edit files
+ * `yourtheme/procore-connect/`. This replaces the ProcoreWP 1.x advice to edit files
  * inside the plugin directory, which lost every customisation on update.
  */
 final class Renderer {
@@ -23,7 +23,7 @@ final class Renderer {
 	/**
 	 * Directory inside a theme that holds overrides.
 	 */
-	private const THEME_DIR = 'procorewp';
+	private const THEME_DIR = 'procore-connect';
 
 	/**
 	 * Render a template to a string.
@@ -40,14 +40,14 @@ final class Renderer {
 		}
 
 		/**
-		 * Filters the data passed to a ProcoreWP template.
+		 * Filters the data passed to a Procore Connect template.
 		 *
 		 * @since 2.0.0
 		 *
 		 * @param array<string, mixed> $data     Template data.
 		 * @param string               $template Template name.
 		 */
-		$data = (array) apply_filters( 'procorewp_template_data', $data, $template );
+		$data = (array) apply_filters( 'procore_connect_template_data', $data, $template );
 
 		ob_start();
 
@@ -78,7 +78,7 @@ final class Renderer {
 		$candidates = array(
 			trailingslashit( get_stylesheet_directory() ) . self::THEME_DIR . '/' . $file,
 			trailingslashit( get_template_directory() ) . self::THEME_DIR . '/' . $file,
-			PROCOREWP_PATH . 'templates/' . $file,
+			PROCORE_CONNECT_PATH . 'templates/' . $file,
 		);
 
 		/**
@@ -89,7 +89,7 @@ final class Renderer {
 		 * @param array<int, string> $candidates Absolute candidate paths, in priority order.
 		 * @param string             $template   Template name.
 		 */
-		$candidates = (array) apply_filters( 'procorewp_template_candidates', $candidates, $template );
+		$candidates = (array) apply_filters( 'procore_connect_template_candidates', $candidates, $template );
 
 		foreach ( $candidates as $candidate ) {
 			if ( is_readable( $candidate ) ) {
@@ -112,7 +112,7 @@ final class Renderer {
 	 */
 	public static function notice( string $message, string $type = 'info' ): string {
 		return sprintf(
-			'<div class="procorewp-notice procorewp-notice--%1$s">%2$s</div>',
+			'<div class="procore-connect-notice procore-connect-notice--%1$s">%2$s</div>',
 			esc_attr( sanitize_html_class( $type ) ),
 			esc_html( $message )
 		);

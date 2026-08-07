@@ -2,14 +2,14 @@
 /**
  * Authorization Code flow entry and callback handling.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Auth\AuthorizationCode;
+use ProcoreConnect\Api\Auth\AuthorizationCode;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +26,7 @@ final class OAuthController {
 	/**
 	 * Nonce action guarding the outbound redirect.
 	 */
-	public const NONCE = 'procorewp_oauth_connect';
+	public const NONCE = 'procore_connect_oauth_connect';
 
 	/**
 	 * Register hooks.
@@ -34,8 +34,8 @@ final class OAuthController {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'admin_post_procorewp_oauth_connect', array( $this, 'connect' ) );
-		add_action( 'admin_post_procorewp_oauth_callback', array( $this, 'callback' ) );
+		add_action( 'admin_post_procore_connect_oauth_connect', array( $this, 'connect' ) );
+		add_action( 'admin_post_procore_connect_oauth_callback', array( $this, 'callback' ) );
 	}
 
 	/**
@@ -45,7 +45,7 @@ final class OAuthController {
 	 */
 	public function connect(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to connect this site to Procore.', 'procorewp' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to connect this site to Procore.', 'procore-connect' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( self::NONCE );
@@ -74,7 +74,7 @@ final class OAuthController {
 	 */
 	public function callback(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to complete this connection.', 'procorewp' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to complete this connection.', 'procore-connect' ), '', array( 'response' => 403 ) );
 		}
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified via the one-time OAuth state parameter below.
@@ -89,7 +89,7 @@ final class OAuthController {
 		$result = ( new AuthorizationCode() )->exchange_code( $code, $state );
 
 		if ( is_wp_error( $result ) ) {
-			set_transient( 'procorewp_oauth_error', $result->get_error_message(), MINUTE_IN_SECONDS * 5 );
+			set_transient( 'procore_connect_oauth_error', $result->get_error_message(), MINUTE_IN_SECONDS * 5 );
 			$this->redirect_back( 'failed' );
 		}
 
@@ -106,8 +106,8 @@ final class OAuthController {
 		wp_safe_redirect(
 			add_query_arg(
 				array(
-					'page'            => 'procorewp',
-					'procorewp_oauth' => $status,
+					'page'                  => 'procore-connect',
+					'procore_connect_oauth' => $status,
 				),
 				admin_url( 'admin.php' )
 			)

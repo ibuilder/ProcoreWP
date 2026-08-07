@@ -6,7 +6,7 @@ nav_order: 5
 
 # Blocks
 
-ProcoreWP registers a single **Procore** block with one inserter variation per shortcode.
+Procore Connect registers a single **Procore** block with one inserter variation per shortcode.
 Search the inserter for "Procore" and you will see entries for RFIs, submittals, the
 project list and the rest.
 
@@ -62,6 +62,6 @@ a one-line fix. The file in `blocks/procore/index.js` is the file that runs.
 
 ## Turning blocks off
 
-**Procore → Tools → Register ProcoreWP blocks.** Existing block content stops rendering
+**Procore → Tools → Register Procore Connect blocks.** Existing block content stops rendering
 while this is off; converting those blocks to their shortcode equivalents first avoids
 surprises.

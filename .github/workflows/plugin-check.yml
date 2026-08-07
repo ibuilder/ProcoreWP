@@ -28,17 +28,17 @@ jobs:
       # check runs against what users actually install — not the dev tree.
       - name: Stage the distributable
         run: |
-          mkdir -p build/procorewp
+          mkdir -p build/procore-connect
           rsync -a --exclude-from=.distignore \
             --exclude='.git' --exclude='build' --exclude='vendor' \
-            ./ build/procorewp/
+            ./ build/procore-connect/
           echo "Staged files:"
-          find build/procorewp -type f | sort
+          find build/procore-connect -type f | sort
 
       - name: Run Plugin Check
         uses: wordpress/plugin-check-action@v1
         with:
-          build-dir: ./build/procorewp
+          build-dir: ./build/procore-connect
           # Target zero findings. Remove nothing from this list without a
           # documented reason in the pull request.
           categories: |

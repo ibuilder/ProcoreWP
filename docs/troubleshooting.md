@@ -12,7 +12,7 @@ nav_order: 10
 
 It reports six stages separately and then probes every endpoint. Nearly every problem
 below is identified by that screen in one click, so run it before reading further. The
-same thing is available as `wp procorewp test`.
+same thing is available as `wp procore-connect test`.
 
 ---
 
@@ -45,7 +45,7 @@ https://app.procore.com/companies/4242/...   → company 4242
 https://app.procore.com/projects/123/...     → project 123
 ```
 
-Or run `wp procorewp projects`.
+Or run `wp procore-connect projects`.
 
 ### 4. The default company is not set
 
@@ -60,7 +60,7 @@ says so.
 ### 6. Stale cache
 
 Data changed in Procore but not on the page. Clear the cache under **Procore → Cache**,
-or `wp procorewp cache-clear`.
+or `wp procore-connect cache-clear`.
 
 **Log in as an administrator and reload the page.** Administrators see the real Procore
 error message inline; visitors see a neutral notice. That one step usually ends the
@@ -73,7 +73,7 @@ investigation.
 ### "Enter your Procore Client ID and Client Secret"
 
 Neither field is populated. If you set them in `wp-config.php`, check the constant names —
-`PROCOREWP_CLIENT_ID` and `PROCOREWP_CLIENT_SECRET` — and that they are defined before
+`PROCORE_CONNECT_CLIENT_ID` and `PROCORE_CONNECT_CLIENT_SECRET` — and that they are defined before
 `wp-settings.php` is required.
 
 ### "Procore rejected the authentication request"
@@ -106,7 +106,7 @@ and query string. Copy it from the Connection screen rather than typing it.
 ### "Another request is currently authenticating"
 
 Two requests tried to refresh at once and one waited. Harmless and self-clearing. If it
-persists, an object cache may be dropping the lock; `wp procorewp reset-token` clears the
+persists, an object cache may be dropping the lock; `wp procore-connect reset-token` clears the
 state.
 
 ---
@@ -146,13 +146,13 @@ site's own date format.
 
 ### Styling is missing
 
-The stylesheet loads only on pages containing ProcoreWP output. If output comes from a
+The stylesheet loads only on pages containing Procore Connect output. If output comes from a
 widget or a direct `do_shortcode()` call in a template, it loads in the footer instead of
-the head. Check that **Load the ProcoreWP stylesheet** is on under **Display**.
+the head. Check that **Load the Procore Connect stylesheet** is on under **Display**.
 
 ### A template override is ignored
 
-- Path: `wp-content/themes/your-theme/procorewp/collection.php`
+- Path: `wp-content/themes/your-theme/procore-connect/collection.php`
 - The filename must match the template name exactly, lowercase, `.php` extension
 - A child theme takes precedence over its parent
 
@@ -162,8 +162,8 @@ the head. Check that **Load the ProcoreWP stylesheet** is on under **Display**.
 
 ### The plugin looks deactivated
 
-Expected. The main file was renamed from `index.php` to `procorewp.php`, so WordPress sees
-a different plugin. Activate ProcoreWP once — your settings are imported automatically.
+Expected. The main file was renamed from `index.php` to `procore-connect.php`, so WordPress sees
+a different plugin. Activate Procore Connect once — your settings are imported automatically.
 
 ### It still does not connect
 
@@ -184,7 +184,7 @@ redacted before anything is written.
 
 With `WP_DEBUG` and `WP_DEBUG_LOG` on, the same entries also go to `debug.log`.
 
-When reporting an issue, `wp procorewp doctor` output is the most useful single thing to
+When reporting an issue, `wp procore-connect doctor` output is the most useful single thing to
 include — it reports whether credentials are set without printing them.
 
 ---

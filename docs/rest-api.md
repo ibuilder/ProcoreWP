@@ -28,7 +28,7 @@ the URL. Whether that is a problem depends entirely on what is in your Procore a
 ### List what is available
 
 ```
-GET /wp-json/procorewp/v1/endpoints
+GET /wp-json/procore-connect/v1/endpoints
 ```
 
 ```json
@@ -45,7 +45,7 @@ GET /wp-json/procorewp/v1/endpoints
 ### Read data
 
 ```
-GET /wp-json/procorewp/v1/data/{endpoint}
+GET /wp-json/procore-connect/v1/data/{endpoint}
 ```
 
 | Parameter | Default | Notes |
@@ -56,7 +56,7 @@ GET /wp-json/procorewp/v1/data/{endpoint}
 | `page` | `1` | |
 
 ```
-GET /wp-json/procorewp/v1/data/rfis?project_id=123&per_page=25
+GET /wp-json/procore-connect/v1/data/rfis?project_id=123&per_page=25
 ```
 
 ```json
@@ -71,13 +71,13 @@ GET /wp-json/procorewp/v1/data/rfis?project_id=123&per_page=25
 
 `cached` tells you the response came from the plugin's cache rather than a live API call;
 `stale` tells you Procore was unreachable and this is the last good copy. Responses also
-carry an `X-ProcoreWP-Cached` header.
+carry an `X-Procore Connect-Cached` header.
 
 ## Example
 
 ```js
 const response = await fetch(
-	'/wp-json/procorewp/v1/data/rfis?project_id=123&per_page=25',
+	'/wp-json/procore-connect/v1/data/rfis?project_id=123&per_page=25',
 	{ credentials: 'same-origin', headers: { 'X-WP-Nonce': wpApiSettings.nonce } }
 );
 

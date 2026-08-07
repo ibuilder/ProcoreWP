@@ -87,7 +87,7 @@ ending `value`, `budget`, `total` or `amount` format as currency.
 To publish a field that is not on the list:
 
 ```php
-add_filter( 'procorewp_allowed_project_fields', function ( array $fields ): array {
+add_filter( 'procore_connect_allowed_project_fields', function ( array $fields ): array {
 	$fields[] = 'custom_field_name';
 	return $fields;
 } );
@@ -119,7 +119,7 @@ Projects that have coordinates, as an accessible list carrying geo microdata.
 No mapping library is loaded. Bundling one would send visitor IP addresses to a
 third party without consent, and remotely hosted assets are not permitted on
 wordpress.org. Instead each item carries `data-latitude` and `data-longitude`, and the
-container carries the full point set as JSON in `data-procorewp-points` — so a theme can
+container carries the full point set as JSON in `data-procore-connect-points` — so a theme can
 attach whichever mapping provider the site already licenses. Each entry also links to
 OpenStreetMap.
 
@@ -222,7 +222,7 @@ cannot be reached from a page.
 To register your own — useful when Procore bumps a resource version and a path changes:
 
 ```php
-add_filter( 'procorewp_endpoints', function ( array $endpoints ): array {
+add_filter( 'procore_connect_endpoints', function ( array $endpoints ): array {
 	$endpoints['meetings'] = array(
 		'label'      => 'Meetings',
 		'path'       => '/rest/v1.0/projects/{project_id}/meetings',
@@ -245,7 +245,7 @@ Nothing outside this registry is callable. That boundary is what makes both
 ## Privacy
 
 Procore project directories contain personal data. Publishing them exposes staff and
-subcontractors to address harvesting, so ProcoreWP will not output an email address
+subcontractors to address harvesting, so Procore Connect will not output an email address
 unless **both** of the following are true:
 
 1. **Procore → Display → Never output email addresses** is unticked, and

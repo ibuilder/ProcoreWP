@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProcoreWP 2.0.0\n"
+"Project-Id-Version: Procore Connect 2.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ibuilder/ProcoreWP/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-08-07T00:00:00+00:00\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: ProcoreWP build script\n"
-"X-Domain: procorewp\n"
+"X-Generator: Procore Connect build script\n"
+"X-Domain: procore-connect\n"
 
 #. translators: 1: number of companies, 2: comma-separated company names.
 #: src/Admin/ConnectionTester.php:193
@@ -286,7 +286,7 @@ msgid "Credentials are incomplete."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:336
-msgid "Credentials are supplied by PROCOREWP_CLIENT_ID and PROCOREWP_CLIENT_SECRET in wp-config.php and are not stored in the database. Remove those constants to manage credentials here."
+msgid "Credentials are supplied by PROCORE_CONNECT_CLIENT_ID and PROCORE_CONNECT_CLIENT_SECRET in wp-config.php and are not stored in the database. Remove those constants to manage credentials here."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:433
@@ -456,7 +456,7 @@ msgid "Everything checked out."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:554
-msgid "Expose cached Procore data at /wp-json/procorewp/v1/"
+msgid "Expose cached Procore data at /wp-json/procore-connect/v1/"
 msgstr ""
 
 #: src/Frontend/Shortcodes/Registrar.php:432
@@ -464,7 +464,7 @@ msgid "Finish"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:370
-msgid "For the strongest protection, define PROCOREWP_CLIENT_SECRET in wp-config.php instead of storing it here."
+msgid "For the strongest protection, define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead of storing it here."
 msgstr ""
 
 #: src/Frontend/Shortcodes/Registrar.php:79
@@ -500,7 +500,7 @@ msgid "Level"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:444
-msgid "Load the ProcoreWP stylesheet"
+msgid "Load the Procore Connect stylesheet"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:115
@@ -664,11 +664,11 @@ msgid "Open — resumes in %s"
 msgstr ""
 
 #: src/Admin/Notices.php:123
-msgid "OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead."
+msgid "OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead."
 msgstr ""
 
 #: src/Admin/ConnectionTester.php:82
-msgid "OpenSSL is unavailable, so credentials cannot be encrypted at rest. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead."
+msgid "OpenSSL is unavailable, so credentials cannot be encrypted at rest. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:403
@@ -711,6 +711,26 @@ msgstr ""
 #: src/Admin/SettingsPage.php:60
 #: src/Frontend/Shortcodes/ImageShortcode.php:77
 msgid "Procore"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:59
+#: src/Admin/SettingsPage.php:156
+msgid "Procore Connect"
+msgstr ""
+
+#. translators: %s: error message from the Procore API.
+#: src/Frontend/Shortcodes/AbstractShortcode.php:359
+msgid "Procore Connect (visible to administrators only): %s"
+msgstr ""
+
+#. translators: %s: settings screen URL.
+#: src/Admin/Notices.php:102
+msgid "Procore Connect imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
+msgstr ""
+
+#. translators: 1: environment label, 2: API host.
+#: src/Admin/Notices.php:141
+msgid "Procore Connect is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
 msgstr ""
 
 #: src/Api/Auth/AbstractAuth.php:101
@@ -774,26 +794,6 @@ msgstr ""
 #: src/Blocks/Registrar.php:149
 #: src/Blocks/Registrar.php:156
 msgid "Procore: %s"
-msgstr ""
-
-#: src/Admin/SettingsPage.php:59
-#: src/Admin/SettingsPage.php:156
-msgid "ProcoreWP"
-msgstr ""
-
-#. translators: %s: error message from the Procore API.
-#: src/Frontend/Shortcodes/AbstractShortcode.php:359
-msgid "ProcoreWP (visible to administrators only): %s"
-msgstr ""
-
-#. translators: %s: settings screen URL.
-#: src/Admin/Notices.php:102
-msgid "ProcoreWP imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
-msgstr ""
-
-#. translators: 1: environment label, 2: API host.
-#: src/Admin/Notices.php:141
-msgid "ProcoreWP is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
 msgstr ""
 
 #: src/Api/Environment.php:53
@@ -919,7 +919,7 @@ msgid "Redirect URI"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:586
-msgid "Register ProcoreWP blocks"
+msgid "Register Procore Connect blocks"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:229
@@ -998,7 +998,7 @@ msgstr ""
 msgid "Service Account (Client Credentials) — recommended"
 msgstr ""
 
-#: src/Plugin.php:162
+#: src/Plugin.php:158
 msgid "Settings"
 msgstr ""
 
@@ -1095,6 +1095,10 @@ msgstr ""
 msgid "Test connection"
 msgstr ""
 
+#: src/Rest/Controller.php:177
+msgid "The Procore Connect REST proxy is disabled."
+msgstr ""
+
 #: src/Admin/Notices.php:76
 msgid "The Procore authorization request was declined."
 msgstr ""
@@ -1115,10 +1119,6 @@ msgstr ""
 msgid "The Procore request could not be completed."
 msgstr ""
 
-#: src/Rest/Controller.php:177
-msgid "The ProcoreWP REST proxy is disabled."
-msgstr ""
-
 #. translators: 1: requested endpoint slug, 2: comma-separated list of endpoint slugs.
 #: src/Frontend/Shortcodes/DataShortcode.php:66
 msgid "The endpoint \"%1$s\" is not available to shortcodes. Available endpoints: %2$s"
@@ -1131,7 +1131,7 @@ msgstr ""
 
 #. translators: %s: requested field name.
 #: src/Frontend/Shortcodes/FieldShortcode.php:112
-msgid "The field \"%s\" is not available for display. Add it with the procorewp_allowed_project_fields filter."
+msgid "The field \"%s\" is not available for display. Add it with the procore_connect_allowed_project_fields filter."
 msgstr ""
 
 #: src/Frontend/Shortcodes/FieldShortcode.php:103
@@ -1151,7 +1151,7 @@ msgid "The stored secret is never shown. Leave this blank to keep the current va
 msgstr ""
 
 #: src/Admin/SettingsPage.php:445
-msgid "The stylesheet loads only on pages that actually contain ProcoreWP output. Turn it off entirely if your theme styles the markup itself."
+msgid "The stylesheet loads only on pages that actually contain Procore Connect output. Turn it off entirely if your theme styles the markup itself."
 msgstr ""
 
 #: src/Frontend/Shortcodes/AbstractShortcode.php:216

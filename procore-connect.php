@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       ProcoreWP
+ * Plugin Name:       Procore Connect
  * Plugin URI:        https://github.com/ibuilder/ProcoreWP
  * Description:       Connect WordPress to the Procore construction management platform. Display projects, teams, drawings, RFIs and more with shortcodes, blocks and a cached REST proxy.
  * Version:           2.0.0
@@ -10,28 +10,28 @@
  * Author URI:        https://github.com/ibuilder
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       procorewp
+ * Text Domain:       procore-connect
  * Domain Path:       /languages
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP;
+namespace ProcoreConnect;
 
 defined( 'ABSPATH' ) || exit;
 
 const VERSION = '2.0.0';
 
-define( 'PROCOREWP_VERSION', VERSION );
-define( 'PROCOREWP_FILE', __FILE__ );
-define( 'PROCOREWP_PATH', plugin_dir_path( __FILE__ ) );
-define( 'PROCOREWP_URL', plugin_dir_url( __FILE__ ) );
-define( 'PROCOREWP_BASENAME', plugin_basename( __FILE__ ) );
+define( 'PROCORE_CONNECT_VERSION', VERSION );
+define( 'PROCORE_CONNECT_FILE', __FILE__ );
+define( 'PROCORE_CONNECT_PATH', plugin_dir_path( __FILE__ ) );
+define( 'PROCORE_CONNECT_URL', plugin_dir_url( __FILE__ ) );
+define( 'PROCORE_CONNECT_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
- * PSR-4 autoloader for the ProcoreWP namespace.
+ * PSR-4 autoloader for the Procore Connect namespace.
  *
  * Avoids a Composer dependency at runtime so the distributed plugin ships
  * without a vendor directory.
@@ -47,7 +47,7 @@ function autoload( string $class_name ): void {
 	}
 
 	$relative = substr( $class_name, strlen( $prefix ) );
-	$path     = PROCOREWP_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+	$path     = PROCORE_CONNECT_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
 
 	if ( is_readable( $path ) ) {
 		require_once $path;

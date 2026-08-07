@@ -2,16 +2,16 @@
 /**
  * Renders a single field from a Procore project.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -70,7 +70,7 @@ final class FieldShortcode extends AbstractShortcode {
 		 *
 		 * @param array<int, string> $fields Allow-listed field paths.
 		 */
-		return array_values( array_unique( (array) apply_filters( 'procorewp_allowed_project_fields', $fields ) ) );
+		return array_values( array_unique( (array) apply_filters( 'procore_connect_allowed_project_fields', $fields ) ) );
 	}
 
 	/**
@@ -100,16 +100,16 @@ final class FieldShortcode extends AbstractShortcode {
 		$field = (string) $atts['field'];
 
 		if ( '' === $field ) {
-			return $this->error( new \WP_Error( 'procorewp_missing_field', __( 'The field attribute is required.', 'procorewp' ) ) );
+			return $this->error( new \WP_Error( 'procore_connect_missing_field', __( 'The field attribute is required.', 'procore-connect' ) ) );
 		}
 
 		if ( ! in_array( $field, self::allowed_fields(), true ) ) {
 			return $this->error(
 				new \WP_Error(
-					'procorewp_field_not_allowed',
+					'procore_connect_field_not_allowed',
 					sprintf(
 						/* translators: %s: requested field name. */
-						__( 'The field "%s" is not available for display. Add it with the procorewp_allowed_project_fields filter.', 'procorewp' ),
+						__( 'The field "%s" is not available for display. Add it with the procore_connect_allowed_project_fields filter.', 'procore-connect' ),
 						$field
 					)
 				)
@@ -130,7 +130,7 @@ final class FieldShortcode extends AbstractShortcode {
 				'label' => '' !== $atts['label'] ? (string) $atts['label'] : Format::label( $field ),
 				'value' => $value,
 				'field' => $field,
-				'class' => Format::classes( 'procorewp procorewp-field', (string) $atts['class'] ),
+				'class' => Format::classes( 'procore-connect procore-connect-field', (string) $atts['class'] ),
 				'atts'  => $atts,
 				'tag'   => $this->tag,
 			)
@@ -178,6 +178,6 @@ final class FieldShortcode extends AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'Not available.', 'procorewp' );
+			: __( 'Not available.', 'procore-connect' );
 	}
 }

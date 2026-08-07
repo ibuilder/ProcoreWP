@@ -6,12 +6,12 @@ nav_order: 9
 
 # WP-CLI
 
-All commands live under `wp procorewp` and are available whenever WP-CLI is.
+All commands live under `wp procore-connect` and are available whenever WP-CLI is.
 
 ## Verify the connection
 
 ```bash
-wp procorewp test
+wp procore-connect test
 ```
 
 Runs the same diagnostic as the admin screen: configuration, token, identity, company
@@ -45,13 +45,13 @@ permission at install time. Fix it in Procore's App Management, not here.
 Exits non-zero when a check fails, so it works as a deploy gate:
 
 ```bash
-wp procorewp test || exit 1
+wp procore-connect test || exit 1
 ```
 
 ## Configuration summary
 
 ```bash
-wp procorewp doctor
+wp procore-connect doctor
 ```
 
 Prints environment, hosts, redirect URI, auth mode, whether credentials are set, default
@@ -61,9 +61,9 @@ printed — safe to paste into a support ticket.
 ## List projects
 
 ```bash
-wp procorewp projects
-wp procorewp projects --company=4242 --format=csv
-wp procorewp projects --format=json > projects.json
+wp procore-connect projects
+wp procore-connect projects --company=4242 --format=csv
+wp procore-connect projects --format=json > projects.json
 ```
 
 Follows pagination, so this returns every project rather than the first page.
@@ -76,23 +76,23 @@ Follows pagination, so this returns every project rather than the first page.
 ## Cache
 
 ```bash
-wp procorewp cache-clear
-wp procorewp cache-clear --group=rfis
-wp procorewp cache-warm
+wp procore-connect cache-clear
+wp procore-connect cache-clear --group=rfis
+wp procore-connect cache-warm
 ```
 
 `cache-warm` fetches every project for the default company and caches the result, so the
 first visitor after a deploy does not pay for the API call. Useful in a deploy script:
 
 ```bash
-wp procorewp cache-clear
-wp procorewp cache-warm
+wp procore-connect cache-clear
+wp procore-connect cache-warm
 ```
 
 ## Reset the token
 
 ```bash
-wp procorewp reset-token
+wp procore-connect reset-token
 ```
 
 Discards stored tokens and resets the circuit breaker. The next request re-authenticates.
@@ -104,7 +104,7 @@ Procore** again.
 ## In multisite
 
 ```bash
-wp procorewp test --url=https://example.com/site-two
+wp procore-connect test --url=https://example.com/site-two
 ```
 
 Settings, credentials and cache are per-site.

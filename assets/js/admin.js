@@ -1,15 +1,15 @@
 /**
- * ProcoreWP admin behaviour.
+ * Procore Connect admin behaviour.
  *
  * Plain ES5 with no build step, so the shipped file is the source file.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 ( function () {
 	'use strict';
 
-	var config = window.procorewpAdmin || {};
+	var config = window.procoreConnectAdmin || {};
 	var strings = config.strings || {};
 
 	/**
@@ -79,7 +79,7 @@
 	 * @param {Object} report Report payload.
 	 */
 	function renderReport( report ) {
-		var target = document.getElementById( 'procorewp-test-results' );
+		var target = document.getElementById( 'procore-connect-test-results' );
 
 		if ( ! target ) {
 			return;
@@ -89,18 +89,18 @@
 
 		var summary = el(
 			'div',
-			'notice notice-' + ( report.ok ? 'success' : 'warning' ) + ' procorewp-summary'
+			'notice notice-' + ( report.ok ? 'success' : 'warning' ) + ' procore-connect-summary'
 		);
 		summary.appendChild( el( 'p', '', report.summary ) );
 		target.appendChild( summary );
 
-		var list = el( 'ul', 'procorewp-steps' );
+		var list = el( 'ul', 'procore-connect-steps' );
 
 		( report.steps || [] ).forEach( function ( step ) {
-			var item = el( 'li', 'procorewp-step procorewp-step--' + ( step.ok ? 'ok' : 'fail' ) );
+			var item = el( 'li', 'procore-connect-step procore-connect-step--' + ( step.ok ? 'ok' : 'fail' ) );
 
 			item.appendChild( el( 'strong', '', step.label ) );
-			item.appendChild( el( 'span', 'procorewp-step__message', step.message ) );
+			item.appendChild( el( 'span', 'procore-connect-step__message', step.message ) );
 			list.appendChild( item );
 		} );
 
@@ -112,7 +112,7 @@
 
 		target.appendChild( el( 'h3', '', 'Endpoint permissions' ) );
 
-		var table = el( 'table', 'widefat striped procorewp-probes' );
+		var table = el( 'table', 'widefat striped procore-connect-probes' );
 		var tbody = document.createElement( 'tbody' );
 
 		report.probes.forEach( function ( probe ) {
@@ -120,7 +120,7 @@
 
 			row.appendChild( el( 'td', '', probe.label ) );
 			row.appendChild(
-				el( 'td', 'procorewp-probe--' + probe.status, probe.message )
+				el( 'td', 'procore-connect-probe--' + probe.status, probe.message )
 			);
 			row.appendChild( el( 'td', '', probe.permission ) );
 			tbody.appendChild( row );
@@ -134,7 +134,7 @@
 	 * Wire the connection test button.
 	 */
 	function bindTest() {
-		var button = document.getElementById( 'procorewp-test' );
+		var button = document.getElementById( 'procore-connect-test' );
 
 		if ( ! button ) {
 			return;
@@ -147,7 +147,7 @@
 			button.textContent = strings.testing;
 
 			post(
-				'procorewp_test_connection',
+				'procore_connect_test_connection',
 				{},
 				function ( report ) {
 					button.disabled = false;
@@ -167,8 +167,8 @@
 	 * Wire the cache purge button.
 	 */
 	function bindCache() {
-		var button = document.getElementById( 'procorewp-clear-cache' );
-		var message = document.getElementById( 'procorewp-cache-message' );
+		var button = document.getElementById( 'procore-connect-clear-cache' );
+		var message = document.getElementById( 'procore-connect-cache-message' );
 
 		if ( ! button ) {
 			return;
@@ -182,7 +182,7 @@
 			}
 
 			post(
-				'procorewp_clear_cache',
+				'procore_connect_clear_cache',
 				{},
 				function ( data ) {
 					button.disabled = false;
@@ -206,9 +206,9 @@
 	 * Wire the company lookup button.
 	 */
 	function bindCompanies() {
-		var button = document.getElementById( 'procorewp-load-companies' );
-		var list = document.getElementById( 'procorewp-company-list' );
-		var input = document.getElementById( 'procorewp-company-id' );
+		var button = document.getElementById( 'procore-connect-load-companies' );
+		var list = document.getElementById( 'procore-connect-company-list' );
+		var input = document.getElementById( 'procore-connect-company-id' );
 
 		if ( ! button || ! list ) {
 			return;
@@ -219,7 +219,7 @@
 			list.textContent = strings.loading;
 
 			post(
-				'procorewp_companies',
+				'procore_connect_companies',
 				{},
 				function ( data ) {
 					button.disabled = false;
@@ -260,7 +260,7 @@
 	 * Wire the disconnect button.
 	 */
 	function bindDisconnect() {
-		var button = document.getElementById( 'procorewp-disconnect' );
+		var button = document.getElementById( 'procore-connect-disconnect' );
 
 		if ( ! button ) {
 			return;
@@ -274,7 +274,7 @@
 			button.disabled = true;
 
 			post(
-				'procorewp_disconnect',
+				'procore_connect_disconnect',
 				{},
 				function () {
 					window.location.reload();
@@ -291,22 +291,22 @@
 	 */
 	function bindCopy() {
 		document.addEventListener( 'click', function ( event ) {
-			var trigger = event.target.closest( '[data-procorewp-copy], [data-procorewp-copy-button]' );
+			var trigger = event.target.closest( '[data-procore-connect-copy], [data-procore-connect-copy-button]' );
 
 			if ( ! trigger ) {
 				return;
 			}
 
-			var source = trigger.hasAttribute( 'data-procorewp-copy' )
+			var source = trigger.hasAttribute( 'data-procore-connect-copy' )
 				? trigger
-				: trigger.parentNode.querySelector( '[data-procorewp-copy]' );
+				: trigger.parentNode.querySelector( '[data-procore-connect-copy]' );
 
 			if ( ! source || ! window.navigator.clipboard ) {
 				return;
 			}
 
 			window.navigator.clipboard
-				.writeText( source.getAttribute( 'data-procorewp-copy' ) )
+				.writeText( source.getAttribute( 'data-procore-connect-copy' ) )
 				.then( function () {
 					source.classList.add( 'is-copied' );
 					window.setTimeout( function () {

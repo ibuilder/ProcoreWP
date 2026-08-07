@@ -2,15 +2,15 @@
 /**
  * End-to-end shortcode rendering.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Frontend\Shortcodes\Registrar;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Frontend\Shortcodes\Registrar;
 
 /**
  * Renders each shortcode against canned API payloads to confirm attribute
@@ -67,7 +67,7 @@ final class ShortcodeTest extends TestCase {
 
 		$this->assertStringContainsString( 'Harbour Bridge', $html );
 		$this->assertStringContainsString( 'Sydney, NSW', $html );
-		$this->assertStringContainsString( 'procorewp-table', $html );
+		$this->assertStringContainsString( 'procore-connect-table', $html );
 	}
 
 	/**
@@ -299,7 +299,7 @@ final class ShortcodeTest extends TestCase {
 	 * @return void
 	 */
 	public function test_project_data_rejects_fields_outside_the_allow_list(): void {
-		$GLOBALS['procorewp_test_can'] = true;
+		$GLOBALS['procore_connect_test_can'] = true;
 
 		$this->client_returning(
 			array(
@@ -360,7 +360,7 @@ final class ShortcodeTest extends TestCase {
 	 * @return void
 	 */
 	public function test_data_shortcode_refuses_unpublished_endpoints(): void {
-		$GLOBALS['procorewp_test_can'] = true;
+		$GLOBALS['procore_connect_test_can'] = true;
 
 		$this->client_returning( array() );
 
@@ -429,7 +429,7 @@ final class ShortcodeTest extends TestCase {
 	 * @return void
 	 */
 	public function test_administrators_see_the_real_error(): void {
-		$GLOBALS['procorewp_test_can'] = true;
+		$GLOBALS['procore_connect_test_can'] = true;
 
 		$this->client_returning(
 			array( $this->response( array( 'message' => 'Directory permission required' ), 403 ) )

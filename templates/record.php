@@ -2,43 +2,43 @@
 /**
  * Renders a single Procore record as a labelled detail list.
  *
- * Override by copying this file to `yourtheme/procorewp/record.php`.
+ * Override by copying this file to `yourtheme/procore-connect/record.php`.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  *
  * @var array<string, mixed> $data Template data supplied by the Renderer.
  */
 
 declare( strict_types = 1 );
 
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
-$procorewp_record     = (array) ( $data['record'] ?? array() );
-$procorewp_columns    = (array) ( $data['columns'] ?? array() );
-$procorewp_title      = (string) ( $data['title'] ?? '' );
-$procorewp_class      = (string) ( $data['class'] ?? 'procorewp' );
-$procorewp_show_email = ! empty( $data['show_email'] );
+$procore_connect_record     = (array) ( $data['record'] ?? array() );
+$procore_connect_columns    = (array) ( $data['columns'] ?? array() );
+$procore_connect_title      = (string) ( $data['title'] ?? '' );
+$procore_connect_class      = (string) ( $data['class'] ?? 'procore-connect' );
+$procore_connect_show_email = ! empty( $data['show_email'] );
 
-if ( empty( $procorewp_record ) ) {
+if ( empty( $procore_connect_record ) ) {
 	return;
 }
 ?>
-<div class="<?php echo esc_attr( $procorewp_class ); ?>">
-	<?php if ( '' !== $procorewp_title ) : ?>
-		<h2 class="procorewp-title"><?php echo esc_html( $procorewp_title ); ?></h2>
+<div class="<?php echo esc_attr( $procore_connect_class ); ?>">
+	<?php if ( '' !== $procore_connect_title ) : ?>
+		<h2 class="procore-connect-title"><?php echo esc_html( $procore_connect_title ); ?></h2>
 	<?php endif; ?>
 
-	<dl class="procorewp-details">
-		<?php foreach ( $procorewp_columns as $procorewp_column ) : ?>
-			<?php $procorewp_value = Format::cell( $procorewp_record, $procorewp_column, $procorewp_show_email ); ?>
-			<?php if ( '' === $procorewp_value || '—' === $procorewp_value ) : ?>
+	<dl class="procore-connect-details">
+		<?php foreach ( $procore_connect_columns as $procore_connect_column ) : ?>
+			<?php $procore_connect_value = Format::cell( $procore_connect_record, $procore_connect_column, $procore_connect_show_email ); ?>
+			<?php if ( '' === $procore_connect_value || '—' === $procore_connect_value ) : ?>
 				<?php continue; ?>
 			<?php endif; ?>
-			<div class="procorewp-detail">
-				<dt><?php echo esc_html( (string) ( $procorewp_column['label'] ?? '' ) ); ?></dt>
-				<dd><?php echo wp_kses_post( $procorewp_value ); ?></dd>
+			<div class="procore-connect-detail">
+				<dt><?php echo esc_html( (string) ( $procore_connect_column['label'] ?? '' ) ); ?></dt>
+				<dd><?php echo wp_kses_post( $procore_connect_value ); ?></dd>
 			</div>
 		<?php endforeach; ?>
 	</dl>

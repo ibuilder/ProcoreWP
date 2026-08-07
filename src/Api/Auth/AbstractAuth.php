@@ -2,17 +2,17 @@
 /**
  * Shared behaviour for the Procore OAuth grant types.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api\Auth;
+namespace ProcoreConnect\Api\Auth;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Logger;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -36,8 +36,8 @@ abstract class AbstractAuth implements AuthInterface {
 
 		if ( '' === $client_id || '' === $client_secret ) {
 			return new \WP_Error(
-				'procorewp_missing_credentials',
-				__( 'Enter your Procore Client ID and Client Secret before connecting.', 'procorewp' )
+				'procore_connect_missing_credentials',
+				__( 'Enter your Procore Client ID and Client Secret before connecting.', 'procore-connect' )
 			);
 		}
 
@@ -71,8 +71,8 @@ abstract class AbstractAuth implements AuthInterface {
 			Logger::error( 'Token endpoint returned an unreadable body.', array( 'status' => $code ) );
 
 			return new \WP_Error(
-				'procorewp_token_unreadable',
-				__( 'Procore returned an unreadable authentication response.', 'procorewp' )
+				'procore_connect_token_unreadable',
+				__( 'Procore returned an unreadable authentication response.', 'procore-connect' )
 			);
 		}
 
@@ -81,7 +81,7 @@ abstract class AbstractAuth implements AuthInterface {
 
 			if ( '' === $message ) {
 				/* translators: %d: HTTP status code. */
-				$message = sprintf( __( 'Procore rejected the authentication request (HTTP %d).', 'procorewp' ), $code );
+				$message = sprintf( __( 'Procore rejected the authentication request (HTTP %d).', 'procore-connect' ), $code );
 			}
 
 			Logger::error(
@@ -92,13 +92,13 @@ abstract class AbstractAuth implements AuthInterface {
 				)
 			);
 
-			return new \WP_Error( 'procorewp_token_rejected', $message, array( 'status' => $code ) );
+			return new \WP_Error( 'procore_connect_token_rejected', $message, array( 'status' => $code ) );
 		}
 
 		if ( empty( $decoded['access_token'] ) ) {
 			return new \WP_Error(
-				'procorewp_token_missing',
-				__( 'Procore did not return an access token.', 'procorewp' )
+				'procore_connect_token_missing',
+				__( 'Procore did not return an access token.', 'procore-connect' )
 			);
 		}
 
@@ -112,8 +112,8 @@ abstract class AbstractAuth implements AuthInterface {
 	 */
 	protected function user_agent(): string {
 		return sprintf(
-			'ProcoreWP/%s; WordPress/%s; %s',
-			PROCOREWP_VERSION,
+			'Procore Connect/%s; WordPress/%s; %s',
+			PROCORE_CONNECT_VERSION,
 			get_bloginfo( 'version' ),
 			home_url( '/' )
 		);

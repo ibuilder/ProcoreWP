@@ -10,15 +10,20 @@ nav_order: 11
 
 ### 1. Activate the plugin once
 
-The main plugin file was renamed from `index.php` to `procorewp.php`. WordPress identifies
-a plugin by its file path, so it treats 2.0.0 as a different plugin and shows it as
-inactive.
+Two renames happened, and both were unavoidable.
 
-Go to **Plugins**, find **ProcoreWP**, and activate it. Your settings are imported
+**The plugin is now called Procore Connect**, with the slug `procore-connect`. The old
+name contained "wp", which wordpress.org disallows outright in both a plugin name and a
+slug — keeping it would have ruled out the plugin directory permanently. The GitHub
+repository is unchanged and still lives at
+[ibuilder/ProcoreWP](https://github.com/ibuilder/ProcoreWP).
+
+**The main file moved** from `index.php` to `procore-connect.php`, because a main file
+called `index.php` fails Plugin Check. WordPress identifies a plugin by its file path, so
+it treats 2.0.0 as a different plugin and shows it as inactive.
+
+Go to **Plugins**, find **Procore Connect**, and activate it. Your settings are imported
 automatically by the upgrade routine — you do not need to re-enter anything.
-
-The rename was unavoidable: a main file called `index.php` fails Plugin Check and cannot
-be submitted to wordpress.org.
 
 ### 2. Re-run the connection test
 
@@ -76,7 +81,7 @@ If you edited `assets/css/procore-integration.css` inside the plugin folder — 
 1.x README instructed — those changes are gone, as they were on every previous update.
 
 Copy them into **Procore → Display → Custom CSS** before or after upgrading. Class names
-have changed from `procore-*` to `procorewp-*`; the mapping is in
+have changed from `procore-*` to `procore-connect-*`; the mapping is in
 [Templating & styling](../templating/#styling-reference).
 
 ### Email addresses stop appearing

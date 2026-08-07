@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<ruleset name="ProcoreWP">
-	<description>Coding standards for the ProcoreWP plugin.</description>
+<ruleset name="Procore Connect">
+	<description>Coding standards for the Procore Connect plugin.</description>
 
 	<file>.</file>
 
@@ -26,7 +26,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="procorewp"/>
+				<element value="procore-connect"/>
 			</property>
 		</properties>
 	</rule>
@@ -34,9 +34,9 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<property name="prefixes" type="array">
-				<element value="procorewp"/>
-				<element value="PROCOREWP_"/>
-				<element value="ProcoreWP"/>
+				<element value="procore_connect"/>
+				<element value="PROCORE_CONNECT_"/>
+				<element value="ProcoreConnect"/>
 			</property>
 		</properties>
 	</rule>

@@ -2,14 +2,14 @@
 /**
  * Procore environment and region host resolution.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api;
+namespace ProcoreConnect\Api;
 
-use ProcoreWP\Admin\Settings;
+use ProcoreConnect\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -50,10 +50,10 @@ final class Environment {
 	 */
 	public static function choices(): array {
 		return array(
-			'production'      => __( 'Production', 'procorewp' ),
-			'sandbox'         => __( 'Developer Sandbox', 'procorewp' ),
-			'sandbox_monthly' => __( 'Monthly Sandbox', 'procorewp' ),
-			'custom'          => __( 'Custom (regional or federal zone)', 'procorewp' ),
+			'production'      => __( 'Production', 'procore-connect' ),
+			'sandbox'         => __( 'Developer Sandbox', 'procore-connect' ),
+			'sandbox_monthly' => __( 'Monthly Sandbox', 'procore-connect' ),
+			'custom'          => __( 'Custom (regional or federal zone)', 'procore-connect' ),
 		);
 	}
 
@@ -88,7 +88,7 @@ final class Environment {
 		 * @param string $host        Login host URL without a trailing slash.
 		 * @param string $environment Active environment identifier.
 		 */
-		return (string) apply_filters( 'procorewp_login_host', self::ENVIRONMENTS[ $environment ]['login'], $environment );
+		return (string) apply_filters( 'procore_connect_login_host', self::ENVIRONMENTS[ $environment ]['login'], $environment );
 	}
 
 	/**
@@ -111,7 +111,7 @@ final class Environment {
 		 * @param string $host        API host URL without a trailing slash.
 		 * @param string $environment Active environment identifier.
 		 */
-		return (string) apply_filters( 'procorewp_api_host', self::ENVIRONMENTS[ $environment ]['api'], $environment );
+		return (string) apply_filters( 'procore_connect_api_host', self::ENVIRONMENTS[ $environment ]['api'], $environment );
 	}
 
 	/**
@@ -148,8 +148,8 @@ final class Environment {
 		 * @param string $uri Redirect URI.
 		 */
 		return (string) apply_filters(
-			'procorewp_redirect_uri',
-			admin_url( 'admin-post.php?action=procorewp_oauth_callback' )
+			'procore_connect_redirect_uri',
+			admin_url( 'admin-post.php?action=procore_connect_oauth_callback' )
 		);
 	}
 

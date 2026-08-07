@@ -2,16 +2,16 @@
 /**
  * Renders projects with coordinates as an accessible location list.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -86,7 +86,7 @@ final class MapShortcode extends CollectionShortcode {
 				'points' => $points,
 				'title'  => $this->title( $atts ),
 				'link'   => in_array( strtolower( (string) $atts['link'] ), array( 'true', '1', 'yes', 'on' ), true ),
-				'class'  => Format::classes( 'procorewp procorewp-map', (string) $atts['class'] ),
+				'class'  => Format::classes( 'procore-connect procore-connect-map', (string) $atts['class'] ),
 				'atts'   => $atts,
 				'tag'    => $this->tag,
 			)
@@ -102,6 +102,6 @@ final class MapShortcode extends CollectionShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No project locations are available.', 'procorewp' );
+			: __( 'No project locations are available.', 'procore-connect' );
 	}
 }

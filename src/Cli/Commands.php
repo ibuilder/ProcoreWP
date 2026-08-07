@@ -2,20 +2,20 @@
 /**
  * WP-CLI commands.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Cli;
+namespace ProcoreConnect\Cli;
 
-use ProcoreWP\Admin\ConnectionTester;
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Arr;
+use ProcoreConnect\Admin\ConnectionTester;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Arr;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ final class Commands {
 	 * @return void
 	 */
 	public static function register(): void {
-		\WP_CLI::add_command( 'procorewp', self::class );
+		\WP_CLI::add_command( 'procore-connect', self::class );
 	}
 
 	/**
@@ -38,7 +38,7 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp test
+	 *     wp procore-connect test
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -84,8 +84,8 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp cache-clear
-	 *     wp procorewp cache-clear --group=rfis
+	 *     wp procore-connect cache-clear
+	 *     wp procore-connect cache-clear --group=rfis
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -98,7 +98,7 @@ final class Commands {
 		\WP_CLI::success(
 			sprintf(
 				/* translators: %d: number of cache entries removed. */
-				_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procorewp' ),
+				_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procore-connect' ),
 				$removed
 			)
 		);
@@ -109,7 +109,7 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp cache-warm
+	 *     wp procore-connect cache-warm
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -160,7 +160,7 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp projects --format=csv
+	 *     wp procore-connect projects --format=csv
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -189,7 +189,7 @@ final class Commands {
 				'id'       => absint( Arr::get( $project, 'id', 0 ) ),
 				'name'     => Arr::str( $project, 'name' ),
 				'number'   => Arr::str( $project, 'project_number' ),
-				'location' => \ProcoreWP\Support\Format::location( $project ),
+				'location' => \ProcoreConnect\Support\Format::location( $project ),
 				'active'   => Arr::get( $project, 'active' ) ? 'yes' : 'no',
 			);
 		}
@@ -206,7 +206,7 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp reset-token
+	 *     wp procore-connect reset-token
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -224,7 +224,7 @@ final class Commands {
 	 *
 	 * ## EXAMPLES
 	 *
-	 *     wp procorewp doctor
+	 *     wp procore-connect doctor
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -237,7 +237,7 @@ final class Commands {
 		$rows = array(
 			array(
 				'setting' => 'Plugin version',
-				'value'   => PROCOREWP_VERSION,
+				'value'   => PROCORE_CONNECT_VERSION,
 			),
 			array(
 				'setting' => 'Environment',

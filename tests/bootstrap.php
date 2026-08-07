@@ -7,7 +7,7 @@
  * test actually calls are defined, and each behaves like its Core counterpart
  * closely enough for the assertion it supports.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
@@ -16,15 +16,15 @@ require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/wp-shims.php';
 
 define( 'ABSPATH', __DIR__ . '/' );
-define( 'PROCOREWP_VERSION', '2.0.0' );
-define( 'PROCOREWP_FILE', dirname( __DIR__ ) . '/procorewp.php' );
-define( 'PROCOREWP_PATH', dirname( __DIR__ ) . '/' );
-define( 'PROCOREWP_URL', 'https://example.test/wp-content/plugins/procorewp/' );
-define( 'PROCOREWP_BASENAME', 'procorewp/procorewp.php' );
+define( 'PROCORE_CONNECT_VERSION', '2.0.0' );
+define( 'PROCORE_CONNECT_FILE', dirname( __DIR__ ) . '/procore-connect.php' );
+define( 'PROCORE_CONNECT_PATH', dirname( __DIR__ ) . '/' );
+define( 'PROCORE_CONNECT_URL', 'https://example.test/wp-content/plugins/procore-connect/' );
+define( 'PROCORE_CONNECT_BASENAME', 'procore-connect/procore-connect.php' );
 
 spl_autoload_register(
 	static function ( string $class_name ): void {
-		$prefix = 'ProcoreWP\\';
+		$prefix = 'ProcoreConnect\\';
 
 		if ( 0 !== strpos( $class_name, $prefix ) ) {
 			return;
@@ -35,7 +35,7 @@ spl_autoload_register(
 		if ( 0 === strpos( $relative, 'Tests\\' ) ) {
 			$path = __DIR__ . '/' . str_replace( '\\', '/', substr( $relative, strlen( 'Tests\\' ) ) ) . '.php';
 		} else {
-			$path = PROCOREWP_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
+			$path = PROCORE_CONNECT_PATH . 'src/' . str_replace( '\\', '/', $relative ) . '.php';
 		}
 
 		if ( is_readable( $path ) ) {

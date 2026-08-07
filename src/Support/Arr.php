@@ -2,12 +2,12 @@
 /**
  * Array helpers used when reading sparse Procore payloads.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Support;
+namespace ProcoreConnect\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -79,7 +79,7 @@ final class Arr {
 		}
 
 		if ( is_bool( $value ) ) {
-			return $value ? __( 'Yes', 'procorewp' ) : __( 'No', 'procorewp' );
+			return $value ? __( 'Yes', 'procore-connect' ) : __( 'No', 'procore-connect' );
 		}
 
 		if ( is_scalar( $value ) ) {

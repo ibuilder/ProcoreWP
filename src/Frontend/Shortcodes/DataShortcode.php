@@ -2,15 +2,15 @@
 /**
  * Generic allow-listed endpoint reader.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Api\Endpoints;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Api\Endpoints;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -49,10 +49,10 @@ final class DataShortcode extends CollectionShortcode {
 
 		if ( '' === $slug ) {
 			return new \WP_Error(
-				'procorewp_missing_endpoint',
+				'procore_connect_missing_endpoint',
 				sprintf(
 					/* translators: %s: comma-separated list of endpoint slugs. */
-					__( 'The endpoint attribute is required. Available endpoints: %s', 'procorewp' ),
+					__( 'The endpoint attribute is required. Available endpoints: %s', 'procore-connect' ),
 					implode( ', ', array_keys( Endpoints::public_endpoints() ) )
 				)
 			);
@@ -60,10 +60,10 @@ final class DataShortcode extends CollectionShortcode {
 
 		if ( ! array_key_exists( $slug, Endpoints::public_endpoints() ) ) {
 			return new \WP_Error(
-				'procorewp_endpoint_not_public',
+				'procore_connect_endpoint_not_public',
 				sprintf(
 					/* translators: 1: requested endpoint slug, 2: comma-separated list of endpoint slugs. */
-					__( 'The endpoint "%1$s" is not available to shortcodes. Available endpoints: %2$s', 'procorewp' ),
+					__( 'The endpoint "%1$s" is not available to shortcodes. Available endpoints: %2$s', 'procore-connect' ),
 					$slug,
 					implode( ', ', array_keys( Endpoints::public_endpoints() ) )
 				)

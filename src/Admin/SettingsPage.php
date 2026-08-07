@@ -2,21 +2,21 @@
 /**
  * The plugin's admin screens.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Endpoints;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Frontend\Shortcodes\Registrar;
-use ProcoreWP\Support\Encryption;
-use ProcoreWP\Support\Logger;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Endpoints;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Frontend\Shortcodes\Registrar;
+use ProcoreConnect\Support\Encryption;
+use ProcoreConnect\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,7 +31,7 @@ final class SettingsPage {
 	/**
 	 * Menu slug.
 	 */
-	public const SLUG = 'procorewp';
+	public const SLUG = 'procore-connect';
 
 	/**
 	 * Capability required to view and change settings.
@@ -56,8 +56,8 @@ final class SettingsPage {
 	 */
 	public function add_menu(): void {
 		add_menu_page(
-			__( 'ProcoreWP', 'procorewp' ),
-			__( 'Procore', 'procorewp' ),
+			__( 'Procore Connect', 'procore-connect' ),
+			__( 'Procore', 'procore-connect' ),
 			self::CAPABILITY,
 			self::SLUG,
 			array( $this, 'render' ),
@@ -96,36 +96,36 @@ final class SettingsPage {
 		}
 
 		wp_enqueue_script(
-			'procorewp-admin',
-			PROCOREWP_URL . 'assets/js/admin.js',
+			'procore-connect-admin',
+			PROCORE_CONNECT_URL . 'assets/js/admin.js',
 			array( 'wp-i18n' ),
-			PROCOREWP_VERSION,
+			PROCORE_CONNECT_VERSION,
 			true
 		);
 
 		wp_localize_script(
-			'procorewp-admin',
-			'procorewpAdmin',
+			'procore-connect-admin',
+			'procoreConnectAdmin',
 			array(
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( Ajax::NONCE ),
 				'strings' => array(
-					'testing'   => __( 'Running checks…', 'procorewp' ),
-					'clearing'  => __( 'Clearing…', 'procorewp' ),
-					'loading'   => __( 'Loading…', 'procorewp' ),
-					'failed'    => __( 'The request failed. Check your connection and try again.', 'procorewp' ),
-					'copied'    => __( 'Copied', 'procorewp' ),
-					'confirmed' => __( 'Disconnect this site from Procore?', 'procorewp' ),
-					'skipped'   => __( 'Skipped', 'procorewp' ),
+					'testing'   => __( 'Running checks…', 'procore-connect' ),
+					'clearing'  => __( 'Clearing…', 'procore-connect' ),
+					'loading'   => __( 'Loading…', 'procore-connect' ),
+					'failed'    => __( 'The request failed. Check your connection and try again.', 'procore-connect' ),
+					'copied'    => __( 'Copied', 'procore-connect' ),
+					'confirmed' => __( 'Disconnect this site from Procore?', 'procore-connect' ),
+					'skipped'   => __( 'Skipped', 'procore-connect' ),
 				),
 			)
 		);
 
 		wp_enqueue_style(
-			'procorewp-admin',
-			PROCOREWP_URL . 'assets/css/admin.css',
+			'procore-connect-admin',
+			PROCORE_CONNECT_URL . 'assets/css/admin.css',
 			array(),
-			PROCOREWP_VERSION
+			PROCORE_CONNECT_VERSION
 		);
 	}
 
@@ -136,24 +136,24 @@ final class SettingsPage {
 	 */
 	public function render(): void {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to view this page.', 'procorewp' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to view this page.', 'procore-connect' ), '', array( 'response' => 403 ) );
 		}
 
 		$tabs = array(
-			'connection' => __( 'Connection', 'procorewp' ),
-			'display'    => __( 'Display', 'procorewp' ),
-			'cache'      => __( 'Cache', 'procorewp' ),
-			'shortcodes' => __( 'Shortcodes', 'procorewp' ),
-			'status'     => __( 'Status', 'procorewp' ),
-			'tools'      => __( 'Tools', 'procorewp' ),
+			'connection' => __( 'Connection', 'procore-connect' ),
+			'display'    => __( 'Display', 'procore-connect' ),
+			'cache'      => __( 'Cache', 'procore-connect' ),
+			'shortcodes' => __( 'Shortcodes', 'procore-connect' ),
+			'status'     => __( 'Status', 'procore-connect' ),
+			'tools'      => __( 'Tools', 'procore-connect' ),
 		);
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only tab selector.
 		$active = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'connection';
 		$active = array_key_exists( $active, $tabs ) ? $active : 'connection';
 
-		echo '<div class="wrap procorewp-admin">';
-		echo '<h1>' . esc_html__( 'ProcoreWP', 'procorewp' ) . '</h1>';
+		echo '<div class="wrap procore-connect-admin">';
+		echo '<h1>' . esc_html__( 'Procore Connect', 'procore-connect' ) . '</h1>';
 
 		echo '<nav class="nav-tab-wrapper">';
 
@@ -225,27 +225,27 @@ final class SettingsPage {
 
 		if ( 'authorization_code' === $auth_mode ) {
 			echo '<hr>';
-			echo '<h2>' . esc_html__( 'Authorize this site', 'procorewp' ) . '</h2>';
-			echo '<p>' . esc_html__( 'Register this exact redirect URI in the Procore Developer Portal before connecting:', 'procorewp' ) . '</p>';
+			echo '<h2>' . esc_html__( 'Authorize this site', 'procore-connect' ) . '</h2>';
+			echo '<p>' . esc_html__( 'Register this exact redirect URI in the Procore Developer Portal before connecting:', 'procore-connect' ) . '</p>';
 
 			printf(
-				'<p><code class="procorewp-copy" data-procorewp-copy="%1$s">%1$s</code> <button type="button" class="button button-small" data-procorewp-copy-button>%2$s</button></p>',
+				'<p><code class="procore-connect-copy" data-procore-connect-copy="%1$s">%1$s</code> <button type="button" class="button button-small" data-procore-connect-copy-button>%2$s</button></p>',
 				esc_attr( Environment::redirect_uri() ),
-				esc_html__( 'Copy', 'procorewp' )
+				esc_html__( 'Copy', 'procore-connect' )
 			);
 
 			echo '<p>';
 
 			if ( '' !== TokenStore::refresh_token() ) {
 				printf(
-					'<button type="button" class="button" id="procorewp-disconnect">%s</button>',
-					esc_html__( 'Disconnect from Procore', 'procorewp' )
+					'<button type="button" class="button" id="procore-connect-disconnect">%s</button>',
+					esc_html__( 'Disconnect from Procore', 'procore-connect' )
 				);
 			} else {
 				printf(
 					'<a class="button button-primary" href="%s">%s</a>',
-					esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=procorewp_oauth_connect' ), OAuthController::NONCE ) ),
-					esc_html__( 'Connect to Procore', 'procorewp' )
+					esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=procore_connect_oauth_connect' ), OAuthController::NONCE ) ),
+					esc_html__( 'Connect to Procore', 'procore-connect' )
 				);
 			}
 
@@ -253,13 +253,13 @@ final class SettingsPage {
 		}//end if
 
 		echo '<hr>';
-		echo '<h2>' . esc_html__( 'Verify the connection', 'procorewp' ) . '</h2>';
-		echo '<p>' . esc_html__( 'Runs through authentication, company access and every endpoint the shortcodes use, so you can see exactly which Procore tool permissions your credentials have.', 'procorewp' ) . '</p>';
+		echo '<h2>' . esc_html__( 'Verify the connection', 'procore-connect' ) . '</h2>';
+		echo '<p>' . esc_html__( 'Runs through authentication, company access and every endpoint the shortcodes use, so you can see exactly which Procore tool permissions your credentials have.', 'procore-connect' ) . '</p>';
 		printf(
-			'<p><button type="button" class="button button-primary" id="procorewp-test">%s</button></p>',
-			esc_html__( 'Test connection', 'procorewp' )
+			'<p><button type="button" class="button button-primary" id="procore-connect-test">%s</button></p>',
+			esc_html__( 'Test connection', 'procore-connect' )
 		);
-		echo '<div id="procorewp-test-results" aria-live="polite"></div>';
+		echo '<div id="procore-connect-test-results" aria-live="polite"></div>';
 	}
 
 	/**
@@ -273,11 +273,11 @@ final class SettingsPage {
 		$has_secret = '' !== Settings::client_secret();
 
 		$this->row(
-			__( 'Authentication', 'procorewp' ),
+			__( 'Authentication', 'procore-connect' ),
 			function () use ( $settings ) {
 				$modes = array(
-					'client_credentials' => __( 'Service Account (Client Credentials) — recommended', 'procorewp' ),
-					'authorization_code' => __( 'User Account (Authorization Code)', 'procorewp' ),
+					'client_credentials' => __( 'Service Account (Client Credentials) — recommended', 'procore-connect' ),
+					'authorization_code' => __( 'User Account (Authorization Code)', 'procore-connect' ),
 				);
 
 				foreach ( $modes as $value => $label ) {
@@ -290,12 +290,12 @@ final class SettingsPage {
 					);
 				}
 
-				echo '<p class="description">' . esc_html__( 'A service account keeps working when staff change and is installed by a Procore company administrator from the App Marketplace. A user connection inherits one person\'s permissions and breaks if their access is revoked.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'A service account keeps working when staff change and is installed by a Procore company administrator from the App Marketplace. A user connection inherits one person\'s permissions and breaks if their access is revoked.', 'procore-connect' ) . '</p>';
 			}
 		);
 
 		$this->row(
-			__( 'Environment', 'procorewp' ),
+			__( 'Environment', 'procore-connect' ),
 			function () use ( $settings ) {
 				printf( '<select name="%s[environment]">', esc_attr( Settings::OPTION ) );
 
@@ -309,36 +309,36 @@ final class SettingsPage {
 				}
 
 				echo '</select>';
-				echo '<p class="description">' . esc_html__( 'Each environment needs its own credentials; tokens are not shared between them.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'Each environment needs its own credentials; tokens are not shared between them.', 'procore-connect' ) . '</p>';
 
 				printf(
 					'<p><label>%1$s<br><input type="url" class="regular-text code" name="%2$s[custom_login_url]" value="%3$s" placeholder="https://login.procore.com"></label></p>',
-					esc_html__( 'Custom login host', 'procorewp' ),
+					esc_html__( 'Custom login host', 'procore-connect' ),
 					esc_attr( Settings::OPTION ),
 					esc_attr( (string) $settings['custom_login_url'] )
 				);
 
 				printf(
 					'<p><label>%1$s<br><input type="url" class="regular-text code" name="%2$s[custom_api_url]" value="%3$s" placeholder="https://api.procore.com"></label></p>',
-					esc_html__( 'Custom API host', 'procorewp' ),
+					esc_html__( 'Custom API host', 'procore-connect' ),
 					esc_attr( Settings::OPTION ),
 					esc_attr( (string) $settings['custom_api_url'] )
 				);
 
-				echo '<p class="description">' . esc_html__( 'Only used when the environment is set to Custom, for regional and federal zones.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'Only used when the environment is set to Custom, for regional and federal zones.', 'procore-connect' ) . '</p>';
 			}
 		);
 
 		if ( $constants ) {
 			$this->row(
-				__( 'Credentials', 'procorewp' ),
+				__( 'Credentials', 'procore-connect' ),
 				function () {
-					echo '<p>' . esc_html__( 'Credentials are supplied by PROCOREWP_CLIENT_ID and PROCOREWP_CLIENT_SECRET in wp-config.php and are not stored in the database. Remove those constants to manage credentials here.', 'procorewp' ) . '</p>';
+					echo '<p>' . esc_html__( 'Credentials are supplied by PROCORE_CONNECT_CLIENT_ID and PROCORE_CONNECT_CLIENT_SECRET in wp-config.php and are not stored in the database. Remove those constants to manage credentials here.', 'procore-connect' ) . '</p>';
 				}
 			);
 		} else {
 			$this->row(
-				__( 'Client ID', 'procorewp' ),
+				__( 'Client ID', 'procore-connect' ),
 				function () use ( $settings ) {
 					printf(
 						'<input type="text" class="regular-text code" name="%1$s[client_id]" value="%2$s" autocomplete="off" spellcheck="false">',
@@ -349,50 +349,50 @@ final class SettingsPage {
 			);
 
 			$this->row(
-				__( 'Client Secret', 'procorewp' ),
+				__( 'Client Secret', 'procore-connect' ),
 				function () use ( $has_secret ) {
 					printf(
 						'<input type="password" class="regular-text code" name="%1$s[client_secret]" value="" autocomplete="new-password" spellcheck="false" placeholder="%2$s">',
 						esc_attr( Settings::OPTION ),
-						esc_attr( $has_secret ? Encryption::mask( Settings::client_secret() ) : __( 'Not set', 'procorewp' ) )
+						esc_attr( $has_secret ? Encryption::mask( Settings::client_secret() ) : __( 'Not set', 'procore-connect' ) )
 					);
 
-					echo '<p class="description">' . esc_html__( 'The stored secret is never shown. Leave this blank to keep the current value.', 'procorewp' ) . '</p>';
+					echo '<p class="description">' . esc_html__( 'The stored secret is never shown. Leave this blank to keep the current value.', 'procore-connect' ) . '</p>';
 
 					if ( $has_secret ) {
 						printf(
 							'<p><label><input type="checkbox" name="%1$s[clear_client_secret]" value="1"> %2$s</label></p>',
 							esc_attr( Settings::OPTION ),
-							esc_html__( 'Delete the stored secret', 'procorewp' )
+							esc_html__( 'Delete the stored secret', 'procore-connect' )
 						);
 					}
 
-					echo '<p class="description">' . esc_html__( 'For the strongest protection, define PROCOREWP_CLIENT_SECRET in wp-config.php instead of storing it here.', 'procorewp' ) . '</p>';
+					echo '<p class="description">' . esc_html__( 'For the strongest protection, define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead of storing it here.', 'procore-connect' ) . '</p>';
 				}
 			);
 		}//end if
 
 		$this->row(
-			__( 'Default company', 'procorewp' ),
+			__( 'Default company', 'procore-connect' ),
 			function () use ( $settings ) {
 				printf(
-					'<input type="number" min="0" step="1" class="small-text" name="%1$s[default_company_id]" value="%2$d" id="procorewp-company-id">',
+					'<input type="number" min="0" step="1" class="small-text" name="%1$s[default_company_id]" value="%2$d" id="procore-connect-company-id">',
 					esc_attr( Settings::OPTION ),
 					absint( $settings['default_company_id'] )
 				);
 
 				printf(
-					' <button type="button" class="button button-small" id="procorewp-load-companies">%s</button>',
-					esc_html__( 'Look up companies', 'procorewp' )
+					' <button type="button" class="button button-small" id="procore-connect-load-companies">%s</button>',
+					esc_html__( 'Look up companies', 'procore-connect' )
 				);
 
-				echo '<div id="procorewp-company-list"></div>';
-				echo '<p class="description">' . esc_html__( 'Used whenever a shortcode omits company_id. Also visible in your Procore URL: app.procore.com/companies/XXXX/.', 'procorewp' ) . '</p>';
+				echo '<div id="procore-connect-company-list"></div>';
+				echo '<p class="description">' . esc_html__( 'Used whenever a shortcode omits company_id. Also visible in your Procore URL: app.procore.com/companies/XXXX/.', 'procore-connect' ) . '</p>';
 			}
 		);
 
 		$this->row(
-			__( 'Default project', 'procorewp' ),
+			__( 'Default project', 'procore-connect' ),
 			function () use ( $settings ) {
 				printf(
 					'<input type="number" min="0" step="1" class="small-text" name="%1$s[default_project_id]" value="%2$d">',
@@ -400,7 +400,7 @@ final class SettingsPage {
 					absint( $settings['default_project_id'] )
 				);
 
-				echo '<p class="description">' . esc_html__( 'Optional. Used whenever a project-scoped shortcode omits project_id.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'Optional. Used whenever a project-scoped shortcode omits project_id.', 'procore-connect' ) . '</p>';
 			}
 		);
 	}
@@ -414,39 +414,39 @@ final class SettingsPage {
 		$settings = Settings::all();
 
 		$this->checkbox(
-			__( 'Privacy', 'procorewp' ),
+			__( 'Privacy', 'procore-connect' ),
 			'suppress_emails',
 			(bool) $settings['suppress_emails'],
-			__( 'Never output email addresses on the front end', 'procorewp' ),
-			__( 'Recommended. Procore project directories contain personal data; publishing them exposes staff and subcontractors to harvesting. When this is off, addresses are still obfuscated and each shortcode must additionally opt in with show_email="true".', 'procorewp' )
+			__( 'Never output email addresses on the front end', 'procore-connect' ),
+			__( 'Recommended. Procore project directories contain personal data; publishing them exposes staff and subcontractors to harvesting. When this is off, addresses are still obfuscated and each shortcode must additionally opt in with show_email="true".', 'procore-connect' )
 		);
 
 		$this->text(
-			__( 'Date format', 'procorewp' ),
+			__( 'Date format', 'procore-connect' ),
 			'date_format',
 			(string) $settings['date_format'],
-			__( 'Leave blank to use the site date format.', 'procorewp' ),
+			__( 'Leave blank to use the site date format.', 'procore-connect' ),
 			(string) get_option( 'date_format', 'F j, Y' )
 		);
 
 		$this->text(
-			__( 'Currency symbol', 'procorewp' ),
+			__( 'Currency symbol', 'procore-connect' ),
 			'currency_symbol',
 			(string) $settings['currency_symbol'],
-			__( 'Prefixed to monetary values such as change order totals.', 'procorewp' ),
+			__( 'Prefixed to monetary values such as change order totals.', 'procore-connect' ),
 			'$'
 		);
 
 		$this->checkbox(
-			__( 'Stylesheet', 'procorewp' ),
+			__( 'Stylesheet', 'procore-connect' ),
 			'load_styles',
 			(bool) $settings['load_styles'],
-			__( 'Load the ProcoreWP stylesheet', 'procorewp' ),
-			__( 'The stylesheet loads only on pages that actually contain ProcoreWP output. Turn it off entirely if your theme styles the markup itself.', 'procorewp' )
+			__( 'Load the Procore Connect stylesheet', 'procore-connect' ),
+			__( 'The stylesheet loads only on pages that actually contain Procore Connect output. Turn it off entirely if your theme styles the markup itself.', 'procore-connect' )
 		);
 
 		$this->row(
-			__( 'Custom CSS', 'procorewp' ),
+			__( 'Custom CSS', 'procore-connect' ),
 			function () use ( $settings ) {
 				printf(
 					'<textarea name="%1$s[custom_css]" rows="10" class="large-text code" spellcheck="false">%2$s</textarea>',
@@ -454,20 +454,20 @@ final class SettingsPage {
 					esc_textarea( (string) $settings['custom_css'] )
 				);
 
-				echo '<p class="description">' . esc_html__( 'Added inline after the plugin stylesheet. This survives plugin updates — editing files inside the plugin directory does not.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'Added inline after the plugin stylesheet. This survives plugin updates — editing files inside the plugin directory does not.', 'procore-connect' ) . '</p>';
 			}
 		);
 
 		$this->row(
-			__( 'Template overrides', 'procorewp' ),
+			__( 'Template overrides', 'procore-connect' ),
 			function () {
-				echo '<p>' . esc_html__( 'To change the markup, copy a file from the plugin\'s templates directory into your theme:', 'procorewp' ) . '</p>';
+				echo '<p>' . esc_html__( 'To change the markup, copy a file from the plugin\'s templates directory into your theme:', 'procore-connect' ) . '</p>';
 				printf(
 					'<p><code>%s</code> &rarr; <code>%s</code></p>',
-					esc_html( 'wp-content/plugins/procorewp/templates/collection.php' ),
-					esc_html( 'wp-content/themes/' . get_stylesheet() . '/procorewp/collection.php' )
+					esc_html( 'wp-content/plugins/procore-connect/templates/collection.php' ),
+					esc_html( 'wp-content/themes/' . get_stylesheet() . '/procore-connect/collection.php' )
 				);
-				echo '<p class="description">' . esc_html__( 'Available templates: collection, record, field, image, map.', 'procorewp' ) . '</p>';
+				echo '<p class="description">' . esc_html__( 'Available templates: collection, record, field, image, map.', 'procore-connect' ) . '</p>';
 			}
 		);
 	}
@@ -481,42 +481,42 @@ final class SettingsPage {
 		$settings = Settings::all();
 
 		$this->checkbox(
-			__( 'Response cache', 'procorewp' ),
+			__( 'Response cache', 'procore-connect' ),
 			'enable_cache',
 			(bool) $settings['enable_cache'],
-			__( 'Cache Procore responses', 'procorewp' ),
-			__( 'Strongly recommended. Procore enforces both an hourly and a ten-second rate limit; an uncached page will exhaust the quota quickly. When caching is on, a Procore outage serves the last good response instead of an error.', 'procorewp' )
+			__( 'Cache Procore responses', 'procore-connect' ),
+			__( 'Strongly recommended. Procore enforces both an hourly and a ten-second rate limit; an uncached page will exhaust the quota quickly. When caching is on, a Procore outage serves the last good response instead of an error.', 'procore-connect' )
 		);
 
 		$this->number(
-			__( 'Minimum cache lifetime', 'procorewp' ),
+			__( 'Minimum cache lifetime', 'procore-connect' ),
 			'cache_floor',
 			(int) $settings['cache_floor'],
 			30,
 			DAY_IN_SECONDS,
-			__( 'Seconds. Shortcodes may request a longer lifetime but never a shorter one, so a single page cannot be configured into a rate-limit breach.', 'procorewp' )
+			__( 'Seconds. Shortcodes may request a longer lifetime but never a shorter one, so a single page cannot be configured into a rate-limit breach.', 'procore-connect' )
 		);
 
 		$this->number(
-			__( 'Records per request', 'procorewp' ),
+			__( 'Records per request', 'procore-connect' ),
 			'per_page',
 			(int) $settings['per_page'],
 			1,
 			2000,
-			__( 'Procore recommends keeping this at or below 2000.', 'procorewp' )
+			__( 'Procore recommends keeping this at or below 2000.', 'procore-connect' )
 		);
 
 		$this->number(
-			__( 'Request timeout', 'procorewp' ),
+			__( 'Request timeout', 'procore-connect' ),
 			'request_timeout',
 			(int) $settings['request_timeout'],
 			5,
 			60,
-			__( 'Seconds to wait for Procore before giving up.', 'procorewp' )
+			__( 'Seconds to wait for Procore before giving up.', 'procore-connect' )
 		);
 
 		$this->row(
-			__( 'Cached responses', 'procorewp' ),
+			__( 'Cached responses', 'procore-connect' ),
 			function () {
 				$stats = Cache::stats();
 
@@ -525,15 +525,15 @@ final class SettingsPage {
 					esc_html(
 						sprintf(
 							/* translators: %d: number of cached responses. */
-							_n( '%d cached response.', '%d cached responses.', (int) $stats['total'], 'procorewp' ),
+							_n( '%d cached response.', '%d cached responses.', (int) $stats['total'], 'procore-connect' ),
 							(int) $stats['total']
 						)
 					)
 				);
 
 				printf(
-					'<p><button type="button" class="button" id="procorewp-clear-cache">%s</button> <span id="procorewp-cache-message"></span></p>',
-					esc_html__( 'Clear cache now', 'procorewp' )
+					'<p><button type="button" class="button" id="procore-connect-clear-cache">%s</button> <span id="procore-connect-cache-message"></span></p>',
+					esc_html__( 'Clear cache now', 'procore-connect' )
 				);
 			}
 		);
@@ -548,20 +548,20 @@ final class SettingsPage {
 		$settings = Settings::all();
 
 		$this->checkbox(
-			__( 'REST proxy', 'procorewp' ),
+			__( 'REST proxy', 'procore-connect' ),
 			'enable_rest',
 			(bool) $settings['enable_rest'],
-			__( 'Expose cached Procore data at /wp-json/procorewp/v1/', 'procorewp' ),
-			__( 'Lets themes and JavaScript read Procore data without ever seeing your credentials. Only endpoints published in the registry are reachable.', 'procorewp' )
+			__( 'Expose cached Procore data at /wp-json/procore-connect/v1/', 'procore-connect' ),
+			__( 'Lets themes and JavaScript read Procore data without ever seeing your credentials. Only endpoints published in the registry are reachable.', 'procore-connect' )
 		);
 
 		$this->row(
-			__( 'REST access', 'procorewp' ),
+			__( 'REST access', 'procore-connect' ),
 			function () use ( $settings ) {
 				$levels = array(
-					'public'    => __( 'Anyone', 'procorewp' ),
-					'logged_in' => __( 'Logged-in users', 'procorewp' ),
-					'editor'    => __( 'Users who can edit posts', 'procorewp' ),
+					'public'    => __( 'Anyone', 'procore-connect' ),
+					'logged_in' => __( 'Logged-in users', 'procore-connect' ),
+					'editor'    => __( 'Users who can edit posts', 'procore-connect' ),
 				);
 
 				printf( '<select name="%s[rest_access]">', esc_attr( Settings::OPTION ) );
@@ -580,27 +580,27 @@ final class SettingsPage {
 		);
 
 		$this->checkbox(
-			__( 'Block editor', 'procorewp' ),
+			__( 'Block editor', 'procore-connect' ),
 			'enable_blocks',
 			(bool) $settings['enable_blocks'],
-			__( 'Register ProcoreWP blocks', 'procorewp' ),
-			__( 'Adds a block for each shortcode with a live preview. Shortcodes keep working either way.', 'procorewp' )
+			__( 'Register Procore Connect blocks', 'procore-connect' ),
+			__( 'Adds a block for each shortcode with a live preview. Shortcodes keep working either way.', 'procore-connect' )
 		);
 
 		$this->checkbox(
-			__( 'Diagnostics', 'procorewp' ),
+			__( 'Diagnostics', 'procore-connect' ),
 			'enable_logging',
 			(bool) $settings['enable_logging'],
-			__( 'Record API diagnostics', 'procorewp' ),
-			__( 'Keeps the last 50 events for the Status tab. Credentials and tokens are redacted before anything is written.', 'procorewp' )
+			__( 'Record API diagnostics', 'procore-connect' ),
+			__( 'Keeps the last 50 events for the Status tab. Credentials and tokens are redacted before anything is written.', 'procore-connect' )
 		);
 
 		$this->checkbox(
-			__( 'Uninstall', 'procorewp' ),
+			__( 'Uninstall', 'procore-connect' ),
 			'keep_data',
 			(bool) $settings['keep_data'],
-			__( 'Keep settings and cached data when the plugin is deleted', 'procorewp' ),
-			__( 'Off by default, so deleting the plugin removes its credentials, tokens and cache.', 'procorewp' )
+			__( 'Keep settings and cached data when the plugin is deleted', 'procore-connect' ),
+			__( 'Off by default, so deleting the plugin removes its credentials, tokens and cache.', 'procore-connect' )
 		);
 	}
 
@@ -610,21 +610,21 @@ final class SettingsPage {
 	 * @return void
 	 */
 	private function render_shortcodes(): void {
-		echo '<p>' . esc_html__( 'Every shortcode below accepts the shared attributes company_id, project_id, limit, page, orderby, order, columns, template, class, title, cache and empty_text. The legacy id attribute is still accepted as an alias for project_id.', 'procorewp' ) . '</p>';
+		echo '<p>' . esc_html__( 'Every shortcode below accepts the shared attributes company_id, project_id, limit, page, orderby, order, columns, template, class, title, cache and empty_text. The legacy id attribute is still accepted as an alias for project_id.', 'procore-connect' ) . '</p>';
 
 		echo '<table class="widefat striped"><thead><tr>';
-		echo '<th>' . esc_html__( 'Shortcode', 'procorewp' ) . '</th>';
-		echo '<th>' . esc_html__( 'What it shows', 'procorewp' ) . '</th>';
-		echo '<th>' . esc_html__( 'Procore permission needed', 'procorewp' ) . '</th>';
+		echo '<th>' . esc_html__( 'Shortcode', 'procore-connect' ) . '</th>';
+		echo '<th>' . esc_html__( 'What it shows', 'procore-connect' ) . '</th>';
+		echo '<th>' . esc_html__( 'Procore permission needed', 'procore-connect' ) . '</th>';
 		echo '</tr></thead><tbody>';
 
 		foreach ( Registrar::definitions() as $tag => $definition ) {
 			$endpoint   = Endpoints::get( (string) $definition['endpoint'] );
-			$permission = null !== $endpoint ? (string) $endpoint['permission'] : __( 'Depends on the endpoint attribute', 'procorewp' );
+			$permission = null !== $endpoint ? (string) $endpoint['permission'] : __( 'Depends on the endpoint attribute', 'procore-connect' );
 
 			echo '<tr>';
 			printf(
-				'<td><code class="procorewp-copy" data-procorewp-copy="[%1$s]">[%1$s]</code></td>',
+				'<td><code class="procore-connect-copy" data-procore-connect-copy="[%1$s]">[%1$s]</code></td>',
 				esc_html( $tag )
 			);
 			printf( '<td>%s</td>', esc_html( (string) $definition['description'] ) );
@@ -634,7 +634,7 @@ final class SettingsPage {
 
 		echo '</tbody></table>';
 
-		echo '<h2>' . esc_html__( 'Available endpoints for [procore_data]', 'procorewp' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Available endpoints for [procore_data]', 'procore-connect' ) . '</h2>';
 		echo '<p><code>' . esc_html( implode( ', ', array_keys( Endpoints::public_endpoints() ) ) ) . '</code></p>';
 	}
 
@@ -649,32 +649,32 @@ final class SettingsPage {
 		$circuit = Client::circuit_state();
 
 		$rows = array(
-			__( 'Plugin version', 'procorewp' )     => PROCOREWP_VERSION,
-			__( 'WordPress', 'procorewp' )          => get_bloginfo( 'version' ),
-			__( 'PHP', 'procorewp' )                => PHP_VERSION,
-			__( 'Environment', 'procorewp' )        => Environment::choices()[ Environment::current() ],
-			__( 'API host', 'procorewp' )           => Environment::api_host(),
-			__( 'Login host', 'procorewp' )         => Environment::login_host(),
-			__( 'Redirect URI', 'procorewp' )       => Environment::redirect_uri(),
-			__( 'Authentication', 'procorewp' )     => Client::instance()->auth()->label(),
-			__( 'Credential storage', 'procorewp' ) => Settings::credentials_are_constants()
-				? __( 'wp-config.php constants', 'procorewp' )
-				: ( Encryption::is_strong() ? __( 'Encrypted (AES-256-GCM)', 'procorewp' ) : __( 'Unencrypted — OpenSSL unavailable', 'procorewp' ) ),
-			__( 'Token expires', 'procorewp' )      => $tokens['expires_at'] > 0
+			__( 'Plugin version', 'procore-connect' )     => PROCORE_CONNECT_VERSION,
+			__( 'WordPress', 'procore-connect' )          => get_bloginfo( 'version' ),
+			__( 'PHP', 'procore-connect' )                => PHP_VERSION,
+			__( 'Environment', 'procore-connect' )        => Environment::choices()[ Environment::current() ],
+			__( 'API host', 'procore-connect' )           => Environment::api_host(),
+			__( 'Login host', 'procore-connect' )         => Environment::login_host(),
+			__( 'Redirect URI', 'procore-connect' )       => Environment::redirect_uri(),
+			__( 'Authentication', 'procore-connect' )     => Client::instance()->auth()->label(),
+			__( 'Credential storage', 'procore-connect' ) => Settings::credentials_are_constants()
+				? __( 'wp-config.php constants', 'procore-connect' )
+				: ( Encryption::is_strong() ? __( 'Encrypted (AES-256-GCM)', 'procore-connect' ) : __( 'Unencrypted — OpenSSL unavailable', 'procore-connect' ) ),
+			__( 'Token expires', 'procore-connect' )      => $tokens['expires_at'] > 0
 				? wp_date( 'Y-m-d H:i:s', $tokens['expires_at'] )
-				: __( 'No token stored', 'procorewp' ),
-			__( 'Rate limit', 'procorewp' )         => $limit['limit'] > 0
+				: __( 'No token stored', 'procore-connect' ),
+			__( 'Rate limit', 'procore-connect' )         => $limit['limit'] > 0
 				? sprintf( '%d / %d', $limit['remaining'], $limit['limit'] )
-				: __( 'Not reported yet', 'procorewp' ),
-			__( 'Circuit breaker', 'procorewp' )    => $circuit['open_until'] > time()
+				: __( 'Not reported yet', 'procore-connect' ),
+			__( 'Circuit breaker', 'procore-connect' )    => $circuit['open_until'] > time()
 				? sprintf(
 					/* translators: %s: human readable time difference. */
-					__( 'Open — resumes in %s', 'procorewp' ),
+					__( 'Open — resumes in %s', 'procore-connect' ),
 					human_time_diff( time(), $circuit['open_until'] )
 				)
-				: __( 'Closed', 'procorewp' ),
-			__( 'Cached responses', 'procorewp' )   => (string) Cache::stats()['total'],
-			__( 'Object cache', 'procorewp' )       => wp_using_ext_object_cache() ? __( 'Persistent', 'procorewp' ) : __( 'Database transients', 'procorewp' ),
+				: __( 'Closed', 'procore-connect' ),
+			__( 'Cached responses', 'procore-connect' )   => (string) Cache::stats()['total'],
+			__( 'Object cache', 'procore-connect' )       => wp_using_ext_object_cache() ? __( 'Persistent', 'procore-connect' ) : __( 'Database transients', 'procore-connect' ),
 		);
 
 		echo '<table class="widefat striped"><tbody>';
@@ -687,18 +687,18 @@ final class SettingsPage {
 
 		$entries = Logger::entries();
 
-		echo '<h2>' . esc_html__( 'Recent diagnostics', 'procorewp' ) . '</h2>';
+		echo '<h2>' . esc_html__( 'Recent diagnostics', 'procore-connect' ) . '</h2>';
 
 		if ( empty( $entries ) ) {
-			echo '<p>' . esc_html__( 'Nothing recorded. Turn on diagnostics under Tools to start collecting events.', 'procorewp' ) . '</p>';
+			echo '<p>' . esc_html__( 'Nothing recorded. Turn on diagnostics under Tools to start collecting events.', 'procore-connect' ) . '</p>';
 
 			return;
 		}
 
 		echo '<table class="widefat striped"><thead><tr>';
-		echo '<th>' . esc_html__( 'When', 'procorewp' ) . '</th>';
-		echo '<th>' . esc_html__( 'Level', 'procorewp' ) . '</th>';
-		echo '<th>' . esc_html__( 'Event', 'procorewp' ) . '</th>';
+		echo '<th>' . esc_html__( 'When', 'procore-connect' ) . '</th>';
+		echo '<th>' . esc_html__( 'Level', 'procore-connect' ) . '</th>';
+		echo '<th>' . esc_html__( 'Event', 'procore-connect' ) . '</th>';
 		echo '</tr></thead><tbody>';
 
 		foreach ( $entries as $entry ) {

@@ -2,14 +2,14 @@
 /**
  * Endpoint allow-list behaviour.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Api\Endpoints;
+use ProcoreConnect\Api\Endpoints;
 
 /**
  * The registry is the boundary that makes `[procore_data]` and the REST proxy
@@ -28,7 +28,7 @@ final class EndpointsTest extends TestCase {
 		$path = Endpoints::path( 'company_admin_users' );
 
 		$this->assertTrue( is_wp_error( $path ) );
-		$this->assertSame( 'procorewp_unknown_endpoint', $path->get_error_code() );
+		$this->assertSame( 'procore_connect_unknown_endpoint', $path->get_error_code() );
 	}
 
 	/**

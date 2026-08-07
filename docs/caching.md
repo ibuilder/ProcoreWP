@@ -18,7 +18,7 @@ response:
 | `X-Rate-Limit-Remaining` | Requests left in it |
 | `X-Rate-Limit-Reset` | Unix timestamp when it resets |
 
-A page with six uncached ProcoreWP shortcodes makes six or more API calls **per visitor**.
+A page with six uncached Procore Connect shortcodes makes six or more API calls **per visitor**.
 On any site with real traffic that exhausts the spike limit within minutes and the page
 starts erroring for everyone.
 
@@ -50,7 +50,7 @@ other.
 | Companies | 1 hour |
 
 Override per shortcode with `cache="900"`, or globally via the
-[`procorewp_endpoints`](../shortcodes/#the-generic-reader) filter.
+[`procore_connect_endpoints`](../shortcodes/#the-generic-reader) filter.
 
 ### The floor
 
@@ -91,7 +91,7 @@ At most three attempts per request, and never longer than a ten-second pause.
 Procore accepts `page` and `per_page` (keep it at or below 2000) and returns `Total`,
 `Per-Page` and `Link` headers.
 
-With `all="true"`, ProcoreWP walks the `Link: rel="next"` chain rather than incrementing
+With `all="true"`, Procore Connect walks the `Link: rel="next"` chain rather than incrementing
 page numbers — following the links avoids the off-by-one at the end of the result set,
 because the `next` link simply disappears on the final page.
 
@@ -106,9 +106,9 @@ of thousands of records into memory (a warning is logged when it truncates); and
 **WP-CLI**
 
 ```bash
-wp procorewp cache-clear
-wp procorewp cache-clear --group=rfis
-wp procorewp cache-warm
+wp procore-connect cache-clear
+wp procore-connect cache-clear --group=rfis
+wp procore-connect cache-warm
 ```
 
 **Cron** — an hourly job refreshes the project list for the default company, so the first
@@ -119,14 +119,14 @@ removed on deactivation.
 
 ```php
 // Disable caching entirely — not advisable on a public site.
-add_filter( 'procorewp_cache_enabled', '__return_false' );
+add_filter( 'procore_connect_cache_enabled', '__return_false' );
 
 // Purge one endpoint group after your own sync.
-ProcoreWP\Api\Cache::flush( 'projects' );
+ProcoreConnect\Api\Cache::flush( 'projects' );
 
 // React to a purge.
-add_action( 'procorewp_cache_flushed', function ( string $group, int $removed ): void {
-	error_log( "ProcoreWP purged {$removed} entries from {$group}" );
+add_action( 'procore_connect_cache_flushed', function ( string $group, int $removed ): void {
+	error_log( "Procore Connect purged {$removed} entries from {$group}" );
 }, 10, 2 );
 ```
 

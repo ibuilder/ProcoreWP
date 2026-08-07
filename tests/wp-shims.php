@@ -2,7 +2,7 @@
 /**
  * Minimal WordPress function shims for unit testing.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
@@ -19,21 +19,21 @@ define( 'OPENSSL_RAW_DATA_SHIMMED', true );
 /**
  * In-memory stand-ins for the option and transient tables.
  *
- * @var array<string, mixed> $procorewp_test_options
- * @var array<string, array{value: mixed, expires: int}> $procorewp_test_transients
- * @var array<string, array<int, callable>> $procorewp_test_filters
+ * @var array<string, mixed> $procore_connect_test_options
+ * @var array<string, array{value: mixed, expires: int}> $procore_connect_test_transients
+ * @var array<string, array<int, callable>> $procore_connect_test_filters
  */
-$GLOBALS['procorewp_test_options']    = array();
-$GLOBALS['procorewp_test_transients'] = array();
-$GLOBALS['procorewp_test_filters']    = array();
+$GLOBALS['procore_connect_test_options']    = array();
+$GLOBALS['procore_connect_test_transients'] = array();
+$GLOBALS['procore_connect_test_filters']    = array();
 
 /**
  * Reset every shimmed store between tests.
  */
-function procorewp_test_reset(): void {
-	$GLOBALS['procorewp_test_options']    = array();
-	$GLOBALS['procorewp_test_transients'] = array();
-	$GLOBALS['procorewp_test_filters']    = array();
+function procore_connect_test_reset(): void {
+	$GLOBALS['procore_connect_test_options']    = array();
+	$GLOBALS['procore_connect_test_transients'] = array();
+	$GLOBALS['procore_connect_test_filters']    = array();
 }
 
 /* -- Errors ------------------------------------------------------------- */
@@ -77,19 +77,19 @@ function is_wp_error( $thing ): bool {
 /* -- Options and transients --------------------------------------------- */
 
 function get_option( string $name, $default_value = false ) {
-	return array_key_exists( $name, $GLOBALS['procorewp_test_options'] )
-		? $GLOBALS['procorewp_test_options'][ $name ]
+	return array_key_exists( $name, $GLOBALS['procore_connect_test_options'] )
+		? $GLOBALS['procore_connect_test_options'][ $name ]
 		: $default_value;
 }
 
 function update_option( string $name, $value, $autoload = null ): bool {
-	$GLOBALS['procorewp_test_options'][ $name ] = $value;
+	$GLOBALS['procore_connect_test_options'][ $name ] = $value;
 
 	return true;
 }
 
 function add_option( string $name, $value, $deprecated = '', $autoload = null ): bool {
-	if ( array_key_exists( $name, $GLOBALS['procorewp_test_options'] ) ) {
+	if ( array_key_exists( $name, $GLOBALS['procore_connect_test_options'] ) ) {
 		return false;
 	}
 
@@ -97,20 +97,20 @@ function add_option( string $name, $value, $deprecated = '', $autoload = null ):
 }
 
 function delete_option( string $name ): bool {
-	unset( $GLOBALS['procorewp_test_options'][ $name ] );
+	unset( $GLOBALS['procore_connect_test_options'][ $name ] );
 
 	return true;
 }
 
 function get_transient( string $name ) {
-	if ( ! isset( $GLOBALS['procorewp_test_transients'][ $name ] ) ) {
+	if ( ! isset( $GLOBALS['procore_connect_test_transients'][ $name ] ) ) {
 		return false;
 	}
 
-	$entry = $GLOBALS['procorewp_test_transients'][ $name ];
+	$entry = $GLOBALS['procore_connect_test_transients'][ $name ];
 
 	if ( $entry['expires'] > 0 && $entry['expires'] < time() ) {
-		unset( $GLOBALS['procorewp_test_transients'][ $name ] );
+		unset( $GLOBALS['procore_connect_test_transients'][ $name ] );
 
 		return false;
 	}
@@ -119,7 +119,7 @@ function get_transient( string $name ) {
 }
 
 function set_transient( string $name, $value, int $ttl = 0 ): bool {
-	$GLOBALS['procorewp_test_transients'][ $name ] = array(
+	$GLOBALS['procore_connect_test_transients'][ $name ] = array(
 		'value'   => $value,
 		'expires' => $ttl > 0 ? time() + $ttl : 0,
 	);
@@ -128,7 +128,7 @@ function set_transient( string $name, $value, int $ttl = 0 ): bool {
 }
 
 function delete_transient( string $name ): bool {
-	unset( $GLOBALS['procorewp_test_transients'][ $name ] );
+	unset( $GLOBALS['procore_connect_test_transients'][ $name ] );
 
 	return true;
 }
@@ -148,13 +148,13 @@ function wp_using_ext_object_cache(): bool {
 /* -- Hooks --------------------------------------------------------------- */
 
 function add_filter( string $hook, callable $callback, int $priority = 10, int $accepted = 1 ): bool {
-	$GLOBALS['procorewp_test_filters'][ $hook ][] = $callback;
+	$GLOBALS['procore_connect_test_filters'][ $hook ][] = $callback;
 
 	return true;
 }
 
 function apply_filters( string $hook, $value, ...$args ) {
-	foreach ( $GLOBALS['procorewp_test_filters'][ $hook ] ?? array() as $callback ) {
+	foreach ( $GLOBALS['procore_connect_test_filters'][ $hook ] ?? array() as $callback ) {
 		$value = $callback( $value, ...$args );
 	}
 
@@ -162,7 +162,7 @@ function apply_filters( string $hook, $value, ...$args ) {
 }
 
 function do_action( string $hook, ...$args ): void {
-	foreach ( $GLOBALS['procorewp_test_filters'][ $hook ] ?? array() as $callback ) {
+	foreach ( $GLOBALS['procore_connect_test_filters'][ $hook ] ?? array() as $callback ) {
 		$callback( ...$args );
 	}
 }
@@ -297,7 +297,7 @@ function shortcode_atts( array $pairs, $atts, string $shortcode = '' ): array {
 }
 
 function add_shortcode( string $tag, callable $callback ): void {
-	$GLOBALS['procorewp_test_shortcodes'][ $tag ] = $callback;
+	$GLOBALS['procore_connect_test_shortcodes'][ $tag ] = $callback;
 }
 
 function do_shortcode( string $content ): string {
@@ -321,7 +321,7 @@ function wp_generate_password( int $length = 12, bool $special = true, bool $ext
 }
 
 function wp_salt( string $scheme = 'auth' ): string {
-	return 'procorewp-test-salt-' . $scheme;
+	return 'procore-connect-test-salt-' . $scheme;
 }
 
 function get_bloginfo( string $show = '' ): string {
@@ -337,15 +337,15 @@ function admin_url( string $path = '' ): string {
 }
 
 function get_stylesheet_directory(): string {
-	return sys_get_temp_dir() . '/procorewp-child-theme';
+	return sys_get_temp_dir() . '/procore-connect-child-theme';
 }
 
 function get_template_directory(): string {
-	return sys_get_temp_dir() . '/procorewp-parent-theme';
+	return sys_get_temp_dir() . '/procore-connect-parent-theme';
 }
 
 function current_user_can( string $capability ): bool {
-	return (bool) ( $GLOBALS['procorewp_test_can'] ?? false );
+	return (bool) ( $GLOBALS['procore_connect_test_can'] ?? false );
 }
 
 function add_query_arg( array $args, string $url ): string {
@@ -371,11 +371,11 @@ function wp_remote_retrieve_header( $response, string $header ) {
 }
 
 function wp_remote_post( string $url, array $args = array() ) {
-	return apply_filters( 'procorewp_test_http', new WP_Error( 'no_transport', 'No transport configured.' ), $url, $args );
+	return apply_filters( 'procore_connect_test_http', new WP_Error( 'no_transport', 'No transport configured.' ), $url, $args );
 }
 
 function wp_remote_request( string $url, array $args = array() ) {
-	return apply_filters( 'procorewp_test_http', new WP_Error( 'no_transport', 'No transport configured.' ), $url, $args );
+	return apply_filters( 'procore_connect_test_http', new WP_Error( 'no_transport', 'No transport configured.' ), $url, $args );
 }
 
 // phpcs:enable

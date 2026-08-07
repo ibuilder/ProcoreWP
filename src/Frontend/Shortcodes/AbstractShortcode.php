@@ -1,21 +1,21 @@
 <?php
 /**
- * Shared behaviour for every ProcoreWP shortcode.
+ * Shared behaviour for every Procore Connect shortcode.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Endpoints;
-use ProcoreWP\Frontend\Assets;
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Endpoints;
+use ProcoreConnect\Frontend\Assets;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -213,7 +213,7 @@ abstract class AbstractShortcode {
 	 */
 	protected function resolve( array $atts ) {
 		if ( '' === $this->endpoint || ! Endpoints::exists( $this->endpoint ) ) {
-			return new \WP_Error( 'procorewp_unknown_endpoint', __( 'This shortcode is not bound to a known Procore endpoint.', 'procorewp' ) );
+			return new \WP_Error( 'procore_connect_unknown_endpoint', __( 'This shortcode is not bound to a known Procore endpoint.', 'procore-connect' ) );
 		}
 
 		return Client::instance()->fetch( $this->endpoint, $this->query_args( $atts ), $this->fetch_options( $atts ) );
@@ -356,14 +356,14 @@ abstract class AbstractShortcode {
 			return Renderer::notice(
 				sprintf(
 					/* translators: %s: error message from the Procore API. */
-					__( 'ProcoreWP (visible to administrators only): %s', 'procorewp' ),
+					__( 'Procore Connect (visible to administrators only): %s', 'procore-connect' ),
 					$error->get_error_message()
 				),
 				'error'
 			);
 		}
 
-		return Renderer::notice( __( 'Project information is temporarily unavailable.', 'procorewp' ), 'error' );
+		return Renderer::notice( __( 'Project information is temporarily unavailable.', 'procore-connect' ), 'error' );
 	}
 
 	/**
@@ -389,6 +389,6 @@ abstract class AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No records were found.', 'procorewp' );
+			: __( 'No records were found.', 'procore-connect' );
 	}
 }

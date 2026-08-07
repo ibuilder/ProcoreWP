@@ -2,14 +2,14 @@
 /**
  * Presentation helpers shared by templates and shortcodes.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Support;
+namespace ProcoreConnect\Support;
 
-use ProcoreWP\Admin\Settings;
+use ProcoreConnect\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -157,9 +157,9 @@ final class Format {
 				}
 
 				return sprintf(
-					'<span class="procorewp-status procorewp-status--%1$s">%2$s</span>',
+					'<span class="procore-connect-status procore-connect-status--%1$s">%2$s</span>',
 					$active ? 'active' : 'inactive',
-					esc_html( $active ? __( 'Active', 'procorewp' ) : __( 'Inactive', 'procorewp' ) )
+					esc_html( $active ? __( 'Active', 'procore-connect' ) : __( 'Inactive', 'procore-connect' ) )
 				);
 
 			case 'email':

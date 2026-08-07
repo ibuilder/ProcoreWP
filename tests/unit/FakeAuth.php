@@ -2,14 +2,14 @@
 /**
  * Authentication double that returns a fixed token.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Api\Auth\AuthInterface;
+use ProcoreConnect\Api\Auth\AuthInterface;
 
 /**
  * Returns a canned bearer token so transport behaviour can be tested in

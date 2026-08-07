@@ -2,16 +2,16 @@
 /**
  * OAuth 2.0 Client Credentials grant, backed by a Procore DMSA.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api\Auth;
+namespace ProcoreConnect\Api\Auth;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Logger;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -41,8 +41,8 @@ final class ClientCredentials extends AbstractAuth {
 			}
 
 			return new \WP_Error(
-				'procorewp_token_busy',
-				__( 'Another request is currently authenticating with Procore. Please try again in a moment.', 'procorewp' )
+				'procore_connect_token_busy',
+				__( 'Another request is currently authenticating with Procore. Please try again in a moment.', 'procore-connect' )
 			);
 		}
 
@@ -91,6 +91,6 @@ final class ClientCredentials extends AbstractAuth {
 	 * @return string Label.
 	 */
 	public function label(): string {
-		return __( 'Service Account (Client Credentials)', 'procorewp' );
+		return __( 'Service Account (Client Credentials)', 'procore-connect' );
 	}
 }

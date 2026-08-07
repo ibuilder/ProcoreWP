@@ -2,15 +2,15 @@
 /**
  * Front-end asset loading.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend;
+namespace ProcoreConnect\Frontend;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Frontend\Shortcodes\Registrar;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Frontend\Shortcodes\Registrar;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,7 +27,7 @@ final class Assets {
 	/**
 	 * Registered handle for the plugin stylesheet.
 	 */
-	public const HANDLE = 'procorewp';
+	public const HANDLE = 'procore-connect';
 
 	/**
 	 * Whether something on this request has rendered plugin output.
@@ -67,9 +67,9 @@ final class Assets {
 
 		wp_register_style(
 			self::HANDLE,
-			PROCOREWP_URL . 'assets/css/procorewp.css',
+			PROCORE_CONNECT_URL . 'assets/css/procore-connect.css',
 			array(),
-			PROCOREWP_VERSION
+			PROCORE_CONNECT_VERSION
 		);
 
 		$custom_css = trim( (string) Settings::get( 'custom_css', '' ) );
@@ -101,7 +101,7 @@ final class Assets {
 	}
 
 	/**
-	 * Whether any queried post contains a ProcoreWP shortcode or block.
+	 * Whether any queried post contains a Procore Connect shortcode or block.
 	 *
 	 * @return bool True when plugin output is expected.
 	 */
@@ -119,7 +119,7 @@ final class Assets {
 				continue;
 			}
 
-			if ( false !== strpos( $post->post_content, 'wp:procorewp/' ) ) {
+			if ( false !== strpos( $post->post_content, 'wp:procore-connect/' ) ) {
 				return true;
 			}
 

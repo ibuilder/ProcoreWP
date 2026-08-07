@@ -34,7 +34,7 @@ for confirmed issues. Credit is given in the changelog unless you prefer otherwi
   `wp-config.php` does not disclose them.
 - They are stored in a non-autoloaded option and never rendered into a form field; the
   admin shows a mask.
-- Sites may instead define `PROCOREWP_CLIENT_ID` and `PROCOREWP_CLIENT_SECRET` in
+- Sites may instead define `PROCORE_CONNECT_CLIENT_ID` and `PROCORE_CONNECT_CLIENT_SECRET` in
   `wp-config.php`. These take precedence and never reach the database. This is the
   recommended production setup.
 - If OpenSSL is unavailable the plugin warns in the admin and recommends the constants.

@@ -19,26 +19,26 @@ There are two supported ways to change the output, and both survive updates.
 rules win without needing `!important`. Markup is stripped on save.
 
 ```css
-.procorewp-table thead th {
+.procore-connect-table thead th {
 	background: #0d3b66;
 	color: #fff;
 }
 
-.procorewp-status--active {
+.procore-connect-status--active {
 	background: #d1f4dd;
 }
 ```
 
 To drop the plugin stylesheet entirely and style everything from your theme, untick
-**Load the ProcoreWP stylesheet**.
+**Load the Procore Connect stylesheet**.
 
 ## Template overrides
 
 Copy a template out of the plugin and into your theme:
 
 ```
-wp-content/plugins/procorewp/templates/collection.php
-  → wp-content/themes/your-theme/procorewp/collection.php
+wp-content/plugins/procore-connect/templates/collection.php
+  → wp-content/themes/your-theme/procore-connect/collection.php
 ```
 
 The lookup order is child theme, then parent theme, then the plugin's own default.
@@ -59,7 +59,7 @@ Add a file and point a shortcode at it:
 [procore_rfis id="123" template="rfi-cards"]
 ```
 
-Resolves to `yourtheme/procorewp/rfi-cards.php`.
+Resolves to `yourtheme/procore-connect/rfi-cards.php`.
 
 ### What a template receives
 
@@ -84,7 +84,7 @@ markup it emits is a status badge or a link.
 ```php
 <?php
 
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -113,8 +113,8 @@ rewrite closed — Procore field values are user-entered data.
 warning.
 
 ```php
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Format;
 
 echo esc_html( Arr::str( $row, 'vendor.name', 'Unassigned' ) );
 echo esc_html( Format::date( Arr::get( $row, 'due_date' ) ) );
@@ -133,7 +133,7 @@ Unknown fields get a title-cased label and plain text formatting. To change a de
 column map permanently:
 
 ```php
-add_filter( 'procorewp_shortcodes', function ( array $shortcodes ): array {
+add_filter( 'procore_connect_shortcodes', function ( array $shortcodes ): array {
 	$shortcodes['procore_rfis']['columns'] = array(
 		array( 'key' => 'number',  'label' => 'RFI',   'format' => 'text' ),
 		array( 'key' => 'subject', 'label' => 'Query', 'format' => 'text' ),
@@ -161,15 +161,15 @@ The special key `__location` composes city, state and country from the record.
 
 | Class | Element |
 |---|---|
-| `.procorewp` | Every wrapper |
-| `.procorewp-title` | Headings |
-| `.procorewp-table-wrap` | Horizontal scroll container |
-| `.procorewp-table` | Tables |
-| `.procorewp-details` / `.procorewp-detail` | Detail lists |
-| `.procorewp-field__label` / `__value` | Single fields |
-| `.procorewp-status--active` / `--inactive` | Status badges |
-| `.procorewp-map__list` / `__item` / `__name` | Location lists |
-| `.procorewp-notice--error` / `--empty` | Notices |
+| `.procore-connect` | Every wrapper |
+| `.procore-connect-title` | Headings |
+| `.procore-connect-table-wrap` | Horizontal scroll container |
+| `.procore-connect-table` | Tables |
+| `.procore-connect-details` / `.procore-connect-detail` | Detail lists |
+| `.procore-connect-field__label` / `__value` | Single fields |
+| `.procore-connect-status--active` / `--inactive` | Status badges |
+| `.procore-connect-map__list` / `__item` / `__name` | Location lists |
+| `.procore-connect-notice--error` / `--empty` | Notices |
 
 The bundled stylesheet collapses tables into stacked rows below 600px, using each cell's
 `data-label`, and respects `prefers-color-scheme: dark`.

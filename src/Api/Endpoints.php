@@ -2,12 +2,12 @@
 /**
  * Registry of the Procore REST endpoints this plugin is allowed to call.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api;
+namespace ProcoreConnect\Api;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * Procore versions each resource independently and several tools moved paths
  * between releases, so the registry is filterable: a site can correct or extend
- * a path via `procorewp_endpoints` without forking the plugin. The admin
+ * a path via `procore_connect_endpoints` without forking the plugin. The admin
  * Connection screen probes each registered endpoint so an operator can see at a
  * glance which ones their credentials and tool permissions actually reach.
  */
@@ -63,43 +63,43 @@ final class Endpoints {
 			/* Identity and company scope. */
 
 			'me'                     => array(
-				'label'      => __( 'Authenticated account', 'procorewp' ),
+				'label'      => __( 'Authenticated account', 'procore-connect' ),
 				'path'       => '/rest/v1.0/me',
 				'scope'      => self::SCOPE_NONE,
 				'paginated'  => false,
 				'ttl'        => 300,
-				'permission' => __( 'None (identity endpoint)', 'procorewp' ),
+				'permission' => __( 'None (identity endpoint)', 'procore-connect' ),
 				'fields'     => array( 'id', 'login', 'name' ),
 				'public'     => false,
 			),
 			'companies'              => array(
-				'label'      => __( 'Companies', 'procorewp' ),
+				'label'      => __( 'Companies', 'procore-connect' ),
 				'path'       => '/rest/v1.0/companies',
 				'scope'      => self::SCOPE_NONE,
 				'paginated'  => true,
 				'ttl'        => 3600,
-				'permission' => __( 'Company Directory: Read Only', 'procorewp' ),
+				'permission' => __( 'Company Directory: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'is_active' ),
 				'public'     => false,
 			),
 			'offices'                => array(
-				'label'      => __( 'Company offices', 'procorewp' ),
+				'label'      => __( 'Company offices', 'procore-connect' ),
 				'path'       => '/rest/v1.0/companies/{company_id}/offices',
 				'scope'      => self::SCOPE_COMPANY,
 				'paginated'  => true,
 				'ttl'        => 21600,
-				'permission' => __( 'Company Admin: Read Only', 'procorewp' ),
+				'permission' => __( 'Company Admin: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'address', 'city', 'state_code', 'zip', 'phone' ),
 				'public'     => true,
 			),
 			'company_vendors'        => array(
-				'label'      => __( 'Company directory (vendors)', 'procorewp' ),
+				'label'      => __( 'Company directory (vendors)', 'procore-connect' ),
 				'path'       => '/rest/v1.0/vendors',
 				'scope'      => self::SCOPE_COMPANY,
 				'query'      => array( 'company_id' ),
 				'paginated'  => true,
 				'ttl'        => 21600,
-				'permission' => __( 'Company Directory: Read Only', 'procorewp' ),
+				'permission' => __( 'Company Directory: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'city', 'state_code', 'business_phone', 'website' ),
 				'public'     => true,
 			),
@@ -107,43 +107,43 @@ final class Endpoints {
 			/* Projects. */
 
 			'projects'               => array(
-				'label'      => __( 'Projects', 'procorewp' ),
+				'label'      => __( 'Projects', 'procore-connect' ),
 				'path'       => '/rest/v1.1/projects',
 				'scope'      => self::SCOPE_COMPANY,
 				'query'      => array( 'company_id' ),
 				'paginated'  => true,
 				'ttl'        => 900,
-				'permission' => __( 'Company Admin / Project Directory: Read Only', 'procorewp' ),
+				'permission' => __( 'Company Admin / Project Directory: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'project_number', 'city', 'state_code', 'active', 'stage' ),
 				'public'     => true,
 			),
 			'project'                => array(
-				'label'      => __( 'Project detail', 'procorewp' ),
+				'label'      => __( 'Project detail', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => false,
 				'ttl'        => 900,
-				'permission' => __( 'Project Admin: Read Only', 'procorewp' ),
+				'permission' => __( 'Project Admin: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'address', 'city', 'state_code', 'zip', 'start_date', 'completion_date', 'active' ),
 				'public'     => true,
 			),
 			'project_users'          => array(
-				'label'      => __( 'Project team', 'procorewp' ),
+				'label'      => __( 'Project team', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}/users',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => true,
 				'ttl'        => 1800,
-				'permission' => __( 'Project Directory: Read Only', 'procorewp' ),
+				'permission' => __( 'Project Directory: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'job_title', 'vendor', 'email_address' ),
 				'public'     => true,
 			),
 			'project_vendors'        => array(
-				'label'      => __( 'Project vendors', 'procorewp' ),
+				'label'      => __( 'Project vendors', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}/vendors',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => true,
 				'ttl'        => 1800,
-				'permission' => __( 'Project Directory: Read Only', 'procorewp' ),
+				'permission' => __( 'Project Directory: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'city', 'state_code', 'business_phone' ),
 				'public'     => true,
 			),
@@ -151,35 +151,35 @@ final class Endpoints {
 			/* Documents. */
 
 			'drawing_areas'          => array(
-				'label'      => __( 'Drawing areas', 'procorewp' ),
+				'label'      => __( 'Drawing areas', 'procore-connect' ),
 				'path'       => '/rest/v1.0/drawing_areas',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 21600,
-				'permission' => __( 'Drawings: Read Only', 'procorewp' ),
+				'permission' => __( 'Drawings: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'description' ),
 				'public'     => true,
 			),
 			'drawing_revisions'      => array(
-				'label'      => __( 'Drawing revisions', 'procorewp' ),
+				'label'      => __( 'Drawing revisions', 'procore-connect' ),
 				'path'       => '/rest/v1.0/drawing_revisions',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 21600,
-				'permission' => __( 'Drawings: Read Only', 'procorewp' ),
+				'permission' => __( 'Drawings: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'title', 'revision_number', 'received_date' ),
 				'public'     => true,
 			),
 			'specification_sections' => array(
-				'label'      => __( 'Specification sections', 'procorewp' ),
+				'label'      => __( 'Specification sections', 'procore-connect' ),
 				'path'       => '/rest/v1.0/specification_sections',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 21600,
-				'permission' => __( 'Specifications: Read Only', 'procorewp' ),
+				'permission' => __( 'Specifications: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'description', 'revision' ),
 				'public'     => true,
 			),
@@ -187,76 +187,76 @@ final class Endpoints {
 			/* Project management tools. */
 
 			'rfis'                   => array(
-				'label'      => __( 'RFIs', 'procorewp' ),
+				'label'      => __( 'RFIs', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}/rfis',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => true,
 				'ttl'        => 600,
-				'permission' => __( 'RFIs: Read Only', 'procorewp' ),
+				'permission' => __( 'RFIs: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'subject', 'status', 'due_date' ),
 				'public'     => true,
 			),
 			'submittals'             => array(
-				'label'      => __( 'Submittals', 'procorewp' ),
+				'label'      => __( 'Submittals', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}/submittals',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => true,
 				'ttl'        => 600,
-				'permission' => __( 'Submittals: Read Only', 'procorewp' ),
+				'permission' => __( 'Submittals: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'title', 'status', 'due_date' ),
 				'public'     => true,
 			),
 			'punch_items'            => array(
-				'label'      => __( 'Punch list', 'procorewp' ),
+				'label'      => __( 'Punch list', 'procore-connect' ),
 				'path'       => '/rest/v1.0/punch_items',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 600,
-				'permission' => __( 'Punch List: Read Only', 'procorewp' ),
+				'permission' => __( 'Punch List: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'position', 'name', 'status', 'due_date' ),
 				'public'     => true,
 			),
 			'observations'           => array(
-				'label'      => __( 'Observations', 'procorewp' ),
+				'label'      => __( 'Observations', 'procore-connect' ),
 				'path'       => '/rest/v1.0/observations/items',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 600,
-				'permission' => __( 'Observations: Read Only', 'procorewp' ),
+				'permission' => __( 'Observations: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'name', 'status', 'due_date' ),
 				'public'     => true,
 			),
 			'daily_logs'             => array(
-				'label'      => __( 'Daily construction report logs', 'procorewp' ),
+				'label'      => __( 'Daily construction report logs', 'procore-connect' ),
 				'path'       => '/rest/v1.0/daily_construction_report_logs',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 1800,
-				'permission' => __( 'Daily Log: Read Only', 'procorewp' ),
+				'permission' => __( 'Daily Log: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'date', 'comments', 'status' ),
 				'public'     => true,
 			),
 			'change_orders'          => array(
-				'label'      => __( 'Change order packages', 'procorewp' ),
+				'label'      => __( 'Change order packages', 'procore-connect' ),
 				'path'       => '/rest/v1.0/change_order_packages',
 				'scope'      => self::SCOPE_PROJECT,
 				'query'      => array( 'project_id' ),
 				'paginated'  => true,
 				'ttl'        => 1800,
-				'permission' => __( 'Change Orders: Read Only', 'procorewp' ),
+				'permission' => __( 'Change Orders: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'number', 'title', 'status', 'grand_total' ),
 				'public'     => true,
 			),
 			'milestones'             => array(
-				'label'      => __( 'Schedule tasks', 'procorewp' ),
+				'label'      => __( 'Schedule tasks', 'procore-connect' ),
 				'path'       => '/rest/v1.0/projects/{project_id}/schedule/tasks',
 				'scope'      => self::SCOPE_PROJECT,
 				'paginated'  => true,
 				'ttl'        => 1800,
-				'permission' => __( 'Schedule: Read Only', 'procorewp' ),
+				'permission' => __( 'Schedule: Read Only', 'procore-connect' ),
 				'fields'     => array( 'id', 'name', 'start_date', 'finish_date', 'percent_complete' ),
 				'public'     => true,
 			),
@@ -272,7 +272,7 @@ final class Endpoints {
 		 *
 		 * @param array<string, array<string, mixed>> $registry Endpoint definitions keyed by slug.
 		 */
-		$registry = (array) apply_filters( 'procorewp_endpoints', $registry );
+		$registry = (array) apply_filters( 'procore_connect_endpoints', $registry );
 
 		self::$registry = array_map( array( self::class, 'normalise' ), $registry );
 
@@ -328,9 +328,9 @@ final class Endpoints {
 
 		if ( null === $definition ) {
 			return new \WP_Error(
-				'procorewp_unknown_endpoint',
+				'procore_connect_unknown_endpoint',
 				/* translators: %s: endpoint slug. */
-				sprintf( __( 'Unknown Procore endpoint: %s', 'procorewp' ), $slug )
+				sprintf( __( 'Unknown Procore endpoint: %s', 'procore-connect' ), $slug )
 			);
 		}
 
@@ -338,7 +338,7 @@ final class Endpoints {
 
 		if ( false !== strpos( $path, '{company_id}' ) ) {
 			if ( $company <= 0 ) {
-				return new \WP_Error( 'procorewp_missing_company', __( 'A Procore company ID is required for this request.', 'procorewp' ) );
+				return new \WP_Error( 'procore_connect_missing_company', __( 'A Procore company ID is required for this request.', 'procore-connect' ) );
 			}
 
 			$path = str_replace( '{company_id}', (string) $company, $path );
@@ -346,14 +346,14 @@ final class Endpoints {
 
 		if ( false !== strpos( $path, '{project_id}' ) ) {
 			if ( $project <= 0 ) {
-				return new \WP_Error( 'procorewp_missing_project', __( 'A Procore project ID is required for this request.', 'procorewp' ) );
+				return new \WP_Error( 'procore_connect_missing_project', __( 'A Procore project ID is required for this request.', 'procore-connect' ) );
 			}
 
 			$path = str_replace( '{project_id}', (string) $project, $path );
 		}
 
 		if ( self::SCOPE_PROJECT === $definition['scope'] && $project <= 0 ) {
-			return new \WP_Error( 'procorewp_missing_project', __( 'A Procore project ID is required for this request.', 'procorewp' ) );
+			return new \WP_Error( 'procore_connect_missing_project', __( 'A Procore project ID is required for this request.', 'procore-connect' ) );
 		}
 
 		return $path;

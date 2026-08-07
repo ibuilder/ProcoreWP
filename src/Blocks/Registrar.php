@@ -2,15 +2,15 @@
 /**
  * Block editor integration.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Blocks;
+namespace ProcoreConnect\Blocks;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Frontend\Shortcodes\Registrar as ShortcodeRegistrar;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Frontend\Shortcodes\Registrar as ShortcodeRegistrar;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -30,7 +30,7 @@ final class Registrar {
 	/**
 	 * Block type name.
 	 */
-	public const BLOCK = 'procorewp/procore';
+	public const BLOCK = 'procore-connect/procore';
 
 	/**
 	 * Register hooks.
@@ -48,7 +48,7 @@ final class Registrar {
 	 * @return void
 	 */
 	public function register_block(): void {
-		$metadata = PROCOREWP_PATH . 'blocks/procore';
+		$metadata = PROCORE_CONNECT_PATH . 'blocks/procore';
 
 		if ( ! is_readable( $metadata . '/block.json' ) ) {
 			return;
@@ -123,16 +123,16 @@ final class Registrar {
 
 		wp_localize_script(
 			$handle,
-			'procorewpBlocks',
+			'procoreConnectBlocks',
 			array(
 				'variations' => $variations,
-				'restUrl'    => rest_url( 'procorewp/v1' ),
+				'restUrl'    => rest_url( 'procore-connect/v1' ),
 				'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
-				'nonce'      => wp_create_nonce( \ProcoreWP\Admin\Ajax::NONCE ),
+				'nonce'      => wp_create_nonce( \ProcoreConnect\Admin\Ajax::NONCE ),
 			)
 		);
 
-		wp_set_script_translations( $handle, 'procorewp', PROCOREWP_PATH . 'languages' );
+		wp_set_script_translations( $handle, 'procore-connect', PROCORE_CONNECT_PATH . 'languages' );
 	}
 
 	/**
@@ -146,14 +146,14 @@ final class Registrar {
 		if ( '' !== (string) ( $definition['title'] ?? '' ) ) {
 			return sprintf(
 				/* translators: %s: shortcode display name, e.g. "RFIs". */
-				__( 'Procore: %s', 'procorewp' ),
+				__( 'Procore: %s', 'procore-connect' ),
 				(string) $definition['title']
 			);
 		}
 
 		return sprintf(
 			/* translators: %s: shortcode display name. */
-			__( 'Procore: %s', 'procorewp' ),
+			__( 'Procore: %s', 'procore-connect' ),
 			ucwords( str_replace( array( 'procore_', '_' ), array( '', ' ' ), $tag ) )
 		);
 	}

@@ -2,18 +2,18 @@
 /**
  * Authenticated admin AJAX endpoints.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Logger;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Logger;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -29,7 +29,7 @@ final class Ajax {
 	/**
 	 * Nonce action shared by every handler.
 	 */
-	public const NONCE = 'procorewp_admin';
+	public const NONCE = 'procore_connect_admin';
 
 	/**
 	 * Register hooks.
@@ -37,11 +37,11 @@ final class Ajax {
 	 * @return void
 	 */
 	public function register(): void {
-		add_action( 'wp_ajax_procorewp_test_connection', array( $this, 'test_connection' ) );
-		add_action( 'wp_ajax_procorewp_clear_cache', array( $this, 'clear_cache' ) );
-		add_action( 'wp_ajax_procorewp_companies', array( $this, 'companies' ) );
-		add_action( 'wp_ajax_procorewp_projects', array( $this, 'projects' ) );
-		add_action( 'wp_ajax_procorewp_disconnect', array( $this, 'disconnect' ) );
+		add_action( 'wp_ajax_procore_connect_test_connection', array( $this, 'test_connection' ) );
+		add_action( 'wp_ajax_procore_connect_clear_cache', array( $this, 'clear_cache' ) );
+		add_action( 'wp_ajax_procore_connect_companies', array( $this, 'companies' ) );
+		add_action( 'wp_ajax_procore_connect_projects', array( $this, 'projects' ) );
+		add_action( 'wp_ajax_procore_connect_disconnect', array( $this, 'disconnect' ) );
 	}
 
 	/**
@@ -74,7 +74,7 @@ final class Ajax {
 				'removed' => $removed,
 				'message' => sprintf(
 					/* translators: %d: number of cache entries removed. */
-					_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procorewp' ),
+					_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procore-connect' ),
 					$removed
 				),
 				'stats'   => Cache::stats(),
@@ -157,7 +157,7 @@ final class Ajax {
 		Client::reset_circuit();
 		Logger::info( 'Procore connection reset from the admin screen.' );
 
-		wp_send_json_success( array( 'message' => __( 'Disconnected from Procore.', 'procorewp' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Disconnected from Procore.', 'procore-connect' ) ) );
 	}
 
 	/**
@@ -167,7 +167,7 @@ final class Ajax {
 	 */
 	private function authorise(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You do not have permission to do that.', 'procorewp' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to do that.', 'procore-connect' ) ), 403 );
 		}
 
 		check_ajax_referer( self::NONCE, 'nonce' );

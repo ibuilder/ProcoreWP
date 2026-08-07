@@ -1,4 +1,4 @@
-=== ProcoreWP ===
+=== Procore Connect ===
 Contributors: ibuilder
 Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
@@ -12,9 +12,9 @@ Publish live Procore project data on your WordPress site with shortcodes and blo
 
 == Description ==
 
-ProcoreWP connects your WordPress site to the Procore construction management platform and publishes project data on the front end: project directories, team members, drawings, specifications, RFIs, submittals, punch lists, daily logs, change orders and more.
+Procore Connect connects your WordPress site to the Procore construction management platform and publishes project data on the front end: project directories, team members, drawings, specifications, RFIs, submittals, punch lists, daily logs, change orders and more.
 
-Data is read-only. ProcoreWP never writes to Procore.
+Data is read-only. Procore Connect never writes to Procore.
 
 = Built for the way Procore actually works =
 
@@ -26,7 +26,7 @@ Data is read-only. ProcoreWP never writes to Procore.
 
 = Privacy first =
 
-Procore project directories contain personal data. ProcoreWP will not publish email addresses unless you turn off the global suppression setting **and** opt in on the individual shortcode. Error messages from Procore, which routinely name accounts and permissions, are shown to administrators only.
+Procore project directories contain personal data. Procore Connect will not publish email addresses unless you turn off the global suppression setting **and** opt in on the individual shortcode. Error messages from Procore, which routinely name accounts and permissions, are shown to administrators only.
 
 = Shortcodes =
 
@@ -64,7 +64,7 @@ Every shortcode also accepts `company_id`, `project_id`, `limit`, `page`, `order
 
 = Blocks, REST and WP-CLI =
 
-A **Procore** block provides every shortcode as an inserter entry with a live preview and a settings sidebar. An optional read-only REST proxy at `/wp-json/procorewp/v1/` lets themes and JavaScript read cached Procore data without ever seeing your credentials. WP-CLI commands cover connection testing, cache management and project listing.
+A **Procore** block provides every shortcode as an inserter entry with a live preview and a settings sidebar. An optional read-only REST proxy at `/wp-json/procore-connect/v1/` lets themes and JavaScript read cached Procore data without ever seeing your credentials. WP-CLI commands cover connection testing, cache management and project listing.
 
 = Third-party service =
 
@@ -78,7 +78,7 @@ Data sent: your Procore Client ID and Client Secret during authentication, and t
 
 == Installation ==
 
-1. Upload the plugin to `/wp-content/plugins/procorewp/` or install it through the Plugins screen.
+1. Upload the plugin to `/wp-content/plugins/procore-connect/` or install it through the Plugins screen.
 2. Activate it.
 3. Go to **Procore → Connection** and enter your Client ID and Client Secret.
 4. Choose a default company, then click **Test connection**.
@@ -88,8 +88,8 @@ To obtain credentials, create an application in the [Procore Developer Portal](h
 
 For the strongest credential protection, define the secret in `wp-config.php` instead of storing it in the database:
 
-`define( 'PROCOREWP_CLIENT_ID', 'your-client-id' );`
-`define( 'PROCOREWP_CLIENT_SECRET', 'your-client-secret' );`
+`define( 'PROCORE_CONNECT_CLIENT_ID', 'your-client-id' );`
+`define( 'PROCORE_CONNECT_CLIENT_SECRET', 'your-client-secret' );`
 
 == Frequently Asked Questions ==
 
@@ -107,7 +107,7 @@ Not with caching on, which is the default. Responses are cached per endpoint, pa
 
 = Can I change the markup? =
 
-Yes. Copy any file from the plugin's `templates/` directory into `yourtheme/procorewp/` and edit it there. It survives plugin updates. For styling only, use **Procore → Display → Custom CSS**.
+Yes. Copy any file from the plugin's `templates/` directory into `yourtheme/procore-connect/` and edit it there. It survives plugin updates. For styling only, use **Procore → Display → Custom CSS**.
 
 = Does it write anything back to Procore? =
 
@@ -158,7 +158,7 @@ A complete rewrite. See the upgrade notice below before updating.
 * Added: eleven new shortcodes covering RFIs, submittals, punch lists, observations, daily logs, change orders, schedule tasks, vendors, offices, project locations, and a generic allow-listed endpoint reader.
 * Added: a Procore block with a variation per shortcode and a live server-rendered preview.
 * Added: an optional read-only REST proxy and WP-CLI commands.
-* Added: theme template overrides via `yourtheme/procorewp/`, replacing the previous advice to edit files inside the plugin directory.
+* Added: theme template overrides via `yourtheme/procore-connect/`, replacing the previous advice to edit files inside the plugin directory.
 * Added: a connection diagnostic that reports each stage and probes every endpoint for tool permissions.
 * Changed: the plugin is fully translatable, passes Plugin Check with no errors or warnings, and passes PHPCS `WordPress-Extra` and `WordPress-Docs`.
 

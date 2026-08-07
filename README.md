@@ -1,4 +1,4 @@
-# ProcoreWP
+# Procore Connect
 
 [![Plugin Check](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml)
 [![Coding Standards](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml)
@@ -15,7 +15,7 @@ Publish live [Procore](https://www.procore.com/) construction project data on a 
 
 Renders Procore data on the front end of a WordPress site: project directories, project detail panels, team lists, drawings, specifications, RFIs, submittals, punch lists, observations, daily logs, change orders, schedule milestones, company vendors and offices.
 
-Everything is **read-only**. ProcoreWP never writes to Procore.
+Everything is **read-only**. Procore Connect never writes to Procore.
 
 ```
 [procore_project_list company_id="4242" limit="10"]
@@ -64,9 +64,9 @@ Getting credentials is covered step by step in [the authentication guide](https:
 
 ```php
 // wp-config.php
-define( 'PROCOREWP_CLIENT_ID', 'your-client-id' );
-define( 'PROCOREWP_CLIENT_SECRET', 'your-client-secret' );
-define( 'PROCOREWP_COMPANY_ID', 4242 );
+define( 'PROCORE_CONNECT_CLIENT_ID', 'your-client-id' );
+define( 'PROCORE_CONNECT_CLIENT_SECRET', 'your-client-secret' );
+define( 'PROCORE_CONNECT_COMPANY_ID', 4242 );
 ```
 
 These take precedence over the admin fields and are never written to an option.
@@ -109,8 +109,8 @@ The editor script is hand-written ES5 against the global `wp.*` runtime. There i
 Optional, off by default. Enable it under **Procore → Tools**.
 
 ```
-GET /wp-json/procorewp/v1/endpoints
-GET /wp-json/procorewp/v1/data/rfis?project_id=123&per_page=25
+GET /wp-json/procore-connect/v1/endpoints
+GET /wp-json/procore-connect/v1/data/rfis?project_id=123&per_page=25
 ```
 
 Read-only, served from cache, restricted to endpoints published in the registry, with access configurable between public, logged-in and editor. Credentials never reach the browser.
@@ -118,21 +118,21 @@ Read-only, served from cache, restricted to endpoints published in the registry,
 ## WP-CLI
 
 ```bash
-wp procorewp test
-wp procorewp doctor
-wp procorewp projects --format=csv
-wp procorewp cache-clear --group=rfis
-wp procorewp cache-warm
-wp procorewp reset-token
+wp procore-connect test
+wp procore-connect doctor
+wp procore-connect projects --format=csv
+wp procore-connect cache-clear --group=rfis
+wp procore-connect cache-warm
+wp procore-connect reset-token
 ```
 
 ## Customising output
 
-Copy any file from `templates/` into `yourtheme/procorewp/` and edit it there. Overrides survive plugin updates — unlike 1.x, which told you to edit CSS inside the plugin directory and lost your work on every release.
+Copy any file from `templates/` into `yourtheme/procore-connect/` and edit it there. Overrides survive plugin updates — unlike 1.x, which told you to edit CSS inside the plugin directory and lost your work on every release.
 
 ```
-wp-content/plugins/procorewp/templates/collection.php
-  → wp-content/themes/your-theme/procorewp/collection.php
+wp-content/plugins/procore-connect/templates/collection.php
+  → wp-content/themes/your-theme/procore-connect/collection.php
 ```
 
 Templates: `collection`, `record`, `field`, `image`, `map`. For styling only, use **Procore → Display → Custom CSS**.
@@ -141,14 +141,14 @@ Templates: `collection`, `record`, `field`, `image`, `map`. For styling only, us
 
 | Filter | Purpose |
 |---|---|
-| `procorewp_endpoints` | Correct or add an endpoint after a Procore resource version bump |
-| `procorewp_shortcodes` | Register a shortcode, or change a column map |
-| `procorewp_allowed_project_fields` | Extend what `[procore_project_data]` may display |
-| `procorewp_api_host` / `procorewp_login_host` | Point at a regional or federal zone |
-| `procorewp_redirect_uri` | Override the OAuth redirect URI |
-| `procorewp_request_args` | Adjust the HTTP arguments of an API request |
-| `procorewp_cache_enabled` | Disable caching programmatically |
-| `procorewp_template_candidates` | Change where templates are looked up |
+| `procore_connect_endpoints` | Correct or add an endpoint after a Procore resource version bump |
+| `procore_connect_shortcodes` | Register a shortcode, or change a column map |
+| `procore_connect_allowed_project_fields` | Extend what `[procore_project_data]` may display |
+| `procore_connect_api_host` / `procore_connect_login_host` | Point at a regional or federal zone |
+| `procore_connect_redirect_uri` | Override the OAuth redirect URI |
+| `procore_connect_request_args` | Adjust the HTTP arguments of an API request |
+| `procore_connect_cache_enabled` | Disable caching programmatically |
+| `procore_connect_template_candidates` | Change where templates are looked up |
 
 ## Development
 
@@ -167,13 +167,13 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Security r
 
 Settings are imported automatically, all shortcode names are unchanged, and the legacy `id` attribute still works.
 
-Two things need your attention. The main plugin file was renamed from `index.php` to `procorewp.php`, which WordPress sees as a different plugin, so **activate ProcoreWP once after updating**. And because 1.x never successfully authenticated, **re-run the connection test** before assuming a blank shortcode is a bug.
+Two things need your attention. The main plugin file was renamed from `index.php` to `procore-connect.php`, which WordPress sees as a different plugin, so **activate Procore Connect once after updating**. And because 1.x never successfully authenticated, **re-run the connection test** before assuming a blank shortcode is a bug.
 
 Full detail: [the upgrade guide](https://ibuilder.github.io/ProcoreWP/upgrading/).
 
 ## Third-party service
 
-ProcoreWP contacts Procore to retrieve the data you ask it to display: `login.procore.com` for authentication and `api.procore.com` for data, or the sandbox or regional hosts you configure. It sends your Client ID and Client Secret during authentication, plus the company and project identifiers you configure. No visitor data is sent to Procore.
+Procore Connect contacts Procore to retrieve the data you ask it to display: `login.procore.com` for authentication and `api.procore.com` for data, or the sandbox or regional hosts you configure. It sends your Client ID and Client Secret during authentication, plus the company and project identifiers you configure. No visitor data is sent to Procore.
 
 [Procore terms](https://www.procore.com/legal/termsofservice) · [Procore privacy policy](https://www.procore.com/legal/privacy) · [Procore API docs](https://developers.procore.com/documentation/introduction)
 
@@ -181,4 +181,4 @@ ProcoreWP contacts Procore to retrieve the data you ask it to display: `login.pr
 
 GPL-2.0-or-later. See [LICENSE](LICENSE).
 
-ProcoreWP is not affiliated with, endorsed by, or sponsored by Procore Technologies, Inc. "Procore" is a trademark of Procore Technologies, Inc.
+Procore Connect is not affiliated with, endorsed by, or sponsored by Procore Technologies, Inc. "Procore" is a trademark of Procore Technologies, Inc.

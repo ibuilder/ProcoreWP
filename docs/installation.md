@@ -26,14 +26,14 @@ nav_order: 2
 ### With Composer
 
 ```bash
-composer require ibuilder/procorewp
+composer require ibuilder/procore-connect
 ```
 
 ### From source
 
 ```bash
 cd wp-content/plugins
-git clone https://github.com/ibuilder/ProcoreWP.git procorewp
+git clone https://github.com/ibuilder/ProcoreWP.git procore-connect
 ```
 
 No build step is required. The plugin ships ready to run — the block editor script is
@@ -59,9 +59,9 @@ strongest protection, define it in `wp-config.php` instead — these constants t
 precedence over the admin fields and are never written to an option:
 
 ```php
-define( 'PROCOREWP_CLIENT_ID', 'your-client-id' );
-define( 'PROCOREWP_CLIENT_SECRET', 'your-client-secret' );
-define( 'PROCOREWP_COMPANY_ID', 4242 );
+define( 'PROCORE_CONNECT_CLIENT_ID', 'your-client-id' );
+define( 'PROCORE_CONNECT_CLIENT_SECRET', 'your-client-secret' );
+define( 'PROCORE_CONNECT_COMPANY_ID', 4242 );
 ```
 
 When these are set, the Connection screen shows a note in place of the credential fields.

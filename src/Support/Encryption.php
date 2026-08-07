@@ -2,12 +2,12 @@
 /**
  * At-rest encryption for stored Procore credentials and tokens.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Support;
+namespace ProcoreConnect\Support;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -174,7 +174,7 @@ final class Encryption {
 	private static function key(): string {
 		$material = wp_salt( 'secure_auth' ) . wp_salt( 'auth' );
 
-		return hash( 'sha256', 'procorewp|' . $material, true );
+		return hash( 'sha256', 'procore-connect|' . $material, true );
 	}
 
 	/**

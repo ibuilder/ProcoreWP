@@ -2,15 +2,15 @@
 /**
  * Settings sanitization and legacy migration.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Support\Encryption;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Support\Encryption;
 
 /**
  * ProcoreWP 1.x registered its option with no sanitize callback at all, so

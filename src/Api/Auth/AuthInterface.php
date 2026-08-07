@@ -2,12 +2,12 @@
 /**
  * Contract shared by the supported Procore OAuth grant types.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api\Auth;
+namespace ProcoreConnect\Api\Auth;
 
 defined( 'ABSPATH' ) || exit;
 

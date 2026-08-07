@@ -1,5 +1,5 @@
 {
-    "name": "ibuilder/procorewp",
+    "name": "ibuilder/procore-connect",
     "description": "Connect WordPress to the Procore construction management platform and display project data with shortcodes, blocks and a REST proxy.",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "ProcoreWP\\": "src/"
+            "ProcoreConnect\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "ProcoreWP\\Tests\\": "tests/"
+            "ProcoreConnect\\Tests\\": "tests/"
         }
     },
     "config": {

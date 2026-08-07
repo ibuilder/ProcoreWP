@@ -2,16 +2,16 @@
 /**
  * Shared test case.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Tests\unit;
+namespace ProcoreConnect\Tests\unit;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Client;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Client;
 
 /**
  * Resets shimmed WordPress state between tests.
@@ -26,15 +26,15 @@ abstract class TestCase extends BaseTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		procorewp_test_reset();
+		procore_connect_test_reset();
 		Settings::flush();
 		Client::set_instance( null );
 
-		$GLOBALS['procorewp_test_can'] = false;
+		$GLOBALS['procore_connect_test_can'] = false;
 
 		// Keep retries instant.
 		add_filter(
-			'procorewp_retry_sleep',
+			'procore_connect_retry_sleep',
 			static function (): int {
 				return 0;
 			}

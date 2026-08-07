@@ -2,14 +2,14 @@
 /**
  * Response caching for Procore API calls.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api;
+namespace ProcoreConnect\Api;
 
-use ProcoreWP\Admin\Settings;
+use ProcoreConnect\Admin\Settings;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,17 +31,17 @@ final class Cache {
 	/**
 	 * Prefix for fresh cache entries.
 	 */
-	private const FRESH_PREFIX = 'procorewp_c_';
+	private const FRESH_PREFIX = 'procore_connect_c_';
 
 	/**
 	 * Prefix for stale fallback entries.
 	 */
-	private const STALE_PREFIX = 'procorewp_s_';
+	private const STALE_PREFIX = 'procore_connect_s_';
 
 	/**
 	 * Option storing the key index used for targeted purging.
 	 */
-	private const INDEX_OPTION = 'procorewp_cache_index';
+	private const INDEX_OPTION = 'procore_connect_cache_index';
 
 	/**
 	 * Longest lifetime for a stale fallback entry, in seconds.
@@ -175,7 +175,7 @@ final class Cache {
 		 * @param string $group   Purged group, or an empty string for a full purge.
 		 * @param int    $removed Number of entries removed.
 		 */
-		do_action( 'procorewp_cache_flushed', $group, $removed );
+		do_action( 'procore_connect_cache_flushed', $group, $removed );
 
 		return $removed;
 	}
@@ -214,7 +214,7 @@ final class Cache {
 		 *
 		 * @param bool $enabled Whether caching is active.
 		 */
-		return (bool) apply_filters( 'procorewp_cache_enabled', (bool) Settings::get( 'enable_cache', true ) );
+		return (bool) apply_filters( 'procore_connect_cache_enabled', (bool) Settings::get( 'enable_cache', true ) );
 	}
 
 	/**

@@ -2,24 +2,24 @@
 /**
  * Plugin bootstrap and hook registration.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP;
+namespace ProcoreConnect;
 
-use ProcoreWP\Admin\Ajax;
-use ProcoreWP\Admin\Notices;
-use ProcoreWP\Admin\OAuthController;
-use ProcoreWP\Admin\SettingsPage;
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Cache;
-use ProcoreWP\Blocks\Registrar as BlockRegistrar;
-use ProcoreWP\Cli\Commands;
-use ProcoreWP\Frontend\Assets;
-use ProcoreWP\Frontend\Shortcodes\Registrar as ShortcodeRegistrar;
-use ProcoreWP\Rest\Controller as RestController;
+use ProcoreConnect\Admin\Ajax;
+use ProcoreConnect\Admin\Notices;
+use ProcoreConnect\Admin\OAuthController;
+use ProcoreConnect\Admin\SettingsPage;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Blocks\Registrar as BlockRegistrar;
+use ProcoreConnect\Cli\Commands;
+use ProcoreConnect\Frontend\Assets;
+use ProcoreConnect\Frontend\Shortcodes\Registrar as ShortcodeRegistrar;
+use ProcoreConnect\Rest\Controller as RestController;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -31,12 +31,12 @@ final class Plugin {
 	/**
 	 * Option storing the installed version, used to trigger upgrade routines.
 	 */
-	public const VERSION_OPTION = 'procorewp_version';
+	public const VERSION_OPTION = 'procore_connect_version';
 
 	/**
 	 * Cron hook used by the optional cache warmer.
 	 */
-	public const CRON_HOOK = 'procorewp_warm_cache';
+	public const CRON_HOOK = 'procore_connect_warm_cache';
 
 	/**
 	 * Singleton instance.
@@ -87,7 +87,7 @@ final class Plugin {
 		}
 
 		add_action( self::CRON_HOOK, array( $this, 'warm_cache' ) );
-		add_filter( 'plugin_action_links_' . PROCOREWP_BASENAME, array( $this, 'action_links' ) );
+		add_filter( 'plugin_action_links_' . PROCORE_CONNECT_BASENAME, array( $this, 'action_links' ) );
 
 		if ( defined( 'WP_CLI' ) && WP_CLI ) {
 			Commands::register();
@@ -108,7 +108,7 @@ final class Plugin {
 	public function maybe_upgrade(): void {
 		$installed = (string) get_option( self::VERSION_OPTION, '' );
 
-		if ( PROCOREWP_VERSION === $installed ) {
+		if ( PROCORE_CONNECT_VERSION === $installed ) {
 			return;
 		}
 
@@ -120,7 +120,7 @@ final class Plugin {
 			Cache::flush();
 		}
 
-		update_option( self::VERSION_OPTION, PROCOREWP_VERSION, false );
+		update_option( self::VERSION_OPTION, PROCORE_CONNECT_VERSION, false );
 	}
 
 	/**
@@ -154,8 +154,8 @@ final class Plugin {
 	public function action_links( array $links ): array {
 		$settings = sprintf(
 			'<a href="%s">%s</a>',
-			esc_url( admin_url( 'admin.php?page=procorewp' ) ),
-			esc_html__( 'Settings', 'procorewp' )
+			esc_url( admin_url( 'admin.php?page=procore-connect' ) ),
+			esc_html__( 'Settings', 'procore-connect' )
 		);
 
 		array_unshift( $links, $settings );
@@ -175,7 +175,7 @@ final class Plugin {
 			add_option( Settings::OPTION, Settings::defaults(), '', false );
 		}
 
-		update_option( self::VERSION_OPTION, PROCOREWP_VERSION, false );
+		update_option( self::VERSION_OPTION, PROCORE_CONNECT_VERSION, false );
 
 		if ( ! wp_next_scheduled( self::CRON_HOOK ) ) {
 			wp_schedule_event( time() + HOUR_IN_SECONDS, 'hourly', self::CRON_HOOK );

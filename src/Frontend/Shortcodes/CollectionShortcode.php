@@ -2,16 +2,16 @@
 /**
  * Renders a list of Procore records.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Frontend\Shortcodes;
+namespace ProcoreConnect\Frontend\Shortcodes;
 
-use ProcoreWP\Frontend\Renderer;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Format;
+use ProcoreConnect\Frontend\Renderer;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Format;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -56,7 +56,7 @@ class CollectionShortcode extends AbstractShortcode {
 				'rows'       => $rows,
 				'columns'    => $this->resolve_columns( $atts ),
 				'title'      => $this->title( $atts ),
-				'class'      => Format::classes( 'procorewp procorewp-collection procorewp-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
+				'class'      => Format::classes( 'procore-connect procore-connect-collection procore-connect-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
 				'show_email' => ! empty( $atts['show_email'] ),
 				'atts'       => $atts,
 				'tag'        => $this->tag,

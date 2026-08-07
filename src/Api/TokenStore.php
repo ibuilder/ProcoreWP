@@ -2,14 +2,14 @@
 /**
  * Persistence and concurrency control for Procore OAuth tokens.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Api;
+namespace ProcoreConnect\Api;
 
-use ProcoreWP\Support\Encryption;
+use ProcoreConnect\Support\Encryption;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -27,12 +27,12 @@ final class TokenStore {
 	/**
 	 * Option holding the encrypted token payload.
 	 */
-	public const OPTION = 'procorewp_tokens';
+	public const OPTION = 'procore_connect_tokens';
 
 	/**
 	 * Transient name used as the refresh mutex.
 	 */
-	private const LOCK_KEY = 'procorewp_token_lock';
+	private const LOCK_KEY = 'procore_connect_token_lock';
 
 	/**
 	 * Lifetime of the refresh lock in seconds.
@@ -108,7 +108,7 @@ final class TokenStore {
 		 * @param string $grant_type Grant type that produced the token.
 		 * @param int    $expires_at Unix timestamp at which the token should be considered expired.
 		 */
-		do_action( 'procorewp_token_stored', $grant_type, (int) $payload['expires_at'] );
+		do_action( 'procore_connect_token_stored', $grant_type, (int) $payload['expires_at'] );
 	}
 
 	/**
@@ -167,7 +167,7 @@ final class TokenStore {
 	public static function acquire_lock(): bool {
 		// wp_cache_add() is atomic on a persistent object cache; the transient
 		// check below covers sites without one.
-		if ( wp_cache_add( self::LOCK_KEY, 1, 'procorewp', self::LOCK_TTL ) ) {
+		if ( wp_cache_add( self::LOCK_KEY, 1, 'procore-connect', self::LOCK_TTL ) ) {
 			set_transient( self::LOCK_KEY, 1, self::LOCK_TTL );
 
 			return true;
@@ -188,7 +188,7 @@ final class TokenStore {
 	 * @return void
 	 */
 	public static function release_lock(): void {
-		wp_cache_delete( self::LOCK_KEY, 'procorewp' );
+		wp_cache_delete( self::LOCK_KEY, 'procore-connect' );
 		delete_transient( self::LOCK_KEY );
 	}
 

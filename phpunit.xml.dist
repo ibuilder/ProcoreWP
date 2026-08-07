@@ -6,7 +6,7 @@
          beStrictAboutTestsThatDoNotTestAnything="false"
          convertDeprecationsToExceptions="true">
     <testsuites>
-        <testsuite name="ProcoreWP">
+        <testsuite name="Procore Connect">
             <directory suffix="Test.php">tests/unit</directory>
         </testsuite>
     </testsuites>

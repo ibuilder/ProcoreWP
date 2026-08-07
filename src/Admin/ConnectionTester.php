@@ -2,19 +2,19 @@
 /**
  * Step-by-step verification of the Procore connection.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Admin;
+namespace ProcoreConnect\Admin;
 
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Endpoints;
-use ProcoreWP\Api\Environment;
-use ProcoreWP\Api\TokenStore;
-use ProcoreWP\Support\Arr;
-use ProcoreWP\Support\Encryption;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Endpoints;
+use ProcoreConnect\Api\Environment;
+use ProcoreConnect\Api\TokenStore;
+use ProcoreConnect\Support\Arr;
+use ProcoreConnect\Support\Encryption;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -71,24 +71,24 @@ final class ConnectionTester {
 		$issues = array();
 
 		if ( '' === Settings::client_id() ) {
-			$issues[] = __( 'No Client ID is set.', 'procorewp' );
+			$issues[] = __( 'No Client ID is set.', 'procore-connect' );
 		}
 
 		if ( '' === Settings::client_secret() ) {
-			$issues[] = __( 'No Client Secret is set.', 'procorewp' );
+			$issues[] = __( 'No Client Secret is set.', 'procore-connect' );
 		}
 
 		if ( ! Encryption::is_strong() ) {
-			$issues[] = __( 'OpenSSL is unavailable, so credentials cannot be encrypted at rest. Define PROCOREWP_CLIENT_SECRET in wp-config.php instead.', 'procorewp' );
+			$issues[] = __( 'OpenSSL is unavailable, so credentials cannot be encrypted at rest. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead.', 'procore-connect' );
 		}
 
 		return $this->step(
-			__( 'Configuration', 'procorewp' ),
+			__( 'Configuration', 'procore-connect' ),
 			empty( $issues ),
 			empty( $issues )
 				? sprintf(
 					/* translators: 1: environment label, 2: API host. */
-					__( 'Ready. Environment: %1$s (%2$s).', 'procorewp' ),
+					__( 'Ready. Environment: %1$s (%2$s).', 'procore-connect' ),
 					Environment::choices()[ Environment::current() ],
 					Environment::api_host()
 				)
@@ -106,24 +106,24 @@ final class ConnectionTester {
 		$auth   = $client->auth();
 
 		if ( ! $auth->is_configured() ) {
-			return $this->step( __( 'Access token', 'procorewp' ), false, __( 'Credentials are incomplete.', 'procorewp' ) );
+			return $this->step( __( 'Access token', 'procore-connect' ), false, __( 'Credentials are incomplete.', 'procore-connect' ) );
 		}
 
 		$token = $auth->access_token();
 
 		if ( is_wp_error( $token ) ) {
-			return $this->step( __( 'Access token', 'procorewp' ), false, $token->get_error_message() );
+			return $this->step( __( 'Access token', 'procore-connect' ), false, $token->get_error_message() );
 		}
 
 		$stored  = TokenStore::all();
 		$expires = (int) $stored['expires_at'];
 
 		return $this->step(
-			__( 'Access token', 'procorewp' ),
+			__( 'Access token', 'procore-connect' ),
 			true,
 			sprintf(
 				/* translators: 1: grant type label, 2: human readable time difference. */
-				__( 'Obtained via %1$s. Valid for another %2$s.', 'procorewp' ),
+				__( 'Obtained via %1$s. Valid for another %2$s.', 'procore-connect' ),
 				$auth->label(),
 				human_time_diff( time(), max( $expires, time() ) )
 			)
@@ -139,23 +139,23 @@ final class ConnectionTester {
 		$me = Client::instance()->fetch( 'me', array(), array( 'bypass_cache' => true ) );
 
 		if ( is_wp_error( $me ) ) {
-			return $this->step( __( 'Authenticated account', 'procorewp' ), false, $me->get_error_message() );
+			return $this->step( __( 'Authenticated account', 'procore-connect' ), false, $me->get_error_message() );
 		}
 
 		$name  = Arr::str( $me, 'name' );
 		$login = Arr::str( $me, 'login' );
 
 		return $this->step(
-			__( 'Authenticated account', 'procorewp' ),
+			__( 'Authenticated account', 'procore-connect' ),
 			true,
 			'' !== $name || '' !== $login
 				? sprintf(
 					/* translators: 1: account display name, 2: account login. */
-					__( 'Connected as %1$s (%2$s).', 'procorewp' ),
-					'' !== $name ? $name : __( 'service account', 'procorewp' ),
-					'' !== $login ? $login : __( 'no login', 'procorewp' )
+					__( 'Connected as %1$s (%2$s).', 'procore-connect' ),
+					'' !== $name ? $name : __( 'service account', 'procore-connect' ),
+					'' !== $login ? $login : __( 'no login', 'procore-connect' )
 				)
-				: __( 'Connected.', 'procorewp' )
+				: __( 'Connected.', 'procore-connect' )
 		);
 	}
 
@@ -168,14 +168,14 @@ final class ConnectionTester {
 		$companies = $this->companies();
 
 		if ( is_wp_error( $companies ) ) {
-			return $this->step( __( 'Company access', 'procorewp' ), false, $companies->get_error_message() );
+			return $this->step( __( 'Company access', 'procore-connect' ), false, $companies->get_error_message() );
 		}
 
 		if ( empty( $companies ) ) {
 			return $this->step(
-				__( 'Company access', 'procorewp' ),
+				__( 'Company access', 'procore-connect' ),
 				false,
-				__( 'Procore returned no companies. Ask a company administrator to install the app and grant it access.', 'procorewp' )
+				__( 'Procore returned no companies. Ask a company administrator to install the app and grant it access.', 'procore-connect' )
 			);
 		}
 
@@ -186,11 +186,11 @@ final class ConnectionTester {
 		}
 
 		return $this->step(
-			__( 'Company access', 'procorewp' ),
+			__( 'Company access', 'procore-connect' ),
 			true,
 			sprintf(
 				/* translators: 1: number of companies, 2: comma-separated company names. */
-				_n( '%1$d company available: %2$s', '%1$d companies available: %2$s', count( $companies ), 'procorewp' ),
+				_n( '%1$d company available: %2$s', '%1$d companies available: %2$s', count( $companies ), 'procore-connect' ),
 				count( $companies ),
 				implode( ', ', $names )
 			)
@@ -207,9 +207,9 @@ final class ConnectionTester {
 
 		if ( $company <= 0 ) {
 			return $this->step(
-				__( 'Default company', 'procorewp' ),
+				__( 'Default company', 'procore-connect' ),
 				false,
-				__( 'No default company is set. Choose one below, or pass company_id in every shortcode.', 'procorewp' )
+				__( 'No default company is set. Choose one below, or pass company_id in every shortcode.', 'procore-connect' )
 			);
 		}
 
@@ -224,23 +224,23 @@ final class ConnectionTester {
 		);
 
 		if ( is_wp_error( $projects ) ) {
-			return $this->step( __( 'Default company', 'procorewp' ), false, $projects->get_error_message() );
+			return $this->step( __( 'Default company', 'procore-connect' ), false, $projects->get_error_message() );
 		}
 
 		$total = Client::instance()->meta()['total'];
 
 		return $this->step(
-			__( 'Default company', 'procorewp' ),
+			__( 'Default company', 'procore-connect' ),
 			true,
 			null === $total
 				? sprintf(
 					/* translators: %d: company ID. */
-					__( 'Projects are readable for company %d.', 'procorewp' ),
+					__( 'Projects are readable for company %d.', 'procore-connect' ),
 					$company
 				)
 				: sprintf(
 					/* translators: 1: number of projects, 2: company ID. */
-					_n( '%1$d project visible in company %2$d.', '%1$d projects visible in company %2$d.', (int) $total, 'procorewp' ),
+					_n( '%1$d project visible in company %2$d.', '%1$d projects visible in company %2$d.', (int) $total, 'procore-connect' ),
 					(int) $total,
 					$company
 				)
@@ -256,17 +256,17 @@ final class ConnectionTester {
 		$limit = Client::rate_limit();
 
 		if ( 0 === $limit['limit'] ) {
-			return $this->step( __( 'Rate limit', 'procorewp' ), true, __( 'Procore has not reported a rate limit yet.', 'procorewp' ) );
+			return $this->step( __( 'Rate limit', 'procore-connect' ), true, __( 'Procore has not reported a rate limit yet.', 'procore-connect' ) );
 		}
 
 		$healthy = $limit['limit'] < 1 || ( $limit['remaining'] / max( 1, $limit['limit'] ) ) > 0.1;
 
 		return $this->step(
-			__( 'Rate limit', 'procorewp' ),
+			__( 'Rate limit', 'procore-connect' ),
 			$healthy,
 			sprintf(
 				/* translators: 1: remaining requests, 2: total allowed requests, 3: human readable time until reset. */
-				__( '%1$d of %2$d requests remaining; resets in %3$s.', 'procorewp' ),
+				__( '%1$d of %2$d requests remaining; resets in %3$s.', 'procore-connect' ),
 				$limit['remaining'],
 				$limit['limit'],
 				human_time_diff( time(), max( $limit['reset'], time() ) )
@@ -295,7 +295,7 @@ final class ConnectionTester {
 					'label'      => (string) $definition['label'],
 					'permission' => (string) $definition['permission'],
 					'status'     => 'skipped',
-					'message'    => __( 'No project was available to test against.', 'procorewp' ),
+					'message'    => __( 'No project was available to test against.', 'procore-connect' ),
 				);
 				continue;
 			}
@@ -327,7 +327,7 @@ final class ConnectionTester {
 				'label'      => (string) $definition['label'],
 				'permission' => (string) $definition['permission'],
 				'status'     => 'ok',
-				'message'    => __( 'Readable.', 'procorewp' ),
+				'message'    => __( 'Readable.', 'procore-connect' ),
 			);
 		}//end foreach
 
@@ -415,10 +415,10 @@ final class ConnectionTester {
 			'probes'  => $probes,
 			'ok'      => 0 === $failed,
 			'summary' => 0 === $failed
-				? __( 'Everything checked out.', 'procorewp' )
+				? __( 'Everything checked out.', 'procore-connect' )
 				: sprintf(
 					/* translators: %d: number of failed checks. */
-					_n( '%d check needs attention.', '%d checks need attention.', $failed, 'procorewp' ),
+					_n( '%d check needs attention.', '%d checks need attention.', $failed, 'procore-connect' ),
 					$failed
 				),
 		);

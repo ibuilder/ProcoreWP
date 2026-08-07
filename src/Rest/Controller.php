@@ -2,21 +2,21 @@
 /**
  * Read-only REST proxy for Procore data.
  *
- * @package ProcoreWP
+ * @package ProcoreConnect
  */
 
 declare( strict_types = 1 );
 
-namespace ProcoreWP\Rest;
+namespace ProcoreConnect\Rest;
 
-use ProcoreWP\Admin\Settings;
-use ProcoreWP\Api\Client;
-use ProcoreWP\Api\Endpoints;
+use ProcoreConnect\Admin\Settings;
+use ProcoreConnect\Api\Client;
+use ProcoreConnect\Api\Endpoints;
 
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Exposes cached Procore data under `/wp-json/procorewp/v1/`.
+ * Exposes cached Procore data under `/wp-json/procore-connect/v1/`.
  *
  * Themes and front-end JavaScript can read project data without the browser
  * ever seeing a Procore credential. The proxy is read-only, serves from the
@@ -28,7 +28,7 @@ final class Controller {
 	/**
 	 * REST namespace.
 	 */
-	public const NAMESPACE = 'procorewp/v1';
+	public const NAMESPACE = 'procore-connect/v1';
 
 	/**
 	 * Register hooks.
@@ -160,7 +160,7 @@ final class Controller {
 			)
 		);
 
-		$response->header( 'X-ProcoreWP-Cached', $meta['cached'] ? '1' : '0' );
+		$response->header( 'X-Procore Connect-Cached', $meta['cached'] ? '1' : '0' );
 
 		return $response;
 	}
@@ -173,8 +173,8 @@ final class Controller {
 	public function check_permission() {
 		if ( ! Settings::get( 'enable_rest', false ) ) {
 			return new \WP_Error(
-				'procorewp_rest_disabled',
-				__( 'The ProcoreWP REST proxy is disabled.', 'procorewp' ),
+				'procore_connect_rest_disabled',
+				__( 'The Procore Connect REST proxy is disabled.', 'procore-connect' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -206,6 +206,6 @@ final class Controller {
 			return $error->get_error_message();
 		}
 
-		return __( 'Project information is temporarily unavailable.', 'procorewp' );
+		return __( 'Project information is temporarily unavailable.', 'procore-connect' );
 	}
 }

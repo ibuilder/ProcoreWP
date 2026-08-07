@@ -1,0 +1,50 @@
+{
+    "name": "ibuilder/procorewp",
+    "description": "Connect WordPress to the Procore construction management platform and display project data with shortcodes, blocks and a REST proxy.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "keywords": [
+        "wordpress",
+        "plugin",
+        "procore",
+        "construction",
+        "api"
+    ],
+    "homepage": "https://github.com/ibuilder/ProcoreWP",
+    "support": {
+        "issues": "https://github.com/ibuilder/ProcoreWP/issues",
+        "source": "https://github.com/ibuilder/ProcoreWP"
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpunit/phpunit": "^9.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "ProcoreWP\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ProcoreWP\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "sort-packages": true
+    },
+    "scripts": {
+        "lint": "phpcs",
+        "lint:fix": "phpcbf",
+        "test": "phpunit",
+        "syntax": "find . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n1 php -l"
+    }
+}

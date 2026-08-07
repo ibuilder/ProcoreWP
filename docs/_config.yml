@@ -1,0 +1,38 @@
+title: Procore Connect
+description: Publish live Procore construction project data on a WordPress site.
+remote_theme: just-the-docs/just-the-docs
+
+url: https://ibuilder.github.io
+baseurl: /ProcoreWP
+
+permalink: pretty
+
+plugins:
+  - jekyll-remote-theme
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+color_scheme: light
+search_enabled: true
+heading_anchors: true
+
+aux_links:
+  "GitHub": https://github.com/ibuilder/ProcoreWP
+aux_links_new_tab: true
+
+nav_external_links:
+  - title: Procore API docs
+    url: https://developers.procore.com/documentation/introduction
+    hide_icon: false
+
+footer_content: >-
+  Procore Connect is licensed GPL-2.0-or-later. It is not affiliated with, endorsed by, or
+  sponsored by Procore Technologies, Inc.
+
+back_to_top: true
+back_to_top_text: "Back to top"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor

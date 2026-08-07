@@ -1,0 +1,35 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "procore-connect/procore",
+	"title": "Procore",
+	"category": "widgets",
+	"icon": "building",
+	"description": "Display data from Procore. Pick what to show, then set the project or company it applies to.",
+	"keywords": [ "procore", "construction", "project", "rfi", "submittal" ],
+	"textdomain": "procore-connect",
+	"supports": {
+		"html": false,
+		"align": [ "wide", "full" ],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		},
+		"color": {
+			"background": true,
+			"text": true
+		}
+	},
+	"attributes": {
+		"shortcode": {
+			"type": "string",
+			"default": "procore_project_list"
+		},
+		"atts": {
+			"type": "object",
+			"default": {}
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "procore-connect"
+}

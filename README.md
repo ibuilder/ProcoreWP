@@ -1,267 +1,184 @@
-# Procore Integration for WordPress
+# Procore Connect
 
-Connect your WordPress site to the Procore construction management platform using this integration plugin. Display project information, team members, drawings, specifications, and more directly on your WordPress site using simple shortcodes.
+[![Plugin Check](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml)
+[![Coding Standards](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml)
+[![Tests](https://github.com/ibuilder/ProcoreWP/actions/workflows/tests.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/tests.yml)
+[![License: GPL v2+](https://img.shields.io/badge/license-GPL--2.0--or--later-blue.svg)](LICENSE)
 
-## Features
+Publish live [Procore](https://www.procore.com/) construction project data on a WordPress site — with shortcodes, blocks, and a cached REST proxy.
 
-- **Easy Authentication**: Connect to Procore API with your Client ID and Client Secret
-- **Multi-Company Support**: Specify company ID in each shortcode or set a default
-- **Project Information**: Display comprehensive project details
-- **Team Members**: List project team members and their roles
-- **Drawings & Specifications**: Show project drawings and specifications
-- **Featured Images**: Display project images
-- **Custom Data Fields**: Access any project data field using shortcodes
-- **Responsive Design**: Works with any WordPress theme
-- **Customizable Styles**: Easily modify CSS styles to match your theme
+**[Documentation](https://ibuilder.github.io/ProcoreWP/)** · [Installation](https://ibuilder.github.io/ProcoreWP/installation/) · [Authentication](https://ibuilder.github.io/ProcoreWP/authentication/) · [Shortcode reference](https://ibuilder.github.io/ProcoreWP/shortcodes/) · [Upgrading from 1.x](https://ibuilder.github.io/ProcoreWP/upgrading/)
 
-## Installation
+---
 
-1. Download the plugin ZIP file
-2. Log in to your WordPress admin panel
-3. Navigate to Plugins > Add New
-4. Click "Upload Plugin" and select the ZIP file
-5. Click "Install Now" and then "Activate Plugin"
+## What it does
 
-## File Structure
+Renders Procore data on the front end of a WordPress site: project directories, project detail panels, team lists, drawings, specifications, RFIs, submittals, punch lists, observations, daily logs, change orders, schedule milestones, company vendors and offices.
 
-The plugin is organized with a clean, modular structure:
+Everything is **read-only**. Procore Connect never writes to Procore.
 
 ```
-procore-integration/
-├── index.php                       # Main plugin file
-├── includes/
-│   ├── styles.php                  # Handles CSS loading
-│   └── activation.php              # Plugin activation hooks
-├── assets/
-│   └── css/
-│       ├── procore-integration.css             # Active CSS file (customizable)
-│       └── procore-integration-default.css     # Default CSS template
-└── README.md                       # Documentation
+[procore_project_list company_id="4242" limit="10"]
+
+[procore_project id="123"]
+[procore_team id="123"]
+[procore_rfis id="123" status="open" limit="5"]
+
+[procore_data endpoint="submittals" project_id="123" columns="number,title,status,due_date"]
 ```
 
-## Configuration
+## Why version 2 exists
 
-1. Go to Settings > Procore Integration
-2. Enter your Procore API credentials:
-   - **Client ID**: Your Procore API client ID
-   - **Client Secret**: Your Procore API client secret
-   - **API URL**: Default is https://api.procore.com (usually doesn't need to be changed)
-   - **Default Company ID**: Your default Procore company ID (used when not specified in shortcodes)
-3. Click "Save Changes"
-4. Click "Test Connection" to verify your credentials work correctly
+Version 1.x could not work against the live API. It posted its token request to `api.procore.com`, but Procore serves authentication from `login.procore.com` — a different host — so no token was ever issued. It also sent the company scope as a `company_id` query parameter where Procore requires the `Procore-Company-Id` header, stored the client secret as plaintext in an autoloaded option, ran its connection test from an unverified `$_POST`, and cached nothing at all against an API with a documented ten-second spike limit.
 
-## Getting Procore API Credentials
+Version 2.0.0 is a rewrite. The full list is in [CHANGELOG.md](CHANGELOG.md).
 
-To use this plugin, you'll need to create an application in the Procore Developer Portal:
+## Highlights
 
-1. Go to [Procore Developer Portal](https://developers.procore.com/)
-2. Sign in with your Procore account
-3. Navigate to "My Apps" and click "New App"
-4. Fill in the required information:
-   - **Name**: Your app name (e.g., "WordPress Integration")
-   - **Redirect URI**: Your site URL (e.g., https://example.com/wp-admin/options-general.php?page=procore-integration)
-   - **Permissions**: Select the permissions you need (at minimum: projects, users, documents)
-5. Click "Create" to generate your Client ID and Client Secret
-6. Copy these credentials to your WordPress plugin settings
+| | |
+|---|---|
+| **Two auth modes** | Client Credentials via a Developer Managed Service Account, or Authorization Code on behalf of a Procore user. Chosen in the admin. |
+| **Rate-limit aware** | Reads `X-Rate-Limit-*`, honours `Retry-After`, backs off exponentially with jitter, and trips a circuit breaker after repeated failures. |
+| **Caches by default** | Per-endpoint lifetimes with a site-wide floor no page can undercut. Uses the transient API, so Redis and Memcached work automatically. |
+| **Degrades gracefully** | A Procore outage serves the last good response instead of blanking a published page. |
+| **Real pagination** | Follows Procore's `Link: rel="next"` headers, refusing any link that points off the configured API host. |
+| **Encrypted at rest** | AES-256-GCM, keyed from the site's own salts. Or keep credentials out of the database entirely with `wp-config.php` constants. |
+| **Private by default** | Email addresses are suppressed unless you opt in twice. Procore error messages reach administrators only. |
+| **Diagnostics** | The connection test reports every stage and probes each endpoint, so you can see which Procore tool permissions you actually have. |
 
-## Using Shortcodes
+## Requirements
 
-### Project List
+WordPress 6.5+ · PHP 7.4+ · A Procore account with API access
 
-```
-[procore_project_list company_id="123" limit="10" show_details="true" active_only="true" sort_by="name" sort_order="asc"]
-```
+## Quick start
 
-Displays a list of all available Procore projects with their IDs and names.
+1. Install and activate the plugin.
+2. **Procore → Connection** — enter your Client ID and Client Secret.
+3. Click **Look up companies** and pick a default company.
+4. Click **Test connection**. Each stage reports separately, and the endpoint probe shows which shortcodes your permissions support.
+5. Add a shortcode or the **Procore** block to a page.
 
-**Parameters:**
-- `company_id`: The Procore company ID (optional if default set in settings)
-- `limit`: Maximum number of projects to display (default: 0, shows all)
-- `show_details`: Whether to show additional details like location and status (default: false)
-- `active_only`: Whether to show only active projects (default: true)
-- `sort_by`: Field to sort by - "name", "id", or "created_at" (default: "name")
-- `sort_order`: Sort order - "asc" or "desc" (default: "asc")
+Getting credentials is covered step by step in [the authentication guide](https://ibuilder.github.io/ProcoreWP/authentication/).
 
-### Project Information
+### Keeping the secret out of the database
 
-```
-[procore_project id="123" company_id="123"]
+```php
+// wp-config.php
+define( 'PROCORE_CONNECT_CLIENT_ID', 'your-client-id' );
+define( 'PROCORE_CONNECT_CLIENT_SECRET', 'your-client-secret' );
+define( 'PROCORE_CONNECT_COMPANY_ID', 4242 );
 ```
 
-Displays basic project information including name, address, start date, completion date, and status.
+These take precedence over the admin fields and are never written to an option.
 
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
+## Shortcodes
 
-### Team Members
+| Shortcode | Shows | Procore permission |
+|---|---|---|
+| `[procore_project_list]` | Projects in a company | Company Admin / Project Directory |
+| `[procore_project]` | One project's details | Project Admin |
+| `[procore_project_data]` | One allow-listed project field | Project Admin |
+| `[procore_featured_image]` | Project logo or photo | Project Admin |
+| `[procore_team]` | Project directory users | Project Directory |
+| `[procore_drawings]` | Drawing areas | Drawings |
+| `[procore_specifications]` | Specification sections | Specifications |
+| `[procore_rfis]` | RFIs | RFIs |
+| `[procore_submittals]` | Submittals | Submittals |
+| `[procore_punch_list]` | Punch items | Punch List |
+| `[procore_observations]` | Observations | Observations |
+| `[procore_daily_logs]` | Daily construction reports | Daily Log |
+| `[procore_change_orders]` | Change order packages | Change Orders |
+| `[procore_milestones]` | Schedule tasks | Schedule |
+| `[procore_vendors]` | Company directory | Company Directory |
+| `[procore_offices]` | Company offices | Company Admin |
+| `[procore_project_map]` | Project locations with geo microdata | Company Admin |
+| `[procore_data]` | Any published endpoint | Depends on `endpoint` |
 
-```
-[procore_team id="123" company_id="123"]
-```
+Shared attributes: `company_id`, `project_id`, `limit`, `page`, `orderby`, `order`, `columns`, `template`, `class`, `title`, `cache`, `empty_text`, `show_email`, `all`.
 
-Lists all team members assigned to the project with their names, emails, and roles.
+The legacy `id` attribute from 1.x is still accepted as an alias for `project_id`, so existing pages keep working. A live, always-accurate reference is generated inside the plugin at **Procore → Shortcodes**.
 
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
+## Blocks
 
-### Featured Image
+A single **Procore** block registers one inserter variation per shortcode, with a settings sidebar and a live server-rendered preview. It delegates to the same renderer the shortcodes use, so markup and escaping are identical in both surfaces.
 
-```
-[procore_featured_image id="123" company_id="123" width="400" height="auto"]
-```
+The editor script is hand-written ES5 against the global `wp.*` runtime. There is no build step and no `node_modules` — the file that ships is the file that was authored.
 
-Displays the project's featured image or logo.
+## REST proxy
 
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
-- `width`: Image width in pixels (default: 300)
-- `height`: Image height in pixels (default: auto)
-
-### Drawings
-
-```
-[procore_drawings id="123" company_id="123" limit="5"]
-```
-
-Lists project drawings with their names and descriptions.
-
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
-- `limit`: Maximum number of drawings to display (default: 10)
-
-### Specifications
+Optional, off by default. Enable it under **Procore → Tools**.
 
 ```
-[procore_specifications id="123" company_id="123" limit="5"]
+GET /wp-json/procore-connect/v1/endpoints
+GET /wp-json/procore-connect/v1/data/rfis?project_id=123&per_page=25
 ```
 
-Lists project specifications with their numbers, titles, and descriptions.
+Read-only, served from cache, restricted to endpoints published in the registry, with access configurable between public, logged-in and editor. Credentials never reach the browser.
 
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
-- `limit`: Maximum number of specifications to display (default: 10)
+## WP-CLI
 
-### Custom Project Data
-
-```
-[procore_project_data id="123" company_id="123" field="budget" label="Project Budget"]
-```
-
-Displays a specific project data field.
-
-**Parameters:**
-- `id`: The Procore project ID (required)
-- `company_id`: The Procore company ID (optional if default set in settings)
-- `field`: The API field name to display (required)
-- `label`: Custom label for the field (optional, defaults to formatted field name)
-
-## Example Page Layout
-
-Here's an example of how you might use multiple shortcodes on a single page:
-
-```
-<h1>Project Overview</h1>
-
-[procore_featured_image id="123" company_id="456" width="600"]
-
-[procore_project id="123" company_id="456"]
-
-<h2>Key Information</h2>
-
-<div class="project-data-grid">
-  [procore_project_data id="123" company_id="456" field="budget" label="Budget"]
-  [procore_project_data id="123" company_id="456" field="square_feet" label="Square Footage"]
-  [procore_project_data id="123" company_id="456" field="project_number" label="Project Number"]
-</div>
-
-<h2>Project Team</h2>
-
-[procore_team id="123" company_id="456"]
-
-<h2>Project Drawings</h2>
-
-[procore_drawings id="123" company_id="456" limit="5"]
-
-<h2>Project Specifications</h2>
-
-[procore_specifications id="123" company_id="456" limit="5"]
+```bash
+wp procore-connect test
+wp procore-connect doctor
+wp procore-connect projects --format=csv
+wp procore-connect cache-clear --group=rfis
+wp procore-connect cache-warm
+wp procore-connect reset-token
 ```
 
-And here's an example of a Projects Directory page using the project list shortcode:
+## Customising output
+
+Copy any file from `templates/` into `yourtheme/procore-connect/` and edit it there. Overrides survive plugin updates — unlike 1.x, which told you to edit CSS inside the plugin directory and lost your work on every release.
 
 ```
-<h1>Procore Projects Directory</h1>
-
-<p>Below is a list of all our current active projects in Procore:</p>
-
-[procore_project_list company_id="456" show_details="true" active_only="true" sort_by="name"]
-
-<p>Click on a project ID to view more details about that specific project.</p>
+wp-content/plugins/procore-connect/templates/collection.php
+  → wp-content/themes/your-theme/procore-connect/collection.php
 ```
 
-## Customizing Styles
+Templates: `collection`, `record`, `field`, `image`, `map`. For styling only, use **Procore → Display → Custom CSS**.
 
-The plugin includes default CSS styles that you can customize to match your theme:
+### Filters
 
-1. Navigate to the plugin directory in your WordPress installation: `/wp-content/plugins/procore-integration/`
-2. Edit the file at `assets/css/procore-integration.css`
-3. Save your changes
+| Filter | Purpose |
+|---|---|
+| `procore_connect_endpoints` | Correct or add an endpoint after a Procore resource version bump |
+| `procore_connect_shortcodes` | Register a shortcode, or change a column map |
+| `procore_connect_allowed_project_fields` | Extend what `[procore_project_data]` may display |
+| `procore_connect_api_host` / `procore_connect_login_host` | Point at a regional or federal zone |
+| `procore_connect_redirect_uri` | Override the OAuth redirect URI |
+| `procore_connect_request_args` | Adjust the HTTP arguments of an API request |
+| `procore_connect_cache_enabled` | Disable caching programmatically |
+| `procore_connect_template_candidates` | Change where templates are looked up |
 
-If you need to reset to the default styles, you can copy the contents from `assets/css/procore-integration-default.css` into your active CSS file.
+## Development
 
-## Finding Your Company ID
+```bash
+composer install
+composer run lint     # PHPCS: WordPress-Extra + WordPress-Docs
+composer run test     # PHPUnit
+composer run syntax   # php -l across the tree
+```
 
-To locate your Procore Company ID:
+Tests run against JSON fixtures through an injected HTTP transport, so no Procore credentials or network access are needed. They cover token handling, the refresh mutex, 429/503 backoff, `Link` pagination, cache keys and purging, the stale fallback, encryption round-trips, endpoint allow-list refusals, and every shortcode's attribute sanitization and output escaping.
 
-1. Log in to your Procore account
-2. Look at the URL in your browser when viewing your company dashboard
-3. The URL will contain a pattern like `https://app.procore.com/companies/XXXX/...` where `XXXX` is your company ID
-4. Alternatively, you can use the [procore_project_list] shortcode without a company ID first, and the API error message may include information about available company IDs
+Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Security reports: [SECURITY.md](SECURITY.md).
 
-You can set a default Company ID in the plugin settings page to avoid having to specify it in every shortcode.
+## Upgrading from 1.x
 
-## Troubleshooting
+Settings are imported automatically, all shortcode names are unchanged, and the legacy `id` attribute still works.
 
-### Common Issues
+Two things need your attention. The main plugin file was renamed from `index.php` to `procore-connect.php`, which WordPress sees as a different plugin, so **activate Procore Connect once after updating**. And because 1.x never successfully authenticated, **re-run the connection test** before assuming a blank shortcode is a bug.
 
-1. **Connection Failed**: Make sure your Client ID and Client Secret are correct. Check that your Procore account has the necessary permissions.
+Full detail: [the upgrade guide](https://ibuilder.github.io/ProcoreWP/upgrading/).
 
-2. **No Data Displayed**: Ensure you're using the correct project ID and company ID in your shortcodes. Project IDs can be found in the URL when viewing a project in Procore (e.g., `https://app.procore.com/projects/123/...`).
+## Third-party service
 
-3. **Company ID Error**: If you're getting errors about company_id, make sure you're either specifying the correct company ID in each shortcode or have set a default company ID in the plugin settings.
+Procore Connect contacts Procore to retrieve the data you ask it to display: `login.procore.com` for authentication and `api.procore.com` for data, or the sandbox or regional hosts you configure. It sends your Client ID and Client Secret during authentication, plus the company and project identifiers you configure. No visitor data is sent to Procore.
 
-4. **Drawings or Specifications Not Showing**: Not all projects have drawings or specifications. Check that these exist in your Procore project.
-
-5. **API Rate Limiting**: Procore may limit the number of API requests. If you're displaying many shortcodes on a single page, consider caching the data.
-
-### Support
-
-If you encounter issues, check the following:
-
-1. WordPress error logs
-2. Procore API documentation at [developers.procore.com](https://developers.procore.com/documentation)
-3. Contact the plugin developer for support
-
-## Changelog
-
-### Version 1.0.0
-- Initial release with multi-company support
-- Separated CSS into a dedicated file for easier customization
-- Added modular file structure for better maintainability
+[Procore terms](https://www.procore.com/legal/termsofservice) · [Procore privacy policy](https://www.procore.com/legal/privacy) · [Procore API docs](https://developers.procore.com/documentation/introduction)
 
 ## License
 
-This plugin is licensed under the GPL v2 or later.
+GPL-2.0-or-later. See [LICENSE](LICENSE).
 
-## Credits
-
-Developed by [Your Name/Company]
-
-## Privacy
-
-This plugin connects to the Procore API and sends/receives data from Procore's servers. No data is shared with any third party. Please review Procore's privacy policy for information on how they handle your data.
+Procore Connect is not affiliated with, endorsed by, or sponsored by Procore Technologies, Inc. "Procore" is a trademark of Procore Technologies, Inc.

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://ibuilder.github.io/ProcoreWP/
+    about: Installation, authentication, the shortcode reference and troubleshooting.
+  - name: Report a security vulnerability
+    url: https://github.com/ibuilder/ProcoreWP/security/advisories/new
+    about: Please report privately rather than opening a public issue.
+  - name: Procore API documentation
+    url: https://developers.procore.com/documentation/introduction
+    about: For questions about the Procore API itself rather than this plugin.

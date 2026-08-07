@@ -1,0 +1,59 @@
+name: Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    name: PHPUnit (PHP ${{ matrix.php }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: [ '7.4', '8.1', '8.3', '8.4' ]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: openssl, json, mbstring
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      # Tests run against fixtures through an injected HTTP transport, so no
+      # Procore credentials and no network access are required.
+      - name: Run PHPUnit
+        run: ./vendor/bin/phpunit --testdox
+
+  javascript:
+    name: JavaScript syntax
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # No build step by design: the shipped editor script is the source file.
+      - name: Check syntax
+        run: |
+          node --check assets/js/admin.js
+          node --check blocks/procore/index.js
+
+      - name: Validate block.json
+        run: node -e "JSON.parse(require('fs').readFileSync('blocks/procore/block.json','utf8'))"

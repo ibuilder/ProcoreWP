@@ -1,0 +1,77 @@
+/*!
+ * Procore Connect admin styles.
+ */
+
+.procore-connect-admin .nav-tab-wrapper {
+	margin-bottom: 1.25rem;
+}
+
+.procore-connect-admin code.procore-connect-copy {
+	cursor: pointer;
+	position: relative;
+}
+
+.procore-connect-admin code.procore-connect-copy.is-copied::after {
+	content: attr(data-copied-label, "Copied");
+	position: absolute;
+	inset-inline-start: 100%;
+	margin-inline-start: 0.5rem;
+	white-space: nowrap;
+	color: #1d7a3f;
+	font-weight: 600;
+}
+
+.procore-connect-steps {
+	margin: 0 0 1.5rem;
+	padding: 0;
+	list-style: none;
+	max-width: 60rem;
+}
+
+.procore-connect-step {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1rem;
+	padding: 0.625rem 0.875rem;
+	border-left: 4px solid #dcdcde;
+	background: #fff;
+	margin-bottom: 0.375rem;
+}
+
+.procore-connect-step strong {
+	min-width: 12rem;
+}
+
+.procore-connect-step--ok {
+	border-left-color: #1d7a3f;
+}
+
+.procore-connect-step--fail {
+	border-left-color: #b32d2e;
+}
+
+.procore-connect-step__message {
+	flex: 1 1 20rem;
+	color: #50575e;
+}
+
+.procore-connect-probes {
+	max-width: 60rem;
+}
+
+.procore-connect-probe--ok {
+	color: #1d7a3f;
+}
+
+.procore-connect-probe--failed {
+	color: #b32d2e;
+}
+
+.procore-connect-probe--skipped {
+	color: #7c7c7c;
+	font-style: italic;
+}
+
+#procore-connect-company-list {
+	margin-top: 0.5rem;
+}

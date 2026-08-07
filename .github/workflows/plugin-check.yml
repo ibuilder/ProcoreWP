@@ -1,0 +1,49 @@
+name: Plugin Check
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  plugin-check:
+    name: WordPress Plugin Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+          tools: composer:v2
+
+      # Build the distributable exactly as the release workflow does, so the
+      # check runs against what users actually install — not the dev tree.
+      - name: Stage the distributable
+        run: |
+          mkdir -p build/procorewp
+          rsync -a --exclude-from=.distignore \
+            --exclude='.git' --exclude='build' --exclude='vendor' \
+            ./ build/procorewp/
+          echo "Staged files:"
+          find build/procorewp -type f | sort
+
+      - name: Run Plugin Check
+        uses: wordpress/plugin-check-action@v1
+        with:
+          build-dir: ./build/procorewp
+          # Target zero findings. Remove nothing from this list without a
+          # documented reason in the pull request.
+          categories: |
+            general
+            plugin_repo
+            security
+            performance
+            accessibility

@@ -1,0 +1,79 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build, e.g. v2.0.0'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build and publish the release ZIP
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        uses: ramsey/composer-install@v3
+
+      # A tag that disagrees with the plugin header would ship a version users
+      # cannot update from, so fail loudly rather than publishing it.
+      - name: Verify the version is consistent
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          TAG_VERSION="${TAG#v}"
+          HEADER_VERSION=$(grep -oP '^\s*\*\s*Version:\s*\K[0-9.]+' procorewp.php)
+          README_VERSION=$(grep -oP '^Stable tag:\s*\K[0-9.]+' readme.txt)
+
+          echo "tag=$TAG_VERSION header=$HEADER_VERSION readme=$README_VERSION"
+
+          if [ "$TAG_VERSION" != "$HEADER_VERSION" ] || [ "$TAG_VERSION" != "$README_VERSION" ]; then
+            echo "::error::Version mismatch between the tag, the plugin header and readme.txt."
+            exit 1
+          fi
+
+      - name: Run the checks
+        run: |
+          ./vendor/bin/phpcs
+          ./vendor/bin/phpunit
+
+      - name: Stage the distributable
+        run: |
+          mkdir -p build/procorewp
+          rsync -a --exclude-from=.distignore \
+            --exclude='.git' --exclude='build' --exclude='vendor' \
+            ./ build/procorewp/
+
+      - name: Create the ZIP
+        run: |
+          cd build
+          zip -r "../procorewp-${{ github.event.inputs.tag || github.ref_name }}.zip" procorewp
+          cd ..
+          unzip -l "procorewp-${{ github.event.inputs.tag || github.ref_name }}.zip"
+
+      - name: Publish the release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.tag || github.ref_name }}
+          name: ProcoreWP ${{ github.event.inputs.tag || github.ref_name }}
+          body_path: CHANGELOG.md
+          files: procorewp-*.zip
+          draft: false
+          generate_release_notes: true

@@ -1,0 +1,75 @@
+name: Bug report
+description: Something is not working as documented
+labels: [ "bug" ]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing, please run **Procore → Connection → Test connection**. It reports
+        each stage separately and probes every endpoint, which identifies most problems
+        in one click.
+
+        **Never paste real credentials into a public issue.** For a security problem, use
+        [private reporting](https://github.com/ibuilder/ProcoreWP/security/advisories/new)
+        instead.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What did you expect, and what did you get instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Add [procore_rfis id="123"] to a page
+        2. View the page as a logged-out visitor
+        3. …
+    validations:
+      required: true
+
+  - type: input
+    id: shortcode
+    attributes:
+      label: The shortcode or block involved
+      placeholder: '[procore_rfis id="123" status="open"]'
+
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `wp procorewp doctor`
+      description: >
+        Reports whether credentials are set without printing them, so it is safe to
+        share. If WP-CLI is unavailable, paste the **Procore → Status** table instead.
+      render: shell
+
+  - type: textarea
+    id: probes
+    attributes:
+      label: Connection test results
+      description: >
+        Which stages and which endpoint probes failed? Redact any account names you would
+        rather not publish.
+      render: shell
+
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      placeholder: 'ProcoreWP 2.0.0, WordPress 6.9, PHP 8.2'
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Before submitting
+      options:
+        - label: I ran the connection test and the failure is not a missing Procore tool permission
+        - label: I checked the page as an administrator, where the real error message is shown
+        - label: This report contains no real credentials
+          required: true

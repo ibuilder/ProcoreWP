@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a capability or a new Procore endpoint
+labels: [ "enhancement" ]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What are you trying to do?
+      description: Describe the goal, not just the feature. It often points at a simpler answer.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like ProcoreWP to do?
+    validations:
+      required: true
+
+  - type: input
+    id: endpoint
+    attributes:
+      label: Procore endpoint, if this is about new data
+      placeholder: 'GET /rest/v1.0/projects/{project_id}/meetings'
+
+  - type: markdown
+    attributes:
+      value: |
+        If you only need one extra endpoint, you may not need to wait for a release —
+        `procorewp_endpoints` registers one from a small snippet in your theme or a
+        site plugin. See
+        [the shortcode reference](https://ibuilder.github.io/ProcoreWP/shortcodes/#the-generic-reader).
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What have you tried?
+      description: Filters, template overrides, `[procore_data]`, or another plugin.

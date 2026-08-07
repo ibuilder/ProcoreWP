@@ -1,0 +1,77 @@
+/*!
+ * ProcoreWP admin styles.
+ */
+
+.procorewp-admin .nav-tab-wrapper {
+	margin-bottom: 1.25rem;
+}
+
+.procorewp-admin code.procorewp-copy {
+	cursor: pointer;
+	position: relative;
+}
+
+.procorewp-admin code.procorewp-copy.is-copied::after {
+	content: attr(data-copied-label, "Copied");
+	position: absolute;
+	inset-inline-start: 100%;
+	margin-inline-start: 0.5rem;
+	white-space: nowrap;
+	color: #1d7a3f;
+	font-weight: 600;
+}
+
+.procorewp-steps {
+	margin: 0 0 1.5rem;
+	padding: 0;
+	list-style: none;
+	max-width: 60rem;
+}
+
+.procorewp-step {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.25rem 1rem;
+	padding: 0.625rem 0.875rem;
+	border-left: 4px solid #dcdcde;
+	background: #fff;
+	margin-bottom: 0.375rem;
+}
+
+.procorewp-step strong {
+	min-width: 12rem;
+}
+
+.procorewp-step--ok {
+	border-left-color: #1d7a3f;
+}
+
+.procorewp-step--fail {
+	border-left-color: #b32d2e;
+}
+
+.procorewp-step__message {
+	flex: 1 1 20rem;
+	color: #50575e;
+}
+
+.procorewp-probes {
+	max-width: 60rem;
+}
+
+.procorewp-probe--ok {
+	color: #1d7a3f;
+}
+
+.procorewp-probe--failed {
+	color: #b32d2e;
+}
+
+.procorewp-probe--skipped {
+	color: #7c7c7c;
+	font-style: italic;
+}
+
+#procorewp-company-list {
+	margin-top: 0.5rem;
+}

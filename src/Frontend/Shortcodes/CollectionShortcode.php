@@ -54,7 +54,7 @@ class CollectionShortcode extends AbstractShortcode {
 			$this->template( $atts ),
 			array(
 				'rows'       => $rows,
-				'columns'    => $this->resolve_columns( $atts ),
+				'columns'    => $this->drop_empty_columns( $this->resolve_columns( $atts ), $rows, ! empty( $atts['show_email'] ) ),
 				'title'      => $this->title( $atts ),
 				'class'      => Format::classes( 'procore-connect procore-connect-collection procore-connect-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
 				'show_email' => ! empty( $atts['show_email'] ),
@@ -62,6 +62,44 @@ class CollectionShortcode extends AbstractShortcode {
 				'tag'        => $this->tag,
 			)
 		);
+	}
+
+	/**
+	 * Remove columns that render nothing for every row.
+	 *
+	 * The visible case is `[procore_team]`: email suppression is on by default,
+	 * so the Email column produced a header and a blank cell for every member —
+	 * dead weight on the most commonly used shortcode. This also covers a
+	 * column no record happens to populate.
+	 *
+	 * A column an author asked for explicitly is always kept, so `columns=""`
+	 * still means what it says.
+	 *
+	 * @param array<int, array<string, string>> $columns    Column definitions.
+	 * @param array<int, mixed>                 $rows       Records being rendered.
+	 * @param bool                              $show_email Whether the shortcode opted in to email output.
+	 * @return array<int, array<string, string>> Columns that carry at least one value.
+	 */
+	protected function drop_empty_columns( array $columns, array $rows, bool $show_email ): array {
+		$kept = array();
+
+		foreach ( $columns as $column ) {
+			$has_value = false;
+
+			foreach ( $rows as $row ) {
+				if ( '' !== trim( Format::cell( $row, $column, $show_email ) ) ) {
+					$has_value = true;
+					break;
+				}
+			}
+
+			if ( $has_value ) {
+				$kept[] = $column;
+			}
+		}
+
+		// Never render a table with no columns at all.
+		return empty( $kept ) ? $columns : $kept;
 	}
 
 	/**

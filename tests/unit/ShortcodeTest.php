@@ -294,6 +294,76 @@ final class ShortcodeTest extends TestCase {
 	}
 
 	/**
+	 * A column that renders nothing for every row must not be shown.
+	 *
+	 * Email suppression is on by default, so `[procore_team]` used to emit an
+	 * Email header and a blank cell for every member.
+	 *
+	 * @return void
+	 */
+	public function test_drops_a_column_that_is_empty_for_every_row(): void {
+		$this->client_returning(
+			array(
+				$this->response(
+					array(
+						array(
+							'id'            => 3,
+							'name'          => 'Dana Reed',
+							'job_title'     => 'PM',
+							'email_address' => 'dana@example.com',
+						),
+					)
+				),
+			)
+		);
+
+		$html = $this->shortcode( 'procore_team' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+			)
+		);
+
+		$this->assertStringContainsString( 'Dana Reed', $html );
+		$this->assertStringNotContainsString( '>Email<', $html );
+	}
+
+	/**
+	 * A column with data must survive the empty-column filter.
+	 *
+	 * @return void
+	 */
+	public function test_keeps_columns_that_carry_a_value(): void {
+		Settings::set( 'suppress_emails', false );
+
+		$this->client_returning(
+			array(
+				$this->response(
+					array(
+						array(
+							'id'            => 3,
+							'name'          => 'Dana Reed',
+							'job_title'     => 'PM',
+							'email_address' => 'dana@example.com',
+						),
+					)
+				),
+			)
+		);
+
+		$html = $this->shortcode( 'procore_team' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+				'show_email' => 'true',
+			)
+		);
+
+		$this->assertStringContainsString( '>Email<', $html );
+		$this->assertStringContainsString( 'dana@example.com', $html );
+	}
+
+	/**
 	 * A field outside the allow-list must be refused.
 	 *
 	 * @return void

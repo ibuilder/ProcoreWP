@@ -181,6 +181,68 @@ final class SettingsTest extends TestCase {
 	}
 
 	/**
+	 * A secret mangled by 2.0.0 or 2.0.1 must be repaired in place.
+	 *
+	 * Those versions added an encryption layer on every settings write, so an
+	 * upgrading install can hold cipher text a single decrypt cannot recover.
+	 *
+	 * @return void
+	 */
+	public function test_repairs_a_multi_encrypted_secret(): void {
+		// Reproduce the damage: three layers, as a real affected install would have.
+		$mangled = Encryption::encrypt( Encryption::encrypt( Encryption::encrypt( 'the-real-secret' ) ) );
+
+		update_option( Settings::OPTION, array( 'client_secret' => $mangled ) );
+		Settings::flush();
+
+		$this->assertSame( 3, Encryption::depth( $mangled ) );
+		$this->assertNotSame( 'the-real-secret', Settings::client_secret(), 'precondition: the secret is unusable' );
+
+		$this->assertSame( 'repaired', Settings::repair_client_secret() );
+		$this->assertSame( 'the-real-secret', Settings::client_secret() );
+		$this->assertSame( 1, Encryption::depth( (string) Settings::get( 'client_secret' ) ) );
+	}
+
+	/**
+	 * A correctly stored secret must be left alone by the repair.
+	 *
+	 * @return void
+	 */
+	public function test_repair_is_a_no_op_on_a_healthy_secret(): void {
+		update_option( Settings::OPTION, array( 'client_secret' => Encryption::encrypt( 'fine' ) ) );
+		Settings::flush();
+
+		$this->assertSame( 'ok', Settings::repair_client_secret() );
+		$this->assertSame( 'fine', Settings::client_secret() );
+	}
+
+	/**
+	 * An empty secret must not be treated as damaged.
+	 *
+	 * @return void
+	 */
+	public function test_repair_is_a_no_op_when_no_secret_is_stored(): void {
+		update_option( Settings::OPTION, array( 'client_secret' => '' ) );
+		Settings::flush();
+
+		$this->assertSame( 'ok', Settings::repair_client_secret() );
+	}
+
+	/**
+	 * An unrecoverable secret must be cleared so the admin is prompted.
+	 *
+	 * @return void
+	 */
+	public function test_repair_clears_an_unrecoverable_secret(): void {
+		// Cipher text whose inner layer is not recoverable.
+		update_option( Settings::OPTION, array( 'client_secret' => Encryption::encrypt( 'pwp2:not-valid-base64-cipher' ) ) );
+		Settings::flush();
+
+		$this->assertSame( 'unrecoverable', Settings::repair_client_secret() );
+		$this->assertSame( '', Settings::client_secret() );
+	}
+
+	/**
 	 * Settings written by ProcoreWP 1.x must be imported and re-encrypted.
 	 *
 	 * @return void

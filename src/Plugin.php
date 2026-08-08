@@ -15,6 +15,7 @@ use ProcoreConnect\Admin\OAuthController;
 use ProcoreConnect\Admin\SettingsPage;
 use ProcoreConnect\Admin\Settings;
 use ProcoreConnect\Api\Cache;
+use ProcoreConnect\Api\TokenStore;
 use ProcoreConnect\Blocks\Registrar as BlockRegistrar;
 use ProcoreConnect\Cli\Commands;
 use ProcoreConnect\Frontend\Assets;
@@ -118,6 +119,21 @@ final class Plugin {
 
 		if ( '' !== $installed && version_compare( $installed, '2.0.0', '<' ) ) {
 			Cache::flush();
+		}
+
+		/*
+		 * 2.0.0 and 2.0.1 re-encrypted the client secret on every settings
+		 * write, so an install upgrading from either may hold a secret it can
+		 * no longer decrypt. Repair it here rather than leaving the site with
+		 * an unexplained authentication failure.
+		 */
+		if ( '' !== $installed && version_compare( $installed, '2.0.2', '<' ) ) {
+			$repair = Settings::repair_client_secret();
+
+			if ( 'ok' !== $repair ) {
+				update_option( 'procore_connect_secret_repair', $repair, false );
+				TokenStore::clear();
+			}
 		}
 
 		update_option( self::VERSION_OPTION, PROCORE_CONNECT_VERSION, false );

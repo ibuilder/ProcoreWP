@@ -5,6 +5,42 @@ All notable changes to Procore Connect are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] — 2026-08-08
+
+### Fixed
+
+- **Saved credentials could be corrupted beyond recovery.** `register_setting()`
+  attaches the settings sanitizer to `sanitize_option_{$option}`, and WordPress runs
+  that filter on *every* `update_option()` for the option — including this plugin's own
+  internal writes in `Settings::set()` and `Settings::migrate_legacy()`. The sanitizer
+  encrypted the client secret unconditionally, so each of those writes re-encrypted the
+  stored cipher text, one layer at a time. After a couple of saves the secret could no
+  longer be decrypted and the site silently lost its Procore connection, with no way to
+  recover the value short of re-entering it.
+
+  Encryption is now idempotent at that boundary: a value that is already cipher text is
+  passed through untouched. Added `Encryption::is_encrypted()` and two regression tests
+  that fail against the previous behaviour.
+
+  This was found by running the plugin in a real WordPress install with the setting
+  registered, which is the only configuration where the faulty path is reachable — the
+  earlier integration run never called `register_setting()`, so it missed it.
+
+### Added
+
+- 18 tests covering both OAuth grants and the token store: token-endpoint host, token
+  reuse, CSRF `state` rejection and replay, refresh-token rotation, the reconnect path
+  when a refresh is rejected, encryption at rest, expiry margin, environment isolation
+  and lock exclusivity.
+- `.wordpress-org/` banner and icon assets for a WordPress.org submission, excluded from
+  the release ZIP.
+
+### Removed
+
+- The `== Screenshots ==` section of `readme.txt`, which declared six files that were
+  never produced and would have rendered as six broken slots on the plugin page.
+  `.wordpress-org/README.md` records what to capture from a real Procore-connected site.
+
 ## [2.0.1] — 2026-08-08
 
 Four defects found by running the plugin inside a real WordPress install
@@ -152,6 +188,7 @@ every install was non-functional regardless of configuration.
 
 - Initial release.
 
+[2.0.2]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.2
 [2.0.1]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.1
 [2.0.0]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.0
 [1.0.0]: https://github.com/ibuilder/ProcoreWP/releases/tag/v1.0.0

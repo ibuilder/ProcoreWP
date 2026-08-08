@@ -575,7 +575,7 @@ msgstr ""
 msgid "No project was available to test against."
 msgstr ""
 
-#: src/Frontend/Shortcodes/AbstractShortcode.php:392
+#: src/Frontend/Shortcodes/AbstractShortcode.php:395
 msgid "No records were found."
 msgstr ""
 
@@ -719,7 +719,7 @@ msgid "Procore Connect"
 msgstr ""
 
 #. translators: %s: error message from the Procore API.
-#: src/Frontend/Shortcodes/AbstractShortcode.php:359
+#: src/Frontend/Shortcodes/AbstractShortcode.php:362
 msgid "Procore Connect (visible to administrators only): %s"
 msgstr ""
 
@@ -817,7 +817,7 @@ msgstr ""
 msgid "Project detail"
 msgstr ""
 
-#: src/Frontend/Shortcodes/AbstractShortcode.php:366
+#: src/Frontend/Shortcodes/AbstractShortcode.php:369
 #: src/Rest/Controller.php:209
 msgid "Project information is temporarily unavailable."
 msgstr ""

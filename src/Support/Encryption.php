@@ -53,6 +53,23 @@ final class Encryption {
 	}
 
 	/**
+	 * Whether a value has already been through `encrypt()`.
+	 *
+	 * Callers use this to stay idempotent. `register_setting()` attaches the
+	 * settings sanitizer to `sanitize_option_{$option}`, and WordPress runs
+	 * that filter on *every* `update_option()` for the option — including the
+	 * plugin's own internal writes. Encrypting unconditionally would therefore
+	 * re-encrypt the stored cipher text on each save until the credential could
+	 * no longer be recovered.
+	 *
+	 * @param string $value Candidate value.
+	 * @return bool True when the value is already cipher text.
+	 */
+	public static function is_encrypted( string $value ): bool {
+		return 0 === strpos( $value, self::PREFIX ) || 0 === strpos( $value, self::FALLBACK_PREFIX );
+	}
+
+	/**
 	 * Encrypt a value for storage.
 	 *
 	 * @param string $value Plain text value.

@@ -60,7 +60,7 @@ body:
     id: versions
     attributes:
       label: Versions
-      placeholder: 'Procore Connect 2.0.0, WordPress 6.9, PHP 8.2'
+      placeholder: 'Procore Connect 2.0.3, WordPress 7.0, PHP 8.3'
     validations:
       required: true
 

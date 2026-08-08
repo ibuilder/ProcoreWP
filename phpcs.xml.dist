@@ -81,8 +81,13 @@
 	<rule ref="Generic.Commenting">
 		<exclude-pattern>/tests/wp-shims.php</exclude-pattern>
 	</rule>
+	<!--
+		Tests build real fixture files on disk. WP_Filesystem is a runtime
+		abstraction that does not exist in the shimmed harness, so the direct
+		calls are correct here.
+	-->
 	<rule ref="WordPress.WP.AlternativeFunctions">
-		<exclude-pattern>/tests/wp-shims.php</exclude-pattern>
+		<exclude-pattern>/tests/*</exclude-pattern>
 	</rule>
 	<rule ref="WordPress.PHP.DiscouragedPHPFunctions">
 		<exclude-pattern>/tests/wp-shims.php</exclude-pattern>

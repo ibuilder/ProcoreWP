@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,11 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.4 =
+
+* Security documentation no longer recommends 2.0.0 or 2.0.1, the versions that damage the stored Client Secret. Both are now marked unsupported with the remedy stated plainly.
+* Added test coverage for log redaction, which keeps secrets out of debug.log, and for the theme template override chain.
+
 = 2.0.3 =
 
 * **Repairs credentials damaged by 2.0.0 or 2.0.1.** Those versions re-encrypted the stored Client Secret on every settings save until it could no longer be read, leaving the site unable to authenticate with no explanation. 2.0.2 stopped the damage; 2.0.3 undoes it. The upgrade unwraps the value, re-stores it correctly, and tells you what it did. If it cannot be recovered it is cleared and you are asked to enter it again.
@@ -177,6 +182,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.4 =
+Documentation and test coverage only. No functional change from 2.0.3.
 
 = 2.0.3 =
 Repairs a Client Secret damaged by 2.0.0 or 2.0.1, which re-encrypted it on every save until it stopped working. Upgrading restores it automatically and reports the result. Recommended for anyone who ran 2.0.0 or 2.0.1.

@@ -5,6 +5,19 @@ All notable changes to Procore Connect are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.5] — 2026-08-08
+
+### Fixed
+
+- **`[procore_team]` rendered an empty Email column.** Email suppression is on by
+  default, so the Email header appeared above a blank cell for every team member —
+  visible dead weight on the most commonly used shortcode, on every default install.
+  Columns that render nothing for any row are now dropped. This also covers a column
+  no record happens to populate, and a table is never reduced to no columns at all.
+
+  Found by standing up a real WordPress site, serving it over HTTP and reading what a
+  visitor actually gets, rather than by asserting on strings.
+
 ## [2.0.4] — 2026-08-08
 
 ### Security
@@ -231,6 +244,7 @@ every install was non-functional regardless of configuration.
 
 - Initial release.
 
+[2.0.5]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.5
 [2.0.4]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.4
 [2.0.3]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.3
 [2.0.2]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.2

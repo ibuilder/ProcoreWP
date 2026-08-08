@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,10 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.5 =
+
+* Fixed: `[procore_team]` showed an empty Email column. Email output is suppressed by default, so the column appeared with a header and blank cells on every default install. Columns with no value in any row are now hidden.
+
 = 2.0.4 =
 
 * Security documentation no longer recommends 2.0.0 or 2.0.1, the versions that damage the stored Client Secret. Both are now marked unsupported with the remedy stated plainly.
@@ -182,6 +186,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.5 =
+Cosmetic fix: the team table no longer shows an empty Email column when email output is suppressed, which is the default.
 
 = 2.0.4 =
 Documentation and test coverage only. No functional change from 2.0.3.

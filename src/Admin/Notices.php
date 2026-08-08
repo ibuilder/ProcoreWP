@@ -41,6 +41,7 @@ final class Notices {
 
 		$this->oauth_result();
 		$this->migration_notice();
+		$this->secret_repair_notice();
 
 		if ( ! $this->on_plugin_screen() ) {
 			return;
@@ -106,6 +107,40 @@ final class Notices {
 		);
 
 		delete_option( 'procore_connect_migrated_from' );
+	}
+
+	/**
+	 * Report the outcome of repairing a secret damaged by 2.0.0 or 2.0.1.
+	 *
+	 * @return void
+	 */
+	private function secret_repair_notice(): void {
+		$state = (string) get_option( 'procore_connect_secret_repair', '' );
+
+		if ( '' === $state ) {
+			return;
+		}
+
+		delete_option( 'procore_connect_secret_repair' );
+
+		if ( 'repaired' === $state ) {
+			$this->notice(
+				'success',
+				__( 'Procore Connect repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm.', 'procore-connect' )
+			);
+
+			return;
+		}
+
+		$this->notice(
+			'error',
+			sprintf(
+				/* translators: %s: settings screen URL. */
+				__( 'Procore Connect could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href="%s">enter it again</a>; this cannot happen on 2.0.2 or later.', 'procore-connect' ),
+				esc_url( admin_url( 'admin.php?page=procore-connect' ) )
+			),
+			true
+		);
 	}
 
 	/**

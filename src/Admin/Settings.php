@@ -282,6 +282,48 @@ final class Settings {
 	}
 
 	/**
+	 * Repair a client secret that earlier versions encrypted more than once.
+	 *
+	 * Versions 2.0.0 and 2.0.1 ran the settings sanitizer on every write to the
+	 * option, including internal ones, so the stored secret gained a layer of
+	 * encryption each time. Those installs cannot authenticate and give no clue
+	 * why. Peel the value back to plain text and re-store it correctly.
+	 *
+	 * @return string One of `ok` (nothing to do), `repaired`, or `unrecoverable`.
+	 */
+	public static function repair_client_secret(): string {
+		$stored = (string) self::get( 'client_secret', '' );
+
+		if ( '' === $stored ) {
+			return 'ok';
+		}
+
+		if ( Encryption::depth( $stored ) <= 1 ) {
+			return 'ok';
+		}
+
+		$plain = Encryption::decrypt_deep( $stored );
+
+		if ( '' === $plain ) {
+			// Nothing usable is left; clear it so the admin is prompted rather
+			// than left staring at an unexplained authentication failure.
+			$all                  = self::all();
+			$all['client_secret'] = '';
+			update_option( self::OPTION, $all, false );
+			self::flush();
+
+			return 'unrecoverable';
+		}
+
+		$all                  = self::all();
+		$all['client_secret'] = Encryption::encrypt( $plain );
+		update_option( self::OPTION, $all, false );
+		self::flush();
+
+		return 'repaired';
+	}
+
+	/**
 	 * Import settings saved by ProcoreWP 1.x.
 	 *
 	 * The 1.x option stored the secret in plain text and held a token obtained

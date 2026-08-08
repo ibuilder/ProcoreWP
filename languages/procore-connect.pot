@@ -253,7 +253,7 @@ msgstr ""
 msgid "Connected as %1$s (%2$s)."
 msgstr ""
 
-#: src/Admin/Notices.php:68
+#: src/Admin/Notices.php:69
 msgid "Connected to Procore."
 msgstr ""
 
@@ -430,7 +430,7 @@ msgstr ""
 msgid "Encrypted (AES-256-GCM)"
 msgstr ""
 
-#: src/Admin/Notices.php:77
+#: src/Admin/Notices.php:78
 msgid "Enter a Client ID and Client Secret before connecting."
 msgstr ""
 
@@ -663,7 +663,7 @@ msgstr ""
 msgid "Open — resumes in %s"
 msgstr ""
 
-#: src/Admin/Notices.php:123
+#: src/Admin/Notices.php:158
 msgid "OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead."
 msgstr ""
 
@@ -724,13 +724,22 @@ msgid "Procore Connect (visible to administrators only): %s"
 msgstr ""
 
 #. translators: %s: settings screen URL.
-#: src/Admin/Notices.php:102
+#: src/Admin/Notices.php:139
+msgid "Procore Connect could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href=\"%s\">enter it again</a>; this cannot happen on 2.0.2 or later."
+msgstr ""
+
+#. translators: %s: settings screen URL.
+#: src/Admin/Notices.php:103
 msgid "Procore Connect imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
 msgstr ""
 
 #. translators: 1: environment label, 2: API host.
-#: src/Admin/Notices.php:141
+#: src/Admin/Notices.php:176
 msgid "Procore Connect is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
+msgstr ""
+
+#: src/Admin/Notices.php:129
+msgid "Procore Connect repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm."
 msgstr ""
 
 #: src/Api/Auth/AbstractAuth.php:101
@@ -766,7 +775,7 @@ msgid "Procore rejected the authentication request (HTTP %d)."
 msgstr ""
 
 #. translators: %s: human readable time difference.
-#: src/Admin/Notices.php:164
+#: src/Admin/Notices.php:199
 msgid "Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime."
 msgstr ""
 
@@ -998,7 +1007,7 @@ msgstr ""
 msgid "Service Account (Client Credentials) — recommended"
 msgstr ""
 
-#: src/Plugin.php:158
+#: src/Plugin.php:174
 msgid "Settings"
 msgstr ""
 
@@ -1099,7 +1108,7 @@ msgstr ""
 msgid "The Procore Connect REST proxy is disabled."
 msgstr ""
 
-#: src/Admin/Notices.php:76
+#: src/Admin/Notices.php:77
 msgid "The Procore authorization request was declined."
 msgstr ""
 
@@ -1107,7 +1116,7 @@ msgstr ""
 msgid "The Procore authorization response could not be verified. Please start the connection again."
 msgstr ""
 
-#: src/Admin/Notices.php:78
+#: src/Admin/Notices.php:79
 msgid "The Procore connection could not be completed."
 msgstr ""
 

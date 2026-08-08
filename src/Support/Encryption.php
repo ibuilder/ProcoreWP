@@ -164,6 +164,70 @@ final class Encryption {
 	}
 
 	/**
+	 * Peel every layer of encryption off a value.
+	 *
+	 * Versions 2.0.0 and 2.0.1 re-encrypted the stored client secret on each
+	 * settings write, leaving multi-layered cipher text that a single
+	 * `decrypt()` cannot recover. This unwraps repeatedly until the result is
+	 * no longer cipher text, so an affected install can be repaired in place
+	 * rather than forcing the operator to find their credentials again.
+	 *
+	 * @param string $value  Stored value, possibly encrypted more than once.
+	 * @param int    $layers Safety ceiling on unwrapping passes.
+	 * @return string Plain text value, or an empty string when unrecoverable.
+	 */
+	public static function decrypt_deep( string $value, int $layers = 12 ): string {
+		$current = $value;
+
+		for ( $i = 0; $i < $layers; $i++ ) {
+			if ( ! self::is_encrypted( $current ) ) {
+				return $current;
+			}
+
+			$next = self::decrypt( $current );
+
+			// A layer that will not unwrap means the value is unrecoverable.
+			if ( '' === $next || $next === $current ) {
+				return '';
+			}
+
+			$current = $next;
+		}
+
+		// Still cipher text after the ceiling: treat as unrecoverable.
+		return self::is_encrypted( $current ) ? '' : $current;
+	}
+
+	/**
+	 * How many times a value has been encrypted.
+	 *
+	 * @param string $value  Stored value.
+	 * @param int    $layers Safety ceiling on counting passes.
+	 * @return int Number of encryption layers; 0 for plain text.
+	 */
+	public static function depth( string $value, int $layers = 12 ): int {
+		$current = $value;
+		$depth   = 0;
+
+		for ( $i = 0; $i < $layers; $i++ ) {
+			if ( ! self::is_encrypted( $current ) ) {
+				break;
+			}
+
+			$next = self::decrypt( $current );
+
+			if ( '' === $next || $next === $current ) {
+				return $depth + 1;
+			}
+
+			$current = $next;
+			++$depth;
+		}
+
+		return $depth;
+	}
+
+	/**
 	 * Mask a secret for display, revealing only the final four characters.
 	 *
 	 * @param string $value Secret value.

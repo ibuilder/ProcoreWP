@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.2
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,10 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.3 =
+
+* **Repairs credentials damaged by 2.0.0 or 2.0.1.** Those versions re-encrypted the stored Client Secret on every settings save until it could no longer be read, leaving the site unable to authenticate with no explanation. 2.0.2 stopped the damage; 2.0.3 undoes it. The upgrade unwraps the value, re-stores it correctly, and tells you what it did. If it cannot be recovered it is cleared and you are asked to enter it again.
+
 = 2.0.2 =
 
 * **Fixed a credential-corrupting bug.** WordPress runs a registered setting's sanitize callback on every update to that option, including the plugin's own internal writes. Because the sanitizer encrypted the client secret unconditionally, each write re-encrypted the stored value until it could no longer be decrypted and the site silently lost its Procore connection. Encryption is now idempotent. If your connection stopped working after saving settings, re-enter the Client Secret once on 2.0.2 and it will stay valid.
@@ -173,6 +177,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.3 =
+Repairs a Client Secret damaged by 2.0.0 or 2.0.1, which re-encrypted it on every save until it stopped working. Upgrading restores it automatically and reports the result. Recommended for anyone who ran 2.0.0 or 2.0.1.
 
 = 2.0.2 =
 Important fix: repeated settings saves could re-encrypt the stored Client Secret until it became unrecoverable, silently breaking the Procore connection. Update, then re-enter your Client Secret once if the connection had stopped working.

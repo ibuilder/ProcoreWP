@@ -344,6 +344,10 @@ function get_template_directory(): string {
 	return sys_get_temp_dir() . '/procore-connect-parent-theme';
 }
 
+function get_current_user_id(): int {
+	return (int) ( $GLOBALS['procore_connect_test_user'] ?? 1 );
+}
+
 function current_user_can( string $capability ): bool {
 	return (bool) ( $GLOBALS['procore_connect_test_can'] ?? false );
 }

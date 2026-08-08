@@ -125,15 +125,6 @@ Your settings are imported automatically and every 1.x shortcode name and the le
 
 Yes. Caching goes through the transient API, so a persistent object cache such as Redis or Memcached is used automatically when present.
 
-== Screenshots ==
-
-1. The Connection screen, with authentication mode, environment and credentials.
-2. The connection test, reporting each stage and probing every endpoint for tool permissions.
-3. The generated shortcode reference.
-4. The Status screen, showing rate-limit headroom and cache statistics.
-5. A project list rendered on the front end.
-6. The Procore block in the editor, with a live preview.
-
 == Changelog ==
 
 = 2.0.1 =

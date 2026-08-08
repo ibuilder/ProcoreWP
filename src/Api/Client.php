@@ -173,8 +173,22 @@ final class Client {
 			);
 		}
 
-		$company = isset( $options['company_id'] ) ? absint( $options['company_id'] ) : Settings::default_company_id();
-		$project = isset( $options['project_id'] ) ? absint( $options['project_id'] ) : 0;
+		/*
+		 * A zero is treated as "not supplied" rather than as an explicit
+		 * choice, so callers that always pass the key — the REST proxy sends
+		 * an integer parameter that defaults to 0 — still inherit the site
+		 * defaults instead of failing with a missing-context error.
+		 */
+		$company = absint( $options['company_id'] ?? 0 );
+		$project = absint( $options['project_id'] ?? 0 );
+
+		if ( $company <= 0 ) {
+			$company = Settings::default_company_id();
+		}
+
+		if ( $project <= 0 ) {
+			$project = Settings::default_project_id();
+		}
 
 		if ( Endpoints::SCOPE_NONE !== $definition['scope'] && $company <= 0 ) {
 			return new \WP_Error(
@@ -193,7 +207,11 @@ final class Client {
 
 		if ( ! empty( $definition['paginated'] ) ) {
 			$query['per_page'] = min( 2000, max( 1, (int) ( $options['per_page'] ?? Settings::get( 'per_page', 100 ) ) ) );
-			$query['page']     = max( 1, (int) ( $query['page'] ?? 1 ) );
+			$query['page']     = max( 1, (int) ( $query['page'] ?? $options['page'] ?? 1 ) );
+		} else {
+			// A single-record resource has no pages; sending them is meaningless
+			// noise that also varies the cache key for identical requests.
+			unset( $query['page'], $query['per_page'] );
 		}
 
 		$ttl        = isset( $options['ttl'] ) ? (int) $options['ttl'] : (int) $definition['ttl'];

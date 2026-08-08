@@ -222,17 +222,19 @@ abstract class AbstractShortcode {
 	/**
 	 * Query parameters sent with the request.
 	 *
+	 * Pagination is deliberately not added here. It is passed through
+	 * `fetch_options()` so the client can drop it for endpoints the registry
+	 * marks as unpaginated — sending `page` to a single-record resource such as
+	 * `/projects/{id}` is meaningless and needlessly varies the cache key.
+	 *
+	 * The parameter is retained because this is an extension point: subclasses
+	 * override it to add endpoint-specific filters derived from the attributes.
+	 *
 	 * @param array<string, mixed> $atts Sanitized attributes.
 	 * @return array<string, mixed> Query parameters.
 	 */
-	protected function query_args( array $atts ): array {
-		$args = array();
-
-		if ( ! empty( $atts['page'] ) ) {
-			$args['page'] = (int) $atts['page'];
-		}
-
-		return $args;
+	protected function query_args( array $atts ): array { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.Found -- Extension point for subclasses.
+		return array();
 	}
 
 	/**
@@ -246,6 +248,7 @@ abstract class AbstractShortcode {
 			'company_id' => $this->company_id( $atts ),
 			'project_id' => $this->project_id( $atts ),
 			'all'        => ! empty( $atts['all'] ),
+			'page'       => max( 1, (int) $atts['page'] ),
 		);
 
 		if ( '' !== $atts['cache'] && $atts['cache'] > 0 ) {

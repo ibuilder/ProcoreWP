@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,15 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.1 =
+
+Fixes found by running the plugin inside a real WordPress install.
+
+* Fixed: pagination parameters were sent to single-record endpoints such as `/projects/{id}`, which have no pages. This was noise on the wire and varied the cache key for identical requests.
+* Fixed: the REST proxy ignored the configured default company, so every request failed with a missing-company error unless company_id was passed explicitly.
+* Fixed: translations were loaded before `init`, which triggers a `_load_textdomain_just_in_time` notice on WordPress 6.7+ and silently drops translations.
+* Fixed: WP-CLI subcommands were registered with underscores while the documentation advertised hyphens. `wp procore-connect cache-clear`, `cache-warm` and `reset-token` now work as documented.
+
 = 2.0.0 =
 
 A complete rewrite. See the upgrade notice below before updating.
@@ -166,6 +175,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+Bug fixes from real-world integration testing: pagination on single-record endpoints, the REST proxy ignoring the default company, translations loading too early, and WP-CLI subcommand names. No action required.
 
 = 2.0.0 =
 Rewrite. Fixes authentication, adds caching and encrypts credentials. Settings migrate and all 1.x shortcodes still work, but the main file was renamed: activate the plugin once, re-run the connection test, and rotate your client secret.

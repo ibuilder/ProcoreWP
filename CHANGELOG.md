@@ -5,6 +5,34 @@ All notable changes to Procore Connect are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] — 2026-08-08
+
+Four defects found by running the plugin inside a real WordPress install
+against a mocked Procore API — a surface the unit tests, which shim WordPress
+functions, cannot reach.
+
+### Fixed
+
+- **Pagination parameters were sent to single-record endpoints.** Every request
+  carried `page=1`, including `/projects/{id}` and `/me`, which have no pages.
+  It was meaningless noise on the wire and it varied the cache key for what was
+  the same request. Pagination is now applied only to endpoints the registry
+  marks as paginated.
+- **The REST proxy ignored the configured default company.** The route always
+  sends `company_id` as an integer defaulting to `0`, and the client treated a
+  supplied zero as a deliberate choice rather than an omission, so the site
+  default never applied and every request failed with a missing-company error.
+  A zero identifier now falls back to the configured default.
+- **Translations were loaded before `init`.** Shortcode definitions carry
+  translated titles and were built on `plugins_loaded`, which triggers
+  WordPress 6.7's `_load_textdomain_just_in_time` notice and silently drops
+  translations. Shortcode registration is now deferred to `init`.
+- **WP-CLI subcommands did not match the documentation.** They were registered
+  as `cache_clear`, `cache_warm` and `reset_token`; the documentation
+  advertised the hyphenated forms. Added `@subcommand` annotations so
+  `wp procore-connect cache-clear`, `cache-warm` and `reset-token` work as
+  documented.
+
 ## [2.0.0] — 2026-08-07
 
 A complete rewrite. Version 1.x could not authenticate against the live Procore API, so
@@ -124,5 +152,6 @@ every install was non-functional regardless of configuration.
 
 - Initial release.
 
+[2.0.1]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.1
 [2.0.0]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.0
 [1.0.0]: https://github.com/ibuilder/ProcoreWP/releases/tag/v1.0.0

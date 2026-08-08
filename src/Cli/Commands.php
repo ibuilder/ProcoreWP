@@ -87,6 +87,8 @@ final class Commands {
 	 *     wp procore-connect cache-clear
 	 *     wp procore-connect cache-clear --group=rfis
 	 *
+	 * @subcommand cache-clear
+	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
 	 * @return void
@@ -110,6 +112,8 @@ final class Commands {
 	 * ## EXAMPLES
 	 *
 	 *     wp procore-connect cache-warm
+	 *
+	 * @subcommand cache-warm
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.
@@ -207,6 +211,8 @@ final class Commands {
 	 * ## EXAMPLES
 	 *
 	 *     wp procore-connect reset-token
+	 *
+	 * @subcommand reset-token
 	 *
 	 * @param array<int, string>    $args       Positional arguments.
 	 * @param array<string, string> $assoc_args Associative arguments.

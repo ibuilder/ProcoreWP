@@ -69,6 +69,51 @@ final class SettingsTest extends TestCase {
 	}
 
 	/**
+	 * Sanitizing must be idempotent, so a secret survives repeated saves.
+	 *
+	 * `register_setting()` attaches this sanitizer to `sanitize_option_{$option}`,
+	 * and WordPress runs that on every `update_option()` for the option —
+	 * including the plugin's own writes in `set()` and `migrate_legacy()`.
+	 * Encrypting unconditionally re-encrypted the stored cipher text one layer
+	 * per save until the credential was unrecoverable.
+	 *
+	 * @return void
+	 */
+	public function test_sanitize_does_not_re_encrypt_an_encrypted_secret(): void {
+		$once = Settings::sanitize( array( 'client_secret' => 'super-secret-value' ) );
+
+		$this->assertSame( 'super-secret-value', Encryption::decrypt( $once['client_secret'] ) );
+
+		// Feed the sanitizer its own output, as update_option() does.
+		$twice  = Settings::sanitize( $once );
+		$thrice = Settings::sanitize( $twice );
+
+		$this->assertSame( $once['client_secret'], $twice['client_secret'] );
+		$this->assertSame( 'super-secret-value', Encryption::decrypt( $twice['client_secret'] ) );
+		$this->assertSame( 'super-secret-value', Encryption::decrypt( $thrice['client_secret'] ) );
+	}
+
+	/**
+	 * Writing settings programmatically must not corrupt the stored secret.
+	 *
+	 * @return void
+	 */
+	public function test_set_preserves_the_secret_through_the_sanitizer(): void {
+		$stored = Settings::sanitize( array( 'client_secret' => 'keep-me' ) );
+		update_option( Settings::OPTION, $stored );
+		Settings::flush();
+
+		// Simulate WordPress re-running the sanitizer on an internal write.
+		for ( $i = 0; $i < 3; $i++ ) {
+			$round = Settings::sanitize( Settings::all() );
+			update_option( Settings::OPTION, $round );
+			Settings::flush();
+		}
+
+		$this->assertSame( 'keep-me', Settings::client_secret() );
+	}
+
+	/**
 	 * An empty secret field must leave the stored secret untouched, because the
 	 * form renders a mask rather than the real value.
 	 *

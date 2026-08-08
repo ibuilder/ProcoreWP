@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.1
+Stable tag: 2.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,13 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.2 =
+
+* **Fixed a credential-corrupting bug.** WordPress runs a registered setting's sanitize callback on every update to that option, including the plugin's own internal writes. Because the sanitizer encrypted the client secret unconditionally, each write re-encrypted the stored value until it could no longer be decrypted and the site silently lost its Procore connection. Encryption is now idempotent. If your connection stopped working after saving settings, re-enter the Client Secret once on 2.0.2 and it will stay valid.
+* Added 18 tests covering both OAuth grants, CSRF state handling and refresh-token rotation.
+* Added WordPress.org banner and icon assets.
+* Removed a Screenshots section that referenced files which did not exist.
+
 = 2.0.1 =
 
 Fixes found by running the plugin inside a real WordPress install.
@@ -166,6 +173,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.2 =
+Important fix: repeated settings saves could re-encrypt the stored Client Secret until it became unrecoverable, silently breaking the Procore connection. Update, then re-enter your Client Secret once if the connection had stopped working.
 
 = 2.0.1 =
 Bug fixes from real-world integration testing: pagination on single-record endpoints, the REST proxy ignoring the default company, translations loading too early, and WP-CLI subcommand names. No action required.

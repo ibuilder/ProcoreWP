@@ -221,12 +221,24 @@ final class Settings {
 
 		$clean['client_id'] = sanitize_text_field( (string) ( $input['client_id'] ?? '' ) );
 
-		// An empty secret field means "leave the stored secret alone"; the form
-		// renders a masked placeholder rather than the real value.
+		/*
+		 * An empty secret field means "leave the stored secret alone"; the form
+		 * renders a masked placeholder rather than the real value.
+		 *
+		 * A value that is already cipher text is passed through untouched.
+		 * register_setting() attaches this sanitizer to
+		 * sanitize_option_{$option}, which WordPress runs on *every*
+		 * update_option() for the option — including this plugin's own internal
+		 * writes in set() and migrate_legacy(). Encrypting unconditionally would
+		 * re-encrypt the stored value on each save, one layer at a time, until
+		 * the credential could no longer be recovered.
+		 */
 		$submitted_secret = trim( (string) ( $input['client_secret'] ?? '' ) );
 
 		if ( '' !== $submitted_secret ) {
-			$clean['client_secret'] = Encryption::encrypt( $submitted_secret );
+			$clean['client_secret'] = Encryption::is_encrypted( $submitted_secret )
+				? $submitted_secret
+				: Encryption::encrypt( $submitted_secret );
 		}
 
 		if ( ! empty( $input['clear_client_secret'] ) ) {

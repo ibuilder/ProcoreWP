@@ -65,11 +65,11 @@ msgstr ""
 msgid "A service account keeps working when staff change and is installed by a Procore company administrator from the App Marketplace. A user connection inherits one person's permissions and breaks if their access is revoked."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:234
+#: src/Frontend/Shortcodes/Registrar.php:248
 msgid "A single allow-listed field from a project record."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:67
+#: src/Frontend/Shortcodes/Registrar.php:81
 msgid "A table of Procore projects for a company."
 msgstr ""
 
@@ -91,8 +91,8 @@ msgstr ""
 msgid "Added inline after the plugin stylesheet. This survives plugin updates — editing files inside the plugin directory does not."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:112
-#: src/Frontend/Shortcodes/Registrar.php:488
+#: src/Frontend/Shortcodes/Registrar.php:126
+#: src/Frontend/Shortcodes/Registrar.php:502
 msgid "Address"
 msgstr ""
 
@@ -160,11 +160,11 @@ msgstr ""
 msgid "Change order packages"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:388
+#: src/Frontend/Shortcodes/Registrar.php:402
 msgid "Change order packages raised on a project."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:387
+#: src/Frontend/Shortcodes/Registrar.php:401
 msgid "Change orders"
 msgstr ""
 
@@ -196,12 +196,12 @@ msgstr ""
 msgid "Companies"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:450
+#: src/Frontend/Shortcodes/Registrar.php:464
 msgid "Companies in the Procore company directory."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:171
-#: src/Frontend/Shortcodes/Registrar.php:454
+#: src/Frontend/Shortcodes/Registrar.php:185
+#: src/Frontend/Shortcodes/Registrar.php:468
 msgid "Company"
 msgstr ""
 
@@ -232,11 +232,11 @@ msgstr ""
 msgid "Company offices"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:437
+#: src/Frontend/Shortcodes/Registrar.php:451
 msgid "Complete"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:142
+#: src/Frontend/Shortcodes/Registrar.php:156
 msgid "Completion date"
 msgstr ""
 
@@ -317,11 +317,11 @@ msgstr ""
 msgid "Daily construction report logs"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:364
+#: src/Frontend/Shortcodes/Registrar.php:378
 msgid "Daily construction report logs for a project."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:363
+#: src/Frontend/Shortcodes/Registrar.php:377
 msgid "Daily logs"
 msgstr ""
 
@@ -329,7 +329,7 @@ msgstr ""
 msgid "Database transients"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:368
+#: src/Frontend/Shortcodes/Registrar.php:382
 msgid "Date"
 msgstr ""
 
@@ -356,13 +356,13 @@ msgstr ""
 msgid "Depends on the endpoint attribute"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:201
-#: src/Frontend/Shortcodes/Registrar.php:220
-#: src/Frontend/Shortcodes/Registrar.php:314
+#: src/Frontend/Shortcodes/Registrar.php:215
+#: src/Frontend/Shortcodes/Registrar.php:234
+#: src/Frontend/Shortcodes/Registrar.php:328
 msgid "Description"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:108
+#: src/Frontend/Shortcodes/Registrar.php:122
 msgid "Detail panel for a single Procore project."
 msgstr ""
 
@@ -394,7 +394,7 @@ msgstr ""
 msgid "Drawing areas"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:192
+#: src/Frontend/Shortcodes/Registrar.php:206
 msgid "Drawing areas published for a project."
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 msgid "Drawing revisions"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:191
+#: src/Frontend/Shortcodes/Registrar.php:205
 msgid "Drawings"
 msgstr ""
 
@@ -411,10 +411,10 @@ msgstr ""
 msgid "Drawings: Read Only"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:264
-#: src/Frontend/Shortcodes/Registrar.php:294
-#: src/Frontend/Shortcodes/Registrar.php:324
-#: src/Frontend/Shortcodes/Registrar.php:354
+#: src/Frontend/Shortcodes/Registrar.php:278
+#: src/Frontend/Shortcodes/Registrar.php:308
+#: src/Frontend/Shortcodes/Registrar.php:338
+#: src/Frontend/Shortcodes/Registrar.php:368
 msgid "Due"
 msgstr ""
 
@@ -422,7 +422,7 @@ msgstr ""
 msgid "Each environment needs its own credentials; tokens are not shared between them."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:176
+#: src/Frontend/Shortcodes/Registrar.php:190
 msgid "Email"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 msgid "Expose cached Procore data at /wp-json/procore-connect/v1/"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:432
+#: src/Frontend/Shortcodes/Registrar.php:446
 msgid "Finish"
 msgstr ""
 
@@ -467,7 +467,7 @@ msgstr ""
 msgid "For the strongest protection, define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead of storing it here."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:79
+#: src/Frontend/Shortcodes/Registrar.php:93
 msgid "ID"
 msgstr ""
 
@@ -475,7 +475,7 @@ msgstr ""
 msgid "Inactive"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:309
+#: src/Frontend/Shortcodes/Registrar.php:323
 msgid "Item"
 msgstr ""
 
@@ -507,10 +507,10 @@ msgstr ""
 msgid "Loading…"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:94
-#: src/Frontend/Shortcodes/Registrar.php:117
-#: src/Frontend/Shortcodes/Registrar.php:459
-#: src/Frontend/Shortcodes/Registrar.php:493
+#: src/Frontend/Shortcodes/Registrar.php:108
+#: src/Frontend/Shortcodes/Registrar.php:131
+#: src/Frontend/Shortcodes/Registrar.php:473
+#: src/Frontend/Shortcodes/Registrar.php:507
 msgid "Location"
 msgstr ""
 
@@ -534,8 +534,8 @@ msgstr ""
 msgid "Monthly Sandbox"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:161
-#: src/Frontend/Shortcodes/Registrar.php:196
+#: src/Frontend/Shortcodes/Registrar.php:175
+#: src/Frontend/Shortcodes/Registrar.php:210
 msgid "Name"
 msgstr ""
 
@@ -555,7 +555,7 @@ msgstr ""
 msgid "No Client Secret is set."
 msgstr ""
 
-#: src/Api/Client.php:182
+#: src/Api/Client.php:196
 msgid "No Procore company ID is available. Set a default company in Procore → Connection, or pass company_id."
 msgstr ""
 
@@ -599,7 +599,7 @@ msgstr ""
 msgid "Not set"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:373
+#: src/Frontend/Shortcodes/Registrar.php:387
 msgid "Notes"
 msgstr ""
 
@@ -607,12 +607,12 @@ msgstr ""
 msgid "Nothing recorded. Turn on diagnostics under Tools to start collecting events."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:89
-#: src/Frontend/Shortcodes/Registrar.php:215
-#: src/Frontend/Shortcodes/Registrar.php:249
-#: src/Frontend/Shortcodes/Registrar.php:279
-#: src/Frontend/Shortcodes/Registrar.php:339
-#: src/Frontend/Shortcodes/Registrar.php:393
+#: src/Frontend/Shortcodes/Registrar.php:103
+#: src/Frontend/Shortcodes/Registrar.php:229
+#: src/Frontend/Shortcodes/Registrar.php:263
+#: src/Frontend/Shortcodes/Registrar.php:293
+#: src/Frontend/Shortcodes/Registrar.php:353
+#: src/Frontend/Shortcodes/Registrar.php:407
 msgid "Number"
 msgstr ""
 
@@ -620,12 +620,12 @@ msgstr ""
 msgid "Object cache"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:344
+#: src/Frontend/Shortcodes/Registrar.php:358
 msgid "Observation"
 msgstr ""
 
 #: src/Api/Endpoints.php:221
-#: src/Frontend/Shortcodes/Registrar.php:333
+#: src/Frontend/Shortcodes/Registrar.php:347
 msgid "Observations"
 msgstr ""
 
@@ -642,15 +642,15 @@ msgstr ""
 msgid "Off by default, so deleting the plugin removes its credentials, tokens and cache."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:483
+#: src/Frontend/Shortcodes/Registrar.php:497
 msgid "Office"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:478
+#: src/Frontend/Shortcodes/Registrar.php:492
 msgid "Offices"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:479
+#: src/Frontend/Shortcodes/Registrar.php:493
 msgid "Offices registered against the Procore company."
 msgstr ""
 
@@ -675,7 +675,7 @@ msgstr ""
 msgid "Optional. Used whenever a project-scoped shortcode omits project_id."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:304
+#: src/Frontend/Shortcodes/Registrar.php:318
 msgid "Outstanding punch list items for a project."
 msgstr ""
 
@@ -687,8 +687,8 @@ msgstr ""
 msgid "Persistent"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:464
-#: src/Frontend/Shortcodes/Registrar.php:498
+#: src/Frontend/Shortcodes/Registrar.php:478
+#: src/Frontend/Shortcodes/Registrar.php:512
 msgid "Phone"
 msgstr ""
 
@@ -696,7 +696,7 @@ msgstr ""
 msgid "Plugin version"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:122
+#: src/Frontend/Shortcodes/Registrar.php:136
 msgid "Postcode"
 msgstr ""
 
@@ -745,7 +745,7 @@ msgstr ""
 msgid "Procore has not reported a rate limit yet."
 msgstr ""
 
-#: src/Api/Client.php:415
+#: src/Api/Client.php:433
 msgid "Procore is rate limiting this site. Cached data will be shown until the limit resets."
 msgstr ""
 
@@ -757,7 +757,7 @@ msgstr ""
 msgid "Procore recommends keeping this at or below 2000."
 msgstr ""
 
-#: src/Api/Client.php:394
+#: src/Api/Client.php:412
 msgid "Procore rejected the access token."
 msgstr ""
 
@@ -770,15 +770,15 @@ msgstr ""
 msgid "Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime."
 msgstr ""
 
-#: src/Api/Client.php:225
+#: src/Api/Client.php:243
 msgid "Procore requests are paused after repeated failures. They will resume automatically."
 msgstr ""
 
-#: src/Api/Client.php:467
+#: src/Api/Client.php:485
 msgid "Procore returned HTTP %d."
 msgstr ""
 
-#: src/Api/Client.php:482
+#: src/Api/Client.php:500
 msgid "Procore returned a response that could not be decoded."
 msgstr ""
 
@@ -800,7 +800,7 @@ msgstr ""
 msgid "Production"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:84
+#: src/Frontend/Shortcodes/Registrar.php:98
 msgid "Project"
 msgstr ""
 
@@ -822,16 +822,16 @@ msgstr ""
 msgid "Project information is temporarily unavailable."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:507
+#: src/Frontend/Shortcodes/Registrar.php:521
 msgid "Project locations"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:127
+#: src/Frontend/Shortcodes/Registrar.php:141
 msgid "Project number"
 msgstr ""
 
 #: src/Api/Endpoints.php:131
-#: src/Frontend/Shortcodes/Registrar.php:156
+#: src/Frontend/Shortcodes/Registrar.php:170
 msgid "Project team"
 msgstr ""
 
@@ -840,7 +840,7 @@ msgid "Project vendors"
 msgstr ""
 
 #: src/Api/Endpoints.php:110
-#: src/Frontend/Shortcodes/Registrar.php:66
+#: src/Frontend/Shortcodes/Registrar.php:80
 msgid "Projects"
 msgstr ""
 
@@ -849,7 +849,7 @@ msgstr ""
 msgid "Projects are readable for company %d."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:508
+#: src/Frontend/Shortcodes/Registrar.php:522
 msgid "Projects that have coordinates, as an accessible location list with geo microdata."
 msgstr ""
 
@@ -858,11 +858,11 @@ msgid "Punch List: Read Only"
 msgstr ""
 
 #: src/Api/Endpoints.php:210
-#: src/Frontend/Shortcodes/Registrar.php:303
+#: src/Frontend/Shortcodes/Registrar.php:317
 msgid "Punch list"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:334
+#: src/Frontend/Shortcodes/Registrar.php:348
 msgid "Quality and safety observations recorded on a project."
 msgstr ""
 
@@ -875,7 +875,7 @@ msgid "REST proxy"
 msgstr ""
 
 #: src/Api/Endpoints.php:190
-#: src/Frontend/Shortcodes/Registrar.php:243
+#: src/Frontend/Shortcodes/Registrar.php:257
 msgid "RFIs"
 msgstr ""
 
@@ -928,13 +928,13 @@ msgstr ""
 
 #. translators: %d: number of cache entries removed.
 #: src/Admin/Ajax.php:77
-#: src/Cli/Commands.php:101
+#: src/Cli/Commands.php:103
 msgid "Removed %d cached response."
 msgid_plural "Removed %d cached responses."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Frontend/Shortcodes/Registrar.php:517
+#: src/Frontend/Shortcodes/Registrar.php:531
 msgid "Render any endpoint published in the Procore endpoint registry."
 msgstr ""
 
@@ -942,7 +942,7 @@ msgstr ""
 msgid "Request timeout"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:244
+#: src/Frontend/Shortcodes/Registrar.php:258
 msgid "Requests for information raised on a project."
 msgstr ""
 
@@ -950,11 +950,11 @@ msgstr ""
 msgid "Response cache"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:225
+#: src/Frontend/Shortcodes/Registrar.php:239
 msgid "Revision"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:166
+#: src/Frontend/Shortcodes/Registrar.php:180
 msgid "Role"
 msgstr ""
 
@@ -966,7 +966,7 @@ msgstr ""
 msgid "Runs through authentication, company access and every endpoint the shortcodes use, so you can see exactly which Procore tool permissions your credentials have."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:417
+#: src/Frontend/Shortcodes/Registrar.php:431
 msgid "Schedule"
 msgstr ""
 
@@ -974,7 +974,7 @@ msgstr ""
 msgid "Schedule tasks"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:418
+#: src/Frontend/Shortcodes/Registrar.php:432
 msgid "Schedule tasks and milestones for a project."
 msgstr ""
 
@@ -1018,11 +1018,11 @@ msgstr ""
 msgid "Specification sections"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:211
+#: src/Frontend/Shortcodes/Registrar.php:225
 msgid "Specification sections published for a project."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:210
+#: src/Frontend/Shortcodes/Registrar.php:224
 msgid "Specifications"
 msgstr ""
 
@@ -1030,27 +1030,27 @@ msgstr ""
 msgid "Specifications: Read Only"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:132
+#: src/Frontend/Shortcodes/Registrar.php:146
 msgid "Stage"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:427
+#: src/Frontend/Shortcodes/Registrar.php:441
 msgid "Start"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:137
+#: src/Frontend/Shortcodes/Registrar.php:151
 msgid "Start date"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:147
-#: src/Frontend/Shortcodes/Registrar.php:99
-#: src/Frontend/Shortcodes/Registrar.php:147
-#: src/Frontend/Shortcodes/Registrar.php:259
-#: src/Frontend/Shortcodes/Registrar.php:289
-#: src/Frontend/Shortcodes/Registrar.php:319
-#: src/Frontend/Shortcodes/Registrar.php:349
-#: src/Frontend/Shortcodes/Registrar.php:378
-#: src/Frontend/Shortcodes/Registrar.php:403
+#: src/Frontend/Shortcodes/Registrar.php:113
+#: src/Frontend/Shortcodes/Registrar.php:161
+#: src/Frontend/Shortcodes/Registrar.php:273
+#: src/Frontend/Shortcodes/Registrar.php:303
+#: src/Frontend/Shortcodes/Registrar.php:333
+#: src/Frontend/Shortcodes/Registrar.php:363
+#: src/Frontend/Shortcodes/Registrar.php:392
+#: src/Frontend/Shortcodes/Registrar.php:417
 msgid "Status"
 msgstr ""
 
@@ -1062,16 +1062,16 @@ msgstr ""
 msgid "Stylesheet"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:254
+#: src/Frontend/Shortcodes/Registrar.php:268
 msgid "Subject"
 msgstr ""
 
 #: src/Api/Endpoints.php:200
-#: src/Frontend/Shortcodes/Registrar.php:273
+#: src/Frontend/Shortcodes/Registrar.php:287
 msgid "Submittals"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:274
+#: src/Frontend/Shortcodes/Registrar.php:288
 msgid "Submittals tracked on a project."
 msgstr ""
 
@@ -1079,11 +1079,11 @@ msgstr ""
 msgid "Submittals: Read Only"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:422
+#: src/Frontend/Shortcodes/Registrar.php:436
 msgid "Task"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:157
+#: src/Frontend/Shortcodes/Registrar.php:171
 msgid "Team members assigned to a project. Email addresses are hidden unless explicitly enabled."
 msgstr ""
 
@@ -1115,7 +1115,7 @@ msgstr ""
 msgid "The Procore connection has expired. Open Procore → Connection and reconnect."
 msgstr ""
 
-#: src/Api/Client.php:425
+#: src/Api/Client.php:443
 msgid "The Procore request could not be completed."
 msgstr ""
 
@@ -1138,7 +1138,7 @@ msgstr ""
 msgid "The field attribute is required."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:185
+#: src/Frontend/Shortcodes/Registrar.php:199
 msgid "The logo or featured image for a project."
 msgstr ""
 
@@ -1166,8 +1166,8 @@ msgstr ""
 msgid "This site is not connected to Procore. Open Procore → Connection and choose \"Connect to Procore\"."
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:284
-#: src/Frontend/Shortcodes/Registrar.php:398
+#: src/Frontend/Shortcodes/Registrar.php:298
+#: src/Frontend/Shortcodes/Registrar.php:412
 msgid "Title"
 msgstr ""
 
@@ -1209,11 +1209,11 @@ msgstr ""
 msgid "Users who can edit posts"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:408
+#: src/Frontend/Shortcodes/Registrar.php:422
 msgid "Value"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:449
+#: src/Frontend/Shortcodes/Registrar.php:463
 msgid "Vendors"
 msgstr ""
 
@@ -1226,7 +1226,7 @@ msgstr ""
 msgid "View %s on a map"
 msgstr ""
 
-#: src/Frontend/Shortcodes/Registrar.php:469
+#: src/Frontend/Shortcodes/Registrar.php:483
 msgid "Website"
 msgstr ""
 

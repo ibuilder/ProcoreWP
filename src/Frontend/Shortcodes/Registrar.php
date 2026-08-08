@@ -32,11 +32,25 @@ final class Registrar {
 	private static $definitions = null;
 
 	/**
-	 * Register every shortcode with WordPress.
+	 * Hook shortcode registration.
+	 *
+	 * Deferred to `init` because the definitions carry translated titles and
+	 * descriptions. Building them on `plugins_loaded` would ask WordPress to
+	 * load the text domain before `init`, which since 6.7 emits a
+	 * `_load_textdomain_just_in_time` notice and silently drops translations.
 	 *
 	 * @return void
 	 */
 	public function register(): void {
+		add_action( 'init', array( $this, 'register_shortcodes' ) );
+	}
+
+	/**
+	 * Register every shortcode with WordPress.
+	 *
+	 * @return void
+	 */
+	public function register_shortcodes(): void {
 		foreach ( self::definitions() as $tag => $definition ) {
 			$handler  = $definition['handler'];
 			$instance = new $handler( $definition );

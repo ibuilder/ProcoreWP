@@ -66,6 +66,57 @@ final class ClientTest extends TestCase {
 	}
 
 	/**
+	 * A single-record endpoint must not receive pagination parameters.
+	 *
+	 * `page` and `per_page` are meaningless on `/projects/{id}`, and including
+	 * them also varies the cache key for what is the same request.
+	 *
+	 * @return void
+	 */
+	public function test_unpaginated_endpoints_get_no_pagination_params(): void {
+		$calls  = array();
+		$client = $this->client_returning( array( $this->response( array( 'id' => 123 ) ) ), $calls );
+
+		$client->fetch(
+			'project',
+			array( 'page' => 3 ),
+			array(
+				'company_id' => 1,
+				'project_id' => 123,
+				'per_page'   => 50,
+				'page'       => 3,
+			)
+		);
+
+		$this->assertSame( 'https://api.procore.com/rest/v1.0/projects/123', $calls[0]['url'] );
+		$this->assertStringNotContainsString( 'page=', $calls[0]['url'] );
+	}
+
+	/**
+	 * A paginated endpoint must still honour an explicitly requested page.
+	 *
+	 * @return void
+	 */
+	public function test_paginated_endpoints_honour_the_requested_page(): void {
+		$calls  = array();
+		$client = $this->client_returning( array( $this->response( array() ) ), $calls );
+
+		$client->fetch(
+			'rfis',
+			array(),
+			array(
+				'company_id' => 1,
+				'project_id' => 123,
+				'page'       => 4,
+				'per_page'   => 25,
+			)
+		);
+
+		$this->assertStringContainsString( 'page=4', $calls[0]['url'] );
+		$this->assertStringContainsString( 'per_page=25', $calls[0]['url'] );
+	}
+
+	/**
 	 * `all` must follow the Link header rather than guessing page numbers.
 	 *
 	 * @return void
@@ -236,6 +287,36 @@ final class ClientTest extends TestCase {
 
 		$this->assertTrue( is_wp_error( $result ) );
 		$this->assertSame( 'Forbidden', $result->get_error_message() );
+	}
+
+	/**
+	 * A zero identifier must fall back to the site default, not fail.
+	 *
+	 * The REST proxy always sends `company_id` and `project_id` as integers
+	 * that default to 0, so treating a supplied zero as an explicit choice
+	 * made the proxy ignore the configured defaults entirely.
+	 *
+	 * @return void
+	 */
+	public function test_zero_identifiers_fall_back_to_site_defaults(): void {
+		Settings::set( 'default_company_id', 4242 );
+		Settings::set( 'default_project_id', 77 );
+
+		$calls  = array();
+		$client = $this->client_returning( array( $this->response( array() ) ), $calls );
+
+		$result = $client->fetch(
+			'rfis',
+			array(),
+			array(
+				'company_id' => 0,
+				'project_id' => 0,
+			)
+		);
+
+		$this->assertFalse( is_wp_error( $result ) );
+		$this->assertSame( '4242', $calls[0]['args']['headers']['Procore-Company-Id'] );
+		$this->assertStringContainsString( '/projects/77/rfis', $calls[0]['url'] );
 	}
 
 	/**

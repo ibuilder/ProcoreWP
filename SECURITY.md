@@ -2,16 +2,36 @@
 
 ## Supported versions
 
-| Version | Supported |
-|---------|-----------|
-| 2.0.x   | ✅ |
-| 1.x     | ❌ — see the note below |
+| Version | Supported | Notes |
+|---------|-----------|-------|
+| 2.0.3   | ✅ | Current |
+| 2.0.2   | ⚠️ | Safe, but does not repair a credential already damaged by 2.0.0 or 2.0.1 |
+| 2.0.0 – 2.0.1 | ❌ | **Destroy the stored client secret.** See below |
+| 1.x     | ❌ | Stores credentials in plaintext. See below |
 
-Version 1.x is not supported and should not be used. It stored the Procore client secret
-and access token as plaintext in an autoloaded WordPress option, ran its connection test
-from an unverified `$_POST` key, and registered its settings with no sanitize callback.
-It also could not authenticate against the live API. Upgrade to 2.0.0 and rotate any
-credentials that were stored by 1.x, on the assumption they were exposed.
+### 2.0.0 and 2.0.1 — stored credential destroyed
+
+These versions attached the settings sanitizer to `sanitize_option_{$option}` and
+encrypted the client secret unconditionally. WordPress runs that filter on *every*
+`update_option()` for the option, including the plugin's own internal writes, so the
+stored secret gained an encryption layer on each write until it could no longer be
+decrypted. The site then failed to authenticate with nothing on screen to explain why.
+
+This is a data-integrity fault rather than a disclosure: the value was over-encrypted,
+never exposed. Upgrade to **2.0.3**, which unwraps and restores the value automatically
+and reports what it did. If it cannot be recovered the secret is cleared and you are
+asked to re-enter it.
+
+### 1.x — credentials stored in plaintext
+
+Version 1.x stored the Procore client secret, access token and refresh token as plaintext
+in an **autoloaded** WordPress option, read into memory on every page request and present
+in every database backup. It also ran its connection test from an unverified `$_POST` key
+and registered its settings with no sanitize callback, and it could not authenticate
+against the live API at all.
+
+Upgrade to 2.0.3 and **rotate any credentials 1.x stored**, on the assumption they were
+exposed.
 
 ## Reporting a vulnerability
 

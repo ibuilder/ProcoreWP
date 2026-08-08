@@ -5,6 +5,31 @@ All notable changes to Procore Connect are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.4] — 2026-08-08
+
+### Security
+
+- `SECURITY.md` no longer recommends a version that destroys credentials. It listed all
+  of 2.0.x as supported and told readers to "upgrade to 2.0.0" — but 2.0.0 and 2.0.1 are
+  precisely the versions that over-encrypt the stored client secret until it is
+  unreadable. Both are now marked unsupported, with the fault, its blast radius and the
+  remedy stated plainly. The 1.x plaintext-storage warning is separated out and keeps its
+  instruction to rotate credentials.
+
+### Added
+
+- Tests for `Support\Logger`: redaction of secrets from log context, including nested
+  arrays, plus truncation and the bounded ring buffer. This is what stands between a
+  debug session and a client secret in `debug.log`, and it had no coverage.
+- Tests for `Frontend\Renderer`: the child-theme → parent-theme → plugin override chain,
+  that an override actually renders and receives its data, directory-traversal refusal,
+  and notice escaping. Copying a template into a theme is a documented headline feature
+  and it had no coverage.
+
+### Changed
+
+- Refreshed the version placeholder in the bug-report template.
+
 ## [2.0.3] — 2026-08-08
 
 ### Fixed
@@ -206,6 +231,7 @@ every install was non-functional regardless of configuration.
 
 - Initial release.
 
+[2.0.4]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.4
 [2.0.3]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.3
 [2.0.2]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.2
 [2.0.1]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.1

@@ -11,6 +11,7 @@ namespace ProcoreConnect\Tests\unit;
 
 use ProcoreConnect\Admin\Settings;
 use ProcoreConnect\Frontend\Shortcodes\Registrar;
+use ProcoreConnect\Support\Format;
 
 /**
  * Renders each shortcode against canned API payloads to confirm attribute
@@ -361,6 +362,122 @@ final class ShortcodeTest extends TestCase {
 
 		$this->assertStringContainsString( '>Email<', $html );
 		$this->assertStringContainsString( 'dana@example.com', $html );
+	}
+
+	/**
+	 * A column the author named must be rendered even when it is empty.
+	 *
+	 * The empty-column filter exists to tidy a default column set nobody chose.
+	 * An explicit `columns=` is a request, and silently dropping part of it
+	 * leaves the author with no header, no cell and no explanation.
+	 *
+	 * @return void
+	 */
+	public function test_keeps_an_empty_column_the_author_asked_for(): void {
+		$this->client_returning(
+			array(
+				$this->response(
+					array(
+						array(
+							'id'            => 3,
+							'name'          => 'Dana Reed',
+							'job_title'     => 'PM',
+							'email_address' => 'dana@example.com',
+						),
+					)
+				),
+			)
+		);
+
+		// Email suppression is on, so this column renders blank for every row.
+		$html = $this->shortcode( 'procore_team' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+				'columns'    => 'name,email_address',
+			)
+		);
+
+		$this->assertStringContainsString( '>Email<', $html );
+		$this->assertStringNotContainsString( 'dana@example.com', $html );
+	}
+
+	/**
+	 * A column no record populates must drop, not render a wall of dashes.
+	 *
+	 * A missing value renders as a placeholder dash rather than as nothing, so
+	 * a filter that tested for an empty string would keep the column and only
+	 * ever be able to drop a suppressed email address.
+	 *
+	 * @return void
+	 */
+	public function test_drops_a_default_column_no_record_populates(): void {
+		$this->client_returning(
+			array(
+				$this->response(
+					array(
+						array(
+							'id'      => 1,
+							'number'  => 'RFI-001',
+							'subject' => 'Slab depth',
+							'status'  => 'open',
+						),
+					)
+				),
+			)
+		);
+
+		$html = $this->shortcode( 'procore_rfis' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+			)
+		);
+
+		$this->assertStringContainsString( 'RFI-001', $html );
+		$this->assertStringNotContainsString( '>Due<', $html );
+		$this->assertStringNotContainsString( Format::PLACEHOLDER, $html );
+	}
+
+	/**
+	 * The same column must survive or drop regardless of its neighbours.
+	 *
+	 * Requesting one empty column used to keep it, because the never-empty
+	 * fallback restored the whole list; adding a populated column alongside it
+	 * dropped it again. Identical data, opposite outcome.
+	 *
+	 * @return void
+	 */
+	public function test_column_visibility_does_not_depend_on_other_columns(): void {
+		$member = array(
+			'id'            => 3,
+			'name'          => 'Dana Reed',
+			'job_title'     => 'PM',
+			'email_address' => 'dana@example.com',
+		);
+
+		$this->client_returning( array( $this->response( array( $member ) ) ) );
+
+		$alone = $this->shortcode( 'procore_team' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+				'columns'    => 'email_address',
+			)
+		);
+
+		$this->client_returning( array( $this->response( array( $member ) ) ) );
+
+		$paired = $this->shortcode( 'procore_team' )->render(
+			array(
+				'project_id' => '5',
+				'company_id' => '9',
+				'columns'    => 'name,email_address',
+			)
+		);
+
+		$this->assertStringContainsString( '>Email<', $alone );
+		$this->assertStringContainsString( '>Email<', $paired );
 	}
 
 	/**

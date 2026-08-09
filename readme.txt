@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,9 +127,15 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 2.0.6 =
+
+* Fixed: a column you named in `columns=` could be dropped. 2.0.5 applied its empty-column filter to hand-written column lists too, so `[procore_team columns="name,email_address"]` rendered only Name. An explicit list is now rendered exactly as written; only the default column set is trimmed.
+* Fixed: a column no record fills in is now genuinely hidden. 2.0.5 said it did this but could not — a missing value renders as a dash rather than as nothing, so only a suppressed email address was ever hidden and every other empty column showed as a full column of dashes.
+* Fixed: whether a column appeared no longer depends on the other columns. `columns="email_address"` kept the Email column while `columns="name,email_address"` dropped it.
+
 = 2.0.5 =
 
-* Fixed: `[procore_team]` showed an empty Email column. Email output is suppressed by default, so the column appeared with a header and blank cells on every default install. Columns with no value in any row are now hidden.
+* Fixed: `[procore_team]` showed an empty Email column. Email output is suppressed by default, so the column appeared with a header and blank cells on every default install. The Email column is now hidden when it is blank for every row. (This entry also claimed to hide any column with no value in any row; that did not work until 2.0.6.)
 
 = 2.0.4 =
 
@@ -186,6 +192,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 2.0.6 =
+Corrects the 2.0.5 column-hiding fix, which dropped columns you had asked for by name and did not drop the empty ones it claimed to. Recommended for anyone on 2.0.5 who sets `columns=` on a shortcode.
 
 = 2.0.5 =
 Cosmetic fix: the team table no longer shows an empty Email column when email output is suppressed, which is the default.

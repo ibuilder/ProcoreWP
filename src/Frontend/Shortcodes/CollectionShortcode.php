@@ -54,7 +54,7 @@ class CollectionShortcode extends AbstractShortcode {
 			$this->template( $atts ),
 			array(
 				'rows'       => $rows,
-				'columns'    => $this->drop_empty_columns( $this->resolve_columns( $atts ), $rows, ! empty( $atts['show_email'] ) ),
+				'columns'    => $this->visible_columns( $atts, $rows ),
 				'title'      => $this->title( $atts ),
 				'class'      => Format::classes( 'procore-connect procore-connect-collection procore-connect-' . str_replace( '_', '-', $this->endpoint ), (string) $atts['class'] ),
 				'show_email' => ! empty( $atts['show_email'] ),
@@ -65,15 +65,38 @@ class CollectionShortcode extends AbstractShortcode {
 	}
 
 	/**
-	 * Remove columns that render nothing for every row.
+	 * The columns this render should actually show.
+	 *
+	 * When the author named the columns, that list is used verbatim: they asked
+	 * for a column, they get it, even if every row is blank. Only the default
+	 * column set — which the author never saw and did not choose — is trimmed
+	 * to what the data supports.
+	 *
+	 * @param array<string, mixed> $atts Sanitized attributes.
+	 * @param array<int, mixed>    $rows Records being rendered.
+	 * @return array<int, array<string, string>> Column definitions to render.
+	 */
+	protected function visible_columns( array $atts, array $rows ): array {
+		$columns = $this->resolve_columns( $atts );
+
+		if ( '' !== (string) $atts['columns'] || '' !== (string) $atts['fields'] ) {
+			return $columns;
+		}
+
+		return $this->drop_empty_columns( $columns, $rows, ! empty( $atts['show_email'] ) );
+	}
+
+	/**
+	 * Remove columns that carry no information for any row.
 	 *
 	 * The visible case is `[procore_team]`: email suppression is on by default,
 	 * so the Email column produced a header and a blank cell for every member —
-	 * dead weight on the most commonly used shortcode. This also covers a
-	 * column no record happens to populate.
-	 *
-	 * A column an author asked for explicitly is always kept, so `columns=""`
-	 * still means what it says.
+	 * dead weight on the most commonly used shortcode. It also covers a column
+	 * no record populates, such as a due date nobody has set. Those two look
+	 * different in the markup — a suppressed email renders as nothing, an
+	 * absent date renders as a placeholder dash — so emptiness is judged by
+	 * {@see Format::is_blank()} rather than by string length, which would only
+	 * ever catch the first.
 	 *
 	 * @param array<int, array<string, string>> $columns    Column definitions.
 	 * @param array<int, mixed>                 $rows       Records being rendered.
@@ -87,7 +110,7 @@ class CollectionShortcode extends AbstractShortcode {
 			$has_value = false;
 
 			foreach ( $rows as $row ) {
-				if ( '' !== trim( Format::cell( $row, $column, $show_email ) ) ) {
+				if ( ! Format::is_blank( Format::cell( $row, $column, $show_email ) ) ) {
 					$has_value = true;
 					break;
 				}

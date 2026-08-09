@@ -26,7 +26,7 @@ Accepted by every shortcode.
 | `page` | `1` | Which page of results to request |
 | `orderby` | — | Any field path, e.g. `name` or `vendor.name` |
 | `order` | `asc` | `asc` or `desc` |
-| `columns` | Per shortcode | Comma-separated field paths |
+| `columns` | Per shortcode | Comma-separated field paths; see [Empty columns](#empty-columns) |
 | `template` | Per shortcode | Template name, overridable in your theme |
 | `class` | — | Extra CSS classes, sanitized |
 | `title` | Per shortcode | Heading text; pass `-` to omit the heading |
@@ -36,6 +36,24 @@ Accepted by every shortcode.
 | `all` | `false` | Follow pagination and collect every page |
 
 Records missing the `orderby` field always sort last, in both directions.
+
+### Empty columns
+
+A default column that no record fills in is not rendered. Procore projects vary in
+which tools they use and which fields they populate, so a default column set that
+suits one project can produce a column of dashes on another. Rather than show a
+header above nothing, the column is left out.
+
+This applies only to the default columns — the ones you did not choose. If you pass
+`columns=` the list is rendered exactly as written, empty or not, because you asked
+for it:
+
+```
+[procore_rfis id="123"]                          Due Date drops if no RFI has one
+[procore_rfis id="123" columns="number,due_date"] Due Date always renders
+```
+
+A table is never reduced to no columns at all.
 
 ---
 

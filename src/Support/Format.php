@@ -19,6 +19,34 @@ defined( 'ABSPATH' ) || exit;
 final class Format {
 
 	/**
+	 * Stands in for a value Procore did not supply.
+	 *
+	 * An em dash reads as "no value here" in a table without leaving the cell
+	 * looking broken. Because it is what an absent value renders as, anything
+	 * deciding whether a cell carries information has to recognise it — see
+	 * `is_blank()`.
+	 *
+	 * @var string
+	 */
+	public const PLACEHOLDER = '—';
+
+	/**
+	 * Whether a rendered cell carries no information.
+	 *
+	 * A cell is blank when it is empty or when it is nothing but the
+	 * placeholder. Both mean Procore returned no value; the difference is only
+	 * whether the column's format prints a dash for it.
+	 *
+	 * @param string $cell Output of `cell()`.
+	 * @return bool True when the cell conveys nothing.
+	 */
+	public static function is_blank( string $cell ): bool {
+		$trimmed = trim( $cell );
+
+		return '' === $trimmed || self::PLACEHOLDER === $trimmed;
+	}
+
+	/**
 	 * Format an ISO-8601 or `Y-m-d` date using the configured format.
 	 *
 	 * @param mixed  $value         Raw date value.
@@ -139,21 +167,21 @@ final class Format {
 
 		switch ( $format ) {
 			case 'date':
-				return esc_html( self::date( $raw, '—' ) );
+				return esc_html( self::date( $raw, self::PLACEHOLDER ) );
 
 			case 'currency':
-				return esc_html( self::currency( $raw, '—' ) );
+				return esc_html( self::currency( $raw, self::PLACEHOLDER ) );
 
 			case 'percent':
 				return is_numeric( $raw )
 					? esc_html( number_format_i18n( (float) $raw, 0 ) . '%' )
-					: '—';
+					: self::PLACEHOLDER;
 
 			case 'status':
 				$active = null === $raw ? null : (bool) $raw;
 
 				if ( null === $active ) {
-					return '—';
+					return self::PLACEHOLDER;
 				}
 
 				return sprintf(
@@ -179,7 +207,7 @@ final class Format {
 				$url = esc_url_raw( Arr::stringify( $raw ), array( 'http', 'https' ) );
 
 				if ( '' === $url ) {
-					return '—';
+					return self::PLACEHOLDER;
 				}
 
 				$host = wp_parse_url( $url, PHP_URL_HOST );
@@ -193,7 +221,7 @@ final class Format {
 			default:
 				$value = Arr::stringify( $raw );
 
-				return '' === $value ? '—' : esc_html( $value );
+				return '' === $value ? self::PLACEHOLDER : esc_html( $value );
 		}//end switch
 	}
 

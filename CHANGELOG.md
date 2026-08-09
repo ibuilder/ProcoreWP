@@ -5,6 +5,33 @@ All notable changes to Procore Connect are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.6] — 2026-08-09
+
+### Fixed
+
+- **A column named in `columns=` is no longer dropped.** 2.0.5 applied its
+  empty-column filter to every table, including one where the page author had listed
+  the columns by hand. `[procore_team columns="name,email_address"]` rendered only
+  Name — no header, no cell, no explanation. The filter now applies only to the
+  default column set, which is the set nobody chose; an explicit list is rendered
+  verbatim, empty or not.
+
+- **A column no record populates is now actually dropped.** 2.0.5 claimed to do this
+  but could not: a missing value renders as a placeholder dash, not as an empty
+  string, so the length test it used only ever matched a suppressed email address.
+  Every other empty column survived as a full column of dashes. Emptiness is now
+  judged by meaning rather than by length, so `[procore_rfis]` against a project
+  where no RFI has a due date drops the Due Date column as documented.
+
+- **A column's visibility no longer depends on its neighbours.** Because the
+  never-render-an-empty-table fallback restored the whole list, `columns="email_address"`
+  kept the Email column while `columns="name,email_address"` dropped it — identical
+  data, opposite outcome. Adding a column to a working shortcode could silently remove
+  a different one.
+
+Found by reviewing the 2.0.5 diff and checking each claim in its own commit message
+against what the code does.
+
 ## [2.0.5] — 2026-08-08
 
 ### Fixed
@@ -12,8 +39,9 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **`[procore_team]` rendered an empty Email column.** Email suppression is on by
   default, so the Email header appeared above a blank cell for every team member —
   visible dead weight on the most commonly used shortcode, on every default install.
-  Columns that render nothing for any row are now dropped. This also covers a column
-  no record happens to populate, and a table is never reduced to no columns at all.
+  The Email column is now dropped when it is blank for every row, and a table is never
+  reduced to no columns at all. (This entry originally also claimed to drop any column
+  no record populates. It did not — see 2.0.6, which makes that true.)
 
   Found by standing up a real WordPress site, serving it over HTTP and reading what a
   visitor actually gets, rather than by asserting on strings.
@@ -244,6 +272,7 @@ every install was non-functional regardless of configuration.
 
 - Initial release.
 
+[2.0.6]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.6
 [2.0.5]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.5
 [2.0.4]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.4
 [2.0.3]: https://github.com/ibuilder/ProcoreWP/releases/tag/v2.0.3

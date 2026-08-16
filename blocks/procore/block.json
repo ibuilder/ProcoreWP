@@ -7,7 +7,7 @@
 	"icon": "building",
 	"description": "Display data from Procore. Pick what to show, then set the project or company it applies to.",
 	"keywords": [ "procore", "construction", "project", "rfi", "submittal" ],
-	"textdomain": "procore-connect",
+	"textdomain": "connect-for-procore",
 	"supports": {
 		"html": false,
 		"align": [ "wide", "full" ],

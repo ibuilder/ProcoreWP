@@ -1,16 +1,16 @@
 <?php
 /**
- * Plugin Name:       Procore Connect
+ * Plugin Name:       Connect for Procore
  * Plugin URI:        https://github.com/ibuilder/ProcoreWP
  * Description:       Connect WordPress to the Procore construction management platform. Display projects, teams, drawings, RFIs and more with shortcodes, blocks and a cached REST proxy.
- * Version:           2.0.6
+ * Version:           3.0.0
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            ibuilder
  * Author URI:        https://github.com/ibuilder
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       procore-connect
+ * Text Domain:       connect-for-procore
  * Domain Path:       /languages
  *
  * @package ProcoreConnect
@@ -22,7 +22,7 @@ namespace ProcoreConnect;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '2.0.6';
+const VERSION = '3.0.0';
 
 define( 'PROCORE_CONNECT_VERSION', VERSION );
 define( 'PROCORE_CONNECT_FILE', __FILE__ );
@@ -31,7 +31,7 @@ define( 'PROCORE_CONNECT_URL', plugin_dir_url( __FILE__ ) );
 define( 'PROCORE_CONNECT_BASENAME', plugin_basename( __FILE__ ) );
 
 /**
- * PSR-4 autoloader for the Procore Connect namespace.
+ * PSR-4 autoloader for the Connect for Procore namespace.
  *
  * Avoids a Composer dependency at runtime so the distributed plugin ships
  * without a vendor directory.

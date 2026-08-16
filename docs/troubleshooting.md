@@ -146,9 +146,9 @@ site's own date format.
 
 ### Styling is missing
 
-The stylesheet loads only on pages containing Procore Connect output. If output comes from a
+The stylesheet loads only on pages containing Connect for Procore output. If output comes from a
 widget or a direct `do_shortcode()` call in a template, it loads in the footer instead of
-the head. Check that **Load the Procore Connect stylesheet** is on under **Display**.
+the head. Check that **Load the Connect for Procore stylesheet** is on under **Display**.
 
 ### A template override is ignored
 
@@ -162,8 +162,8 @@ the head. Check that **Load the Procore Connect stylesheet** is on under **Displ
 
 ### The plugin looks deactivated
 
-Expected. The main file was renamed from `index.php` to `procore-connect.php`, so WordPress sees
-a different plugin. Activate Procore Connect once — your settings are imported automatically.
+Expected. The main file was renamed from `index.php` to `connect-for-procore.php`, so WordPress sees
+a different plugin. Activate Connect for Procore once — your settings are imported automatically.
 
 ### It still does not connect
 

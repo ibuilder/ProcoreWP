@@ -53,7 +53,7 @@ if ( empty( $procore_connect_points ) ) {
 						<?php
 						printf(
 							/* translators: %s: project name. */
-							esc_html__( 'View %s on a map', 'procore-connect' ),
+							esc_html__( 'View %s on a map', 'connect-for-procore' ),
 							esc_html( (string) $procore_connect_point['name'] )
 						);
 						?>

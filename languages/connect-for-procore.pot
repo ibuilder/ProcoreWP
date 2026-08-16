@@ -2,7 +2,7 @@
 # This file is distributed under the GPL-2.0-or-later license.
 msgid ""
 msgstr ""
-"Project-Id-Version: Procore Connect 2.0.0\n"
+"Project-Id-Version: Connect for Procore 3.0.0\n"
 "Report-Msgid-Bugs-To: https://github.com/ibuilder/ProcoreWP/issues\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,8 +11,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "POT-Creation-Date: 2026-08-07T00:00:00+00:00\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Procore Connect build script\n"
-"X-Domain: procore-connect\n"
+"X-Generator: Connect for Procore build script\n"
+"X-Domain: connect-for-procore\n"
 
 #. translators: 1: number of companies, 2: comma-separated company names.
 #: src/Admin/ConnectionTester.php:193
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Access token"
 msgstr ""
 
-#: src/Support/Format.php:162
+#: src/Support/Format.php:190
 msgid "Active"
 msgstr ""
 
@@ -242,6 +242,35 @@ msgstr ""
 
 #: src/Admin/ConnectionTester.php:86
 msgid "Configuration"
+msgstr ""
+
+#: src/Admin/SettingsPage.php:59
+#: src/Admin/SettingsPage.php:156
+msgid "Connect for Procore"
+msgstr ""
+
+#. translators: %s: error message from the Procore API.
+#: src/Frontend/Shortcodes/AbstractShortcode.php:362
+msgid "Connect for Procore (visible to administrators only): %s"
+msgstr ""
+
+#. translators: %s: settings screen URL.
+#: src/Admin/Notices.php:139
+msgid "Connect for Procore could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href=\"%s\">enter it again</a>; this cannot happen on 2.0.2 or later."
+msgstr ""
+
+#. translators: %s: settings screen URL.
+#: src/Admin/Notices.php:103
+msgid "Connect for Procore imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
+msgstr ""
+
+#. translators: 1: environment label, 2: API host.
+#: src/Admin/Notices.php:176
+msgid "Connect for Procore is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
+msgstr ""
+
+#: src/Admin/Notices.php:129
+msgid "Connect for Procore repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm."
 msgstr ""
 
 #: src/Admin/SettingsPage.php:248
@@ -471,7 +500,7 @@ msgstr ""
 msgid "ID"
 msgstr ""
 
-#: src/Support/Format.php:162
+#: src/Support/Format.php:190
 msgid "Inactive"
 msgstr ""
 
@@ -500,7 +529,7 @@ msgid "Level"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:444
-msgid "Load the Procore Connect stylesheet"
+msgid "Load the Connect for Procore stylesheet"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:115
@@ -713,35 +742,6 @@ msgstr ""
 msgid "Procore"
 msgstr ""
 
-#: src/Admin/SettingsPage.php:59
-#: src/Admin/SettingsPage.php:156
-msgid "Procore Connect"
-msgstr ""
-
-#. translators: %s: error message from the Procore API.
-#: src/Frontend/Shortcodes/AbstractShortcode.php:362
-msgid "Procore Connect (visible to administrators only): %s"
-msgstr ""
-
-#. translators: %s: settings screen URL.
-#: src/Admin/Notices.php:139
-msgid "Procore Connect could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href=\"%s\">enter it again</a>; this cannot happen on 2.0.2 or later."
-msgstr ""
-
-#. translators: %s: settings screen URL.
-#: src/Admin/Notices.php:103
-msgid "Procore Connect imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href=\"%s\">re-run the connection test</a> before shortcodes will return data."
-msgstr ""
-
-#. translators: 1: environment label, 2: API host.
-#: src/Admin/Notices.php:176
-msgid "Procore Connect is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data."
-msgstr ""
-
-#: src/Admin/Notices.php:129
-msgid "Procore Connect repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm."
-msgstr ""
-
 #: src/Api/Auth/AbstractAuth.php:101
 msgid "Procore did not return an access token."
 msgstr ""
@@ -928,7 +928,7 @@ msgid "Redirect URI"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:586
-msgid "Register Procore Connect blocks"
+msgid "Register Connect for Procore blocks"
 msgstr ""
 
 #: src/Admin/SettingsPage.php:229
@@ -1105,7 +1105,7 @@ msgid "Test connection"
 msgstr ""
 
 #: src/Rest/Controller.php:177
-msgid "The Procore Connect REST proxy is disabled."
+msgid "The Connect for Procore REST proxy is disabled."
 msgstr ""
 
 #: src/Admin/Notices.php:77
@@ -1160,7 +1160,7 @@ msgid "The stored secret is never shown. Leave this blank to keep the current va
 msgstr ""
 
 #: src/Admin/SettingsPage.php:445
-msgid "The stylesheet loads only on pages that actually contain Procore Connect output. Turn it off entirely if your theme styles the markup itself."
+msgid "The stylesheet loads only on pages that actually contain Connect for Procore output. Turn it off entirely if your theme styles the markup itself."
 msgstr ""
 
 #: src/Frontend/Shortcodes/AbstractShortcode.php:216

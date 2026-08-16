@@ -40,7 +40,7 @@ final class Renderer {
 		}
 
 		/**
-		 * Filters the data passed to a Procore Connect template.
+		 * Filters the data passed to a Connect for Procore template.
 		 *
 		 * @since 2.0.0
 		 *

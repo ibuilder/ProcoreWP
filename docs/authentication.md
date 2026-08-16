@@ -6,7 +6,7 @@ nav_order: 3
 
 # Authentication
 
-Procore Connect supports both of Procore's OAuth 2.0 grants. Which one you want depends on
+Connect for Procore supports both of Procore's OAuth 2.0 grants. Which one you want depends on
 whether the connection should belong to your organisation or to a person.
 
 ## Which mode?
@@ -78,7 +78,7 @@ that creates inconsistencies with the manifest.
 Paste the DMSA Client ID and Client Secret into **Procore → Connection**, pick a default
 company, and click **Test connection**.
 
-Tokens are valid for 90 minutes. No refresh token is issued for this grant — Procore Connect
+Tokens are valid for 90 minutes. No refresh token is issued for this grant — Connect for Procore
 simply requests a new one when the old one nears expiry, with a two-minute safety margin.
 
 ---
@@ -105,7 +105,7 @@ It must match character for character, including the scheme and any `www`.
 
 ### How the round trip is protected
 
-Procore Connect generates a single-use `state` value, stores it in a short-lived transient, and
+Connect for Procore generates a single-use `state` value, stores it in a short-lived transient, and
 refuses any callback whose `state` does not match. The outbound leg additionally requires
 a WordPress nonce and the `manage_options` capability. This is what stops someone
 grafting their own Procore account onto your site by feeding you a crafted callback URL.
@@ -116,7 +116,7 @@ Procore invalidates a refresh token the moment it is exchanged and issues a new 
 Two concurrent requests both refreshing would leave one holding a dead token and lock the
 site out of the API entirely.
 
-Procore Connect guards every refresh with a lock. A request that loses the race waits briefly
+Connect for Procore guards every refresh with a lock. A request that loses the race waits briefly
 and re-reads the token the winner stored, rather than refreshing again. If a refresh token
 is ever rejected outright, the connection is cleared and the admin is told to reconnect —
 there is no recovery from a rotated-away refresh token.
@@ -135,7 +135,7 @@ there is no recovery from a rotated-away refresh token.
 A blank Client Secret field on save means "leave the stored value alone". To remove a
 stored secret, tick **Delete the stored secret**.
 
-If OpenSSL is unavailable, Procore Connect says so in an admin notice and falls back to
+If OpenSSL is unavailable, Connect for Procore says so in an admin notice and falls back to
 unencrypted storage — use the `wp-config.php` constants on such a host.
 
 ---

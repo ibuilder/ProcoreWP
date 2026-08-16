@@ -188,7 +188,7 @@ final class TokenStore {
 	 * @return void
 	 */
 	public static function release_lock(): void {
-		wp_cache_delete( self::LOCK_KEY, 'procore-connect' );
+		wp_cache_delete( self::LOCK_KEY, 'connect-for-procore' );
 		delete_transient( self::LOCK_KEY );
 	}
 

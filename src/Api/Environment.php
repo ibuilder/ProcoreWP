@@ -50,10 +50,10 @@ final class Environment {
 	 */
 	public static function choices(): array {
 		return array(
-			'production'      => __( 'Production', 'procore-connect' ),
-			'sandbox'         => __( 'Developer Sandbox', 'procore-connect' ),
-			'sandbox_monthly' => __( 'Monthly Sandbox', 'procore-connect' ),
-			'custom'          => __( 'Custom (regional or federal zone)', 'procore-connect' ),
+			'production'      => __( 'Production', 'connect-for-procore' ),
+			'sandbox'         => __( 'Developer Sandbox', 'connect-for-procore' ),
+			'sandbox_monthly' => __( 'Monthly Sandbox', 'connect-for-procore' ),
+			'custom'          => __( 'Custom (regional or federal zone)', 'connect-for-procore' ),
 		);
 	}
 

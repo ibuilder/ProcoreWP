@@ -74,7 +74,7 @@ final class Ajax {
 				'removed' => $removed,
 				'message' => sprintf(
 					/* translators: %d: number of cache entries removed. */
-					_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procore-connect' ),
+					_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'connect-for-procore' ),
 					$removed
 				),
 				'stats'   => Cache::stats(),
@@ -157,7 +157,7 @@ final class Ajax {
 		Client::reset_circuit();
 		Logger::info( 'Procore connection reset from the admin screen.' );
 
-		wp_send_json_success( array( 'message' => __( 'Disconnected from Procore.', 'procore-connect' ) ) );
+		wp_send_json_success( array( 'message' => __( 'Disconnected from Procore.', 'connect-for-procore' ) ) );
 	}
 
 	/**
@@ -167,7 +167,7 @@ final class Ajax {
 	 */
 	private function authorise(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array( 'message' => __( 'You do not have permission to do that.', 'procore-connect' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to do that.', 'connect-for-procore' ) ), 403 );
 		}
 
 		check_ajax_referer( self::NONCE, 'nonce' );

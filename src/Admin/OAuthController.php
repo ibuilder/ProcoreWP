@@ -45,7 +45,7 @@ final class OAuthController {
 	 */
 	public function connect(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to connect this site to Procore.', 'procore-connect' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to connect this site to Procore.', 'connect-for-procore' ), '', array( 'response' => 403 ) );
 		}
 
 		check_admin_referer( self::NONCE );
@@ -74,7 +74,7 @@ final class OAuthController {
 	 */
 	public function callback(): void {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'You do not have permission to complete this connection.', 'procore-connect' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to complete this connection.', 'connect-for-procore' ), '', array( 'response' => 403 ) );
 		}
 
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Verified via the one-time OAuth state parameter below.

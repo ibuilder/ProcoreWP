@@ -1,6 +1,6 @@
 <?php
 /**
- * Shared behaviour for every Procore Connect shortcode.
+ * Shared behaviour for every Connect for Procore shortcode.
  *
  * @package ProcoreConnect
  */
@@ -213,7 +213,7 @@ abstract class AbstractShortcode {
 	 */
 	protected function resolve( array $atts ) {
 		if ( '' === $this->endpoint || ! Endpoints::exists( $this->endpoint ) ) {
-			return new \WP_Error( 'procore_connect_unknown_endpoint', __( 'This shortcode is not bound to a known Procore endpoint.', 'procore-connect' ) );
+			return new \WP_Error( 'procore_connect_unknown_endpoint', __( 'This shortcode is not bound to a known Procore endpoint.', 'connect-for-procore' ) );
 		}
 
 		return Client::instance()->fetch( $this->endpoint, $this->query_args( $atts ), $this->fetch_options( $atts ) );
@@ -359,14 +359,14 @@ abstract class AbstractShortcode {
 			return Renderer::notice(
 				sprintf(
 					/* translators: %s: error message from the Procore API. */
-					__( 'Procore Connect (visible to administrators only): %s', 'procore-connect' ),
+					__( 'Connect for Procore (visible to administrators only): %s', 'connect-for-procore' ),
 					$error->get_error_message()
 				),
 				'error'
 			);
 		}
 
-		return Renderer::notice( __( 'Project information is temporarily unavailable.', 'procore-connect' ), 'error' );
+		return Renderer::notice( __( 'Project information is temporarily unavailable.', 'connect-for-procore' ), 'error' );
 	}
 
 	/**
@@ -392,6 +392,6 @@ abstract class AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No records were found.', 'procore-connect' );
+			: __( 'No records were found.', 'connect-for-procore' );
 	}
 }

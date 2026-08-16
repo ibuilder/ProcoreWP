@@ -18,7 +18,7 @@ response:
 | `X-Rate-Limit-Remaining` | Requests left in it |
 | `X-Rate-Limit-Reset` | Unix timestamp when it resets |
 
-A page with six uncached Procore Connect shortcodes makes six or more API calls **per visitor**.
+A page with six uncached Connect for Procore shortcodes makes six or more API calls **per visitor**.
 On any site with real traffic that exhausts the spike limit within minutes and the page
 starts erroring for everyone.
 
@@ -91,7 +91,7 @@ At most three attempts per request, and never longer than a ten-second pause.
 Procore accepts `page` and `per_page` (keep it at or below 2000) and returns `Total`,
 `Per-Page` and `Link` headers.
 
-With `all="true"`, Procore Connect walks the `Link: rel="next"` chain rather than incrementing
+With `all="true"`, Connect for Procore walks the `Link: rel="next"` chain rather than incrementing
 page numbers — following the links avoids the off-by-one at the end of the result set,
 because the `next` link simply disappears on the final page.
 
@@ -126,7 +126,7 @@ ProcoreConnect\Api\Cache::flush( 'projects' );
 
 // React to a purge.
 add_action( 'procore_connect_cache_flushed', function ( string $group, int $removed ): void {
-	error_log( "Procore Connect purged {$removed} entries from {$group}" );
+	error_log( "Connect for Procore purged {$removed} entries from {$group}" );
 }, 10, 2 );
 ```
 

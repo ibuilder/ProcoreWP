@@ -169,7 +169,7 @@ final class Client {
 			return new \WP_Error(
 				'procore_connect_unknown_endpoint',
 				/* translators: %s: endpoint slug. */
-				sprintf( __( 'Unknown Procore endpoint: %s', 'procore-connect' ), $slug )
+				sprintf( __( 'Unknown Procore endpoint: %s', 'connect-for-procore' ), $slug )
 			);
 		}
 
@@ -193,7 +193,7 @@ final class Client {
 		if ( Endpoints::SCOPE_NONE !== $definition['scope'] && $company <= 0 ) {
 			return new \WP_Error(
 				'procore_connect_missing_company',
-				__( 'No Procore company ID is available. Set a default company in Procore → Connection, or pass company_id.', 'procore-connect' )
+				__( 'No Procore company ID is available. Set a default company in Procore → Connection, or pass company_id.', 'connect-for-procore' )
 			);
 		}
 
@@ -240,7 +240,7 @@ final class Client {
 				$cache_key,
 				new \WP_Error(
 					'procore_connect_circuit_open',
-					__( 'Procore requests are paused after repeated failures. They will resume automatically.', 'procore-connect' )
+					__( 'Procore requests are paused after repeated failures. They will resume automatically.', 'connect-for-procore' )
 				)
 			);
 		}
@@ -375,7 +375,7 @@ final class Client {
 				'timeout'     => (int) Settings::get( 'request_timeout', 15 ),
 				'sslverify'   => true,
 				'redirection' => 3,
-				'user-agent'  => sprintf( 'Procore Connect/%s; WordPress/%s; %s', PROCORE_CONNECT_VERSION, get_bloginfo( 'version' ), home_url( '/' ) ),
+				'user-agent'  => sprintf( 'ConnectForProcore/%s; WordPress/%s; %s', PROCORE_CONNECT_VERSION, get_bloginfo( 'version' ), home_url( '/' ) ),
 				'headers'     => $headers,
 			);
 
@@ -409,7 +409,7 @@ final class Client {
 			if ( 401 === $status && $attempt < self::MAX_ATTEMPTS ) {
 				// The token was revoked or rotated server-side; drop it and retry once.
 				TokenStore::clear();
-				$last_error = new \WP_Error( 'procore_connect_unauthorized', __( 'Procore rejected the access token.', 'procore-connect' ) );
+				$last_error = new \WP_Error( 'procore_connect_unauthorized', __( 'Procore rejected the access token.', 'connect-for-procore' ) );
 				continue;
 			}
 
@@ -430,7 +430,7 @@ final class Client {
 
 				return new \WP_Error(
 					'procore_connect_rate_limited',
-					__( 'Procore is rate limiting this site. Cached data will be shown until the limit resets.', 'procore-connect' ),
+					__( 'Procore is rate limiting this site. Cached data will be shown until the limit resets.', 'connect-for-procore' ),
 					array( 'status' => $status )
 				);
 			}//end if
@@ -440,7 +440,7 @@ final class Client {
 
 		return $last_error instanceof \WP_Error
 			? $last_error
-			: new \WP_Error( 'procore_connect_request_failed', __( 'The Procore request could not be completed.', 'procore-connect' ) );
+			: new \WP_Error( 'procore_connect_request_failed', __( 'The Procore request could not be completed.', 'connect-for-procore' ) );
 	}
 
 	/**
@@ -482,7 +482,7 @@ final class Client {
 
 			if ( '' === $message ) {
 				/* translators: %d: HTTP status code. */
-				$message = sprintf( __( 'Procore returned HTTP %d.', 'procore-connect' ), $status );
+				$message = sprintf( __( 'Procore returned HTTP %d.', 'connect-for-procore' ), $status );
 			}
 
 			Logger::error(
@@ -497,7 +497,7 @@ final class Client {
 		}//end if
 
 		if ( null === $decoded && '' !== $raw ) {
-			return new \WP_Error( 'procore_connect_bad_json', __( 'Procore returned a response that could not be decoded.', 'procore-connect' ) );
+			return new \WP_Error( 'procore_connect_bad_json', __( 'Procore returned a response that could not be decoded.', 'connect-for-procore' ) );
 		}
 
 		$total = wp_remote_retrieve_header( $response, 'total' );

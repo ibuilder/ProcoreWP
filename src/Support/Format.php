@@ -187,7 +187,7 @@ final class Format {
 				return sprintf(
 					'<span class="procore-connect-status procore-connect-status--%1$s">%2$s</span>',
 					$active ? 'active' : 'inactive',
-					esc_html( $active ? __( 'Active', 'procore-connect' ) : __( 'Inactive', 'procore-connect' ) )
+					esc_html( $active ? __( 'Active', 'connect-for-procore' ) : __( 'Inactive', 'connect-for-procore' ) )
 				);
 
 			case 'email':

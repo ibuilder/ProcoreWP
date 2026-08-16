@@ -42,7 +42,7 @@ final class ClientCredentials extends AbstractAuth {
 
 			return new \WP_Error(
 				'procore_connect_token_busy',
-				__( 'Another request is currently authenticating with Procore. Please try again in a moment.', 'procore-connect' )
+				__( 'Another request is currently authenticating with Procore. Please try again in a moment.', 'connect-for-procore' )
 			);
 		}
 
@@ -91,6 +91,6 @@ final class ClientCredentials extends AbstractAuth {
 	 * @return string Label.
 	 */
 	public function label(): string {
-		return __( 'Service Account (Client Credentials)', 'procore-connect' );
+		return __( 'Service Account (Client Credentials)', 'connect-for-procore' );
 	}
 }

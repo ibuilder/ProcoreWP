@@ -66,7 +66,7 @@ final class Notices {
 		}
 
 		if ( 'connected' === $status ) {
-			$this->notice( 'success', __( 'Connected to Procore.', 'procore-connect' ) );
+			$this->notice( 'success', __( 'Connected to Procore.', 'connect-for-procore' ) );
 
 			return;
 		}
@@ -74,9 +74,9 @@ final class Notices {
 		$stored_error = (string) get_transient( 'procore_connect_oauth_error' );
 
 		$messages = array(
-			'denied'              => __( 'The Procore authorization request was declined.', 'procore-connect' ),
-			'missing_credentials' => __( 'Enter a Client ID and Client Secret before connecting.', 'procore-connect' ),
-			'failed'              => '' !== $stored_error ? $stored_error : __( 'The Procore connection could not be completed.', 'procore-connect' ),
+			'denied'              => __( 'The Procore authorization request was declined.', 'connect-for-procore' ),
+			'missing_credentials' => __( 'Enter a Client ID and Client Secret before connecting.', 'connect-for-procore' ),
+			'failed'              => '' !== $stored_error ? $stored_error : __( 'The Procore connection could not be completed.', 'connect-for-procore' ),
 		);
 
 		delete_transient( 'procore_connect_oauth_error' );
@@ -100,7 +100,7 @@ final class Notices {
 			'warning',
 			sprintf(
 				/* translators: %s: settings screen URL. */
-				__( 'Procore Connect imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href="%s">re-run the connection test</a> before shortcodes will return data.', 'procore-connect' ),
+				__( 'Connect for Procore imported your settings from version 1.x. Version 1.x authenticated against the wrong Procore host, so you need to <a href="%s">re-run the connection test</a> before shortcodes will return data.', 'connect-for-procore' ),
 				esc_url( admin_url( 'admin.php?page=procore-connect' ) )
 			),
 			true
@@ -126,7 +126,7 @@ final class Notices {
 		if ( 'repaired' === $state ) {
 			$this->notice(
 				'success',
-				__( 'Procore Connect repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm.', 'procore-connect' )
+				__( 'Connect for Procore repaired your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save, which eventually made it unreadable. Nothing further is needed, though it is worth running Procore → Connection → Test connection to confirm.', 'connect-for-procore' )
 			);
 
 			return;
@@ -136,7 +136,7 @@ final class Notices {
 			'error',
 			sprintf(
 				/* translators: %s: settings screen URL. */
-				__( 'Procore Connect could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href="%s">enter it again</a>; this cannot happen on 2.0.2 or later.', 'procore-connect' ),
+				__( 'Connect for Procore could not recover your stored Client Secret. Versions 2.0.0 and 2.0.1 re-encrypted it on every settings save until it became unreadable, so it has been cleared. Please <a href="%s">enter it again</a>; this cannot happen on 2.0.2 or later.', 'connect-for-procore' ),
 				esc_url( admin_url( 'admin.php?page=procore-connect' ) )
 			),
 			true
@@ -155,7 +155,7 @@ final class Notices {
 
 		$this->notice(
 			'warning',
-			__( 'OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead.', 'procore-connect' )
+			__( 'OpenSSL is not available on this server, so your Procore Client Secret cannot be encrypted in the database. Define PROCORE_CONNECT_CLIENT_SECRET in wp-config.php instead.', 'connect-for-procore' )
 		);
 	}
 
@@ -173,7 +173,7 @@ final class Notices {
 			'info',
 			sprintf(
 				/* translators: 1: environment label, 2: API host. */
-				__( 'Procore Connect is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data.', 'procore-connect' ),
+				__( 'Connect for Procore is pointed at %1$s (%2$s). Front-end shortcodes are showing sandbox data.', 'connect-for-procore' ),
 				Environment::choices()[ Environment::current() ],
 				Environment::api_host()
 			)
@@ -196,7 +196,7 @@ final class Notices {
 			'error',
 			sprintf(
 				/* translators: %s: human readable time difference. */
-				__( 'Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime.', 'procore-connect' ),
+				__( 'Procore requests are paused after repeated failures and will resume in %s. Cached data is being served in the meantime.', 'connect-for-procore' ),
 				human_time_diff( time(), $state['open_until'] )
 			)
 		);
@@ -205,12 +205,12 @@ final class Notices {
 	/**
 	 * Whether the current screen belongs to this plugin.
 	 *
-	 * @return bool True on a Procore Connect screen.
+	 * @return bool True on a Connect for Procore screen.
 	 */
 	private function on_plugin_screen(): bool {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 
-		return $screen instanceof \WP_Screen && false !== strpos( (string) $screen->id, 'procore-connect' );
+		return $screen instanceof \WP_Screen && false !== strpos( (string) $screen->id, 'connect-for-procore' );
 	}
 
 	/**

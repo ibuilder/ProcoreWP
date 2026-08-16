@@ -115,7 +115,7 @@ final class Logger {
 			$suffix = empty( $entry['context'] ) ? '' : ' ' . wp_json_encode( $entry['context'] );
 
 			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Gated behind WP_DEBUG_LOG and an explicit opt-in setting.
-			error_log( sprintf( '[Procore Connect][%s] %s%s', $level, $message, $suffix ) );
+			error_log( sprintf( '[Connect for Procore][%s] %s%s', $level, $message, $suffix ) );
 		}
 	}
 

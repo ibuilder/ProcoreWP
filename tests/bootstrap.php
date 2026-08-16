@@ -17,10 +17,10 @@ require_once __DIR__ . '/wp-shims.php';
 
 define( 'ABSPATH', __DIR__ . '/' );
 define( 'PROCORE_CONNECT_VERSION', '2.0.0' );
-define( 'PROCORE_CONNECT_FILE', dirname( __DIR__ ) . '/procore-connect.php' );
+define( 'PROCORE_CONNECT_FILE', dirname( __DIR__ ) . '/connect-for-procore.php' );
 define( 'PROCORE_CONNECT_PATH', dirname( __DIR__ ) . '/' );
-define( 'PROCORE_CONNECT_URL', 'https://example.test/wp-content/plugins/procore-connect/' );
-define( 'PROCORE_CONNECT_BASENAME', 'procore-connect/procore-connect.php' );
+define( 'PROCORE_CONNECT_URL', 'https://example.test/wp-content/plugins/connect-for-procore/' );
+define( 'PROCORE_CONNECT_BASENAME', 'connect-for-procore/connect-for-procore.php' );
 
 spl_autoload_register(
 	static function ( string $class_name ): void {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Removes every trace of Procore Connect when the plugin is deleted.
+ * Removes every trace of Connect for Procore when the plugin is deleted.
  *
  * Runs only when an administrator deletes the plugin from the Plugins screen,
  * not on deactivation. Credentials and tokens are removed unless the site has

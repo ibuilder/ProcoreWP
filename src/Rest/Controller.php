@@ -160,7 +160,7 @@ final class Controller {
 			)
 		);
 
-		$response->header( 'X-Procore Connect-Cached', $meta['cached'] ? '1' : '0' );
+		$response->header( 'X-Connect-For-Procore-Cached', $meta['cached'] ? '1' : '0' );
 
 		return $response;
 	}
@@ -174,7 +174,7 @@ final class Controller {
 		if ( ! Settings::get( 'enable_rest', false ) ) {
 			return new \WP_Error(
 				'procore_connect_rest_disabled',
-				__( 'The Procore Connect REST proxy is disabled.', 'procore-connect' ),
+				__( 'The Connect for Procore REST proxy is disabled.', 'connect-for-procore' ),
 				array( 'status' => 404 )
 			);
 		}
@@ -206,6 +206,6 @@ final class Controller {
 			return $error->get_error_message();
 		}
 
-		return __( 'Project information is temporarily unavailable.', 'procore-connect' );
+		return __( 'Project information is temporarily unavailable.', 'connect-for-procore' );
 	}
 }

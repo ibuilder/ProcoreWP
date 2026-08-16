@@ -100,7 +100,7 @@ final class Commands {
 		\WP_CLI::success(
 			sprintf(
 				/* translators: %d: number of cache entries removed. */
-				_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'procore-connect' ),
+				_n( 'Removed %d cached response.', 'Removed %d cached responses.', $removed, 'connect-for-procore' ),
 				$removed
 			)
 		);

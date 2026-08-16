@@ -1,10 +1,10 @@
-=== Procore Connect ===
+=== Connect for Procore ===
 Contributors: ibuilder
 Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.0.6
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,9 +12,9 @@ Publish live Procore project data on your WordPress site with shortcodes and blo
 
 == Description ==
 
-Procore Connect connects your WordPress site to the Procore construction management platform and publishes project data on the front end: project directories, team members, drawings, specifications, RFIs, submittals, punch lists, daily logs, change orders and more.
+Connect for Procore connects your WordPress site to the Procore construction management platform and publishes project data on the front end: project directories, team members, drawings, specifications, RFIs, submittals, punch lists, daily logs, change orders and more.
 
-Data is read-only. Procore Connect never writes to Procore.
+Data is read-only. Connect for Procore never writes to Procore.
 
 = Built for the way Procore actually works =
 
@@ -26,7 +26,7 @@ Data is read-only. Procore Connect never writes to Procore.
 
 = Privacy first =
 
-Procore project directories contain personal data. Procore Connect will not publish email addresses unless you turn off the global suppression setting **and** opt in on the individual shortcode. Error messages from Procore, which routinely name accounts and permissions, are shown to administrators only.
+Procore project directories contain personal data. Connect for Procore will not publish email addresses unless you turn off the global suppression setting **and** opt in on the individual shortcode. Error messages from Procore, which routinely name accounts and permissions, are shown to administrators only.
 
 = Shortcodes =
 
@@ -78,7 +78,7 @@ Data sent: your Procore Client ID and Client Secret during authentication, and t
 
 == Installation ==
 
-1. Upload the plugin to `/wp-content/plugins/procore-connect/` or install it through the Plugins screen.
+1. Upload the plugin to `/wp-content/plugins/connect-for-procore/` or install it through the Plugins screen.
 2. Activate it.
 3. Go to **Procore → Connection** and enter your Client ID and Client Secret.
 4. Choose a default company, then click **Test connection**.
@@ -126,6 +126,14 @@ Your settings are imported automatically and every 1.x shortcode name and the le
 Yes. Caching goes through the transient API, so a persistent object cache such as Redis or Memcached is used automatically when present.
 
 == Changelog ==
+
+= 3.0.0 =
+
+* Renamed from "Procore Connect" to "Connect for Procore". WordPress.org does not permit a plugin name or slug to begin with someone else's trademark, and Procore is a registered trademark of Procore Technologies, Inc. The new name follows the format WordPress.org prescribes for integrations built by non-employees.
+* **You need to activate the plugin once after updating.** WordPress identifies a plugin by its directory, and the directory changed, so it sees a new plugin.
+* Your settings, template overrides and custom CSS are all preserved. Option names, the REST namespace `/wp-json/procore-connect/v1/`, the `yourtheme/procore-connect/` override directory, the CSS classes, the block and the `wp procore-connect` CLI command are all deliberately unchanged.
+* Fixed: the REST proxy sent a cache-status header named `X-Procore Connect-Cached`, which contains a space and is not a valid HTTP header name. It is now `X-Connect-For-Procore-Cached`.
+* Fixed: the User-Agent contained a space inside its product token; it is now `ConnectForProcore/3.0.0`.
 
 = 2.0.6 =
 
@@ -192,6 +200,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+The plugin is now called Connect for Procore, to comply with WordPress.org's trademark naming rule. Activate it once after updating — WordPress sees the renamed directory as a new plugin. Your settings, template overrides and custom CSS are preserved.
 
 = 2.0.6 =
 Corrects the 2.0.5 column-hiding fix, which dropped columns you had asked for by name and did not drop the empty ones it claimed to. Recommended for anyone on 2.0.5 who sets `columns=` on a shortcode.

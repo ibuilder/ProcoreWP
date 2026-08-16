@@ -37,7 +37,7 @@ abstract class AbstractAuth implements AuthInterface {
 		if ( '' === $client_id || '' === $client_secret ) {
 			return new \WP_Error(
 				'procore_connect_missing_credentials',
-				__( 'Enter your Procore Client ID and Client Secret before connecting.', 'procore-connect' )
+				__( 'Enter your Procore Client ID and Client Secret before connecting.', 'connect-for-procore' )
 			);
 		}
 
@@ -72,7 +72,7 @@ abstract class AbstractAuth implements AuthInterface {
 
 			return new \WP_Error(
 				'procore_connect_token_unreadable',
-				__( 'Procore returned an unreadable authentication response.', 'procore-connect' )
+				__( 'Procore returned an unreadable authentication response.', 'connect-for-procore' )
 			);
 		}
 
@@ -81,7 +81,7 @@ abstract class AbstractAuth implements AuthInterface {
 
 			if ( '' === $message ) {
 				/* translators: %d: HTTP status code. */
-				$message = sprintf( __( 'Procore rejected the authentication request (HTTP %d).', 'procore-connect' ), $code );
+				$message = sprintf( __( 'Procore rejected the authentication request (HTTP %d).', 'connect-for-procore' ), $code );
 			}
 
 			Logger::error(
@@ -98,7 +98,7 @@ abstract class AbstractAuth implements AuthInterface {
 		if ( empty( $decoded['access_token'] ) ) {
 			return new \WP_Error(
 				'procore_connect_token_missing',
-				__( 'Procore did not return an access token.', 'procore-connect' )
+				__( 'Procore did not return an access token.', 'connect-for-procore' )
 			);
 		}
 
@@ -112,7 +112,7 @@ abstract class AbstractAuth implements AuthInterface {
 	 */
 	protected function user_agent(): string {
 		return sprintf(
-			'Procore Connect/%s; WordPress/%s; %s',
+			'ConnectForProcore/%s; WordPress/%s; %s',
 			PROCORE_CONNECT_VERSION,
 			get_bloginfo( 'version' ),
 			home_url( '/' )

@@ -39,7 +39,7 @@ jobs:
         run: |
           TAG="${{ github.event.inputs.tag || github.ref_name }}"
           TAG_VERSION="${TAG#v}"
-          HEADER_VERSION=$(grep -oP '^\s*\*\s*Version:\s*\K[0-9.]+' procore-connect.php)
+          HEADER_VERSION=$(grep -oP '^\s*\*\s*Version:\s*\K[0-9.]+' connect-for-procore.php)
           README_VERSION=$(grep -oP '^Stable tag:\s*\K[0-9.]+' readme.txt)
 
           echo "tag=$TAG_VERSION header=$HEADER_VERSION readme=$README_VERSION"
@@ -56,24 +56,24 @@ jobs:
 
       - name: Stage the distributable
         run: |
-          mkdir -p build/procore-connect
+          mkdir -p build/connect-for-procore
           rsync -a --exclude-from=.distignore \
             --exclude='.git' --exclude='build' --exclude='vendor' \
-            ./ build/procore-connect/
+            ./ build/connect-for-procore/
 
       - name: Create the ZIP
         run: |
           cd build
-          zip -r "../procore-connect-${{ github.event.inputs.tag || github.ref_name }}.zip" procore-connect
+          zip -r "../connect-for-procore-${{ github.event.inputs.tag || github.ref_name }}.zip" connect-for-procore
           cd ..
-          unzip -l "procore-connect-${{ github.event.inputs.tag || github.ref_name }}.zip"
+          unzip -l "connect-for-procore-${{ github.event.inputs.tag || github.ref_name }}.zip"
 
       - name: Publish the release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.tag || github.ref_name }}
-          name: Procore Connect ${{ github.event.inputs.tag || github.ref_name }}
+          name: Connect for Procore ${{ github.event.inputs.tag || github.ref_name }}
           body_path: CHANGELOG.md
-          files: procore-connect-*.zip
+          files: connect-for-procore-*.zip
           draft: false
           generate_release_notes: true

@@ -79,7 +79,7 @@ final class Arr {
 		}
 
 		if ( is_bool( $value ) ) {
-			return $value ? __( 'Yes', 'procore-connect' ) : __( 'No', 'procore-connect' );
+			return $value ? __( 'Yes', 'connect-for-procore' ) : __( 'No', 'connect-for-procore' );
 		}
 
 		if ( is_scalar( $value ) ) {

@@ -102,6 +102,6 @@ final class MapShortcode extends CollectionShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No project locations are available.', 'procore-connect' );
+			: __( 'No project locations are available.', 'connect-for-procore' );
 	}
 }

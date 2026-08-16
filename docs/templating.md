@@ -30,14 +30,14 @@ rules win without needing `!important`. Markup is stripped on save.
 ```
 
 To drop the plugin stylesheet entirely and style everything from your theme, untick
-**Load the Procore Connect stylesheet**.
+**Load the Connect for Procore stylesheet**.
 
 ## Template overrides
 
 Copy a template out of the plugin and into your theme:
 
 ```
-wp-content/plugins/procore-connect/templates/collection.php
+wp-content/plugins/connect-for-procore/templates/collection.php
   → wp-content/themes/your-theme/procore-connect/collection.php
 ```
 

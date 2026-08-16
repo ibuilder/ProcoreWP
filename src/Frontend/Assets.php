@@ -101,7 +101,7 @@ final class Assets {
 	}
 
 	/**
-	 * Whether any queried post contains a Procore Connect shortcode or block.
+	 * Whether any queried post contains a Connect for Procore shortcode or block.
 	 *
 	 * @return bool True when plugin output is expected.
 	 */

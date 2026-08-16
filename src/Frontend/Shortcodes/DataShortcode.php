@@ -52,7 +52,7 @@ final class DataShortcode extends CollectionShortcode {
 				'procore_connect_missing_endpoint',
 				sprintf(
 					/* translators: %s: comma-separated list of endpoint slugs. */
-					__( 'The endpoint attribute is required. Available endpoints: %s', 'procore-connect' ),
+					__( 'The endpoint attribute is required. Available endpoints: %s', 'connect-for-procore' ),
 					implode( ', ', array_keys( Endpoints::public_endpoints() ) )
 				)
 			);
@@ -63,7 +63,7 @@ final class DataShortcode extends CollectionShortcode {
 				'procore_connect_endpoint_not_public',
 				sprintf(
 					/* translators: 1: requested endpoint slug, 2: comma-separated list of endpoint slugs. */
-					__( 'The endpoint "%1$s" is not available to shortcodes. Available endpoints: %2$s', 'procore-connect' ),
+					__( 'The endpoint "%1$s" is not available to shortcodes. Available endpoints: %2$s', 'connect-for-procore' ),
 					$slug,
 					implode( ', ', array_keys( Endpoints::public_endpoints() ) )
 				)

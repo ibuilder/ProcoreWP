@@ -1,4 +1,4 @@
-# Contributing to Procore Connect
+# Contributing to Connect for Procore
 
 Thanks for helping. This document covers how to get set up and what the review will look
 for.
@@ -7,7 +7,7 @@ for.
 
 ```bash
 git clone https://github.com/ibuilder/ProcoreWP.git
-cd Procore Connect
+cd Connect for Procore
 composer install
 ```
 

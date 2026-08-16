@@ -1,4 +1,4 @@
-# Procore Connect
+# Connect for Procore
 
 [![Plugin Check](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/plugin-check.yml)
 [![Coding Standards](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml/badge.svg)](https://github.com/ibuilder/ProcoreWP/actions/workflows/phpcs.yml)
@@ -15,7 +15,7 @@ Publish live [Procore](https://www.procore.com/) construction project data on a 
 
 Renders Procore data on the front end of a WordPress site: project directories, project detail panels, team lists, drawings, specifications, RFIs, submittals, punch lists, observations, daily logs, change orders, schedule milestones, company vendors and offices.
 
-Everything is **read-only**. Procore Connect never writes to Procore.
+Everything is **read-only**. Connect for Procore never writes to Procore.
 
 ```
 [procore_project_list company_id="4242" limit="10"]
@@ -131,7 +131,7 @@ wp procore-connect reset-token
 Copy any file from `templates/` into `yourtheme/procore-connect/` and edit it there. Overrides survive plugin updates — unlike 1.x, which told you to edit CSS inside the plugin directory and lost your work on every release.
 
 ```
-wp-content/plugins/procore-connect/templates/collection.php
+wp-content/plugins/connect-for-procore/templates/collection.php
   → wp-content/themes/your-theme/procore-connect/collection.php
 ```
 
@@ -167,13 +167,13 @@ Contributions are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md). Security r
 
 Settings are imported automatically, all shortcode names are unchanged, and the legacy `id` attribute still works.
 
-Two things need your attention. The main plugin file was renamed from `index.php` to `procore-connect.php`, which WordPress sees as a different plugin, so **activate Procore Connect once after updating**. And because 1.x never successfully authenticated, **re-run the connection test** before assuming a blank shortcode is a bug.
+Two things need your attention. The main plugin file was renamed from `index.php` to `connect-for-procore.php`, which WordPress sees as a different plugin, so **activate Connect for Procore once after updating**. And because 1.x never successfully authenticated, **re-run the connection test** before assuming a blank shortcode is a bug.
 
 Full detail: [the upgrade guide](https://ibuilder.github.io/ProcoreWP/upgrading/).
 
 ## Third-party service
 
-Procore Connect contacts Procore to retrieve the data you ask it to display: `login.procore.com` for authentication and `api.procore.com` for data, or the sandbox or regional hosts you configure. It sends your Client ID and Client Secret during authentication, plus the company and project identifiers you configure. No visitor data is sent to Procore.
+Connect for Procore contacts Procore to retrieve the data you ask it to display: `login.procore.com` for authentication and `api.procore.com` for data, or the sandbox or regional hosts you configure. It sends your Client ID and Client Secret during authentication, plus the company and project identifiers you configure. No visitor data is sent to Procore.
 
 [Procore terms](https://www.procore.com/legal/termsofservice) · [Procore privacy policy](https://www.procore.com/legal/privacy) · [Procore API docs](https://developers.procore.com/documentation/introduction)
 
@@ -181,4 +181,4 @@ Procore Connect contacts Procore to retrieve the data you ask it to display: `lo
 
 GPL-2.0-or-later. See [LICENSE](LICENSE).
 
-Procore Connect is not affiliated with, endorsed by, or sponsored by Procore Technologies, Inc. "Procore" is a trademark of Procore Technologies, Inc.
+Connect for Procore is not affiliated with, endorsed by, or sponsored by Procore Technologies, Inc. "Procore" is a trademark of Procore Technologies, Inc.

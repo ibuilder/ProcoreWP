@@ -26,7 +26,7 @@
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<property name="text_domain" type="array">
-				<element value="procore-connect"/>
+				<element value="connect-for-procore"/>
 			</property>
 		</properties>
 	</rule>

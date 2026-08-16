@@ -100,7 +100,7 @@ final class FieldShortcode extends AbstractShortcode {
 		$field = (string) $atts['field'];
 
 		if ( '' === $field ) {
-			return $this->error( new \WP_Error( 'procore_connect_missing_field', __( 'The field attribute is required.', 'procore-connect' ) ) );
+			return $this->error( new \WP_Error( 'procore_connect_missing_field', __( 'The field attribute is required.', 'connect-for-procore' ) ) );
 		}
 
 		if ( ! in_array( $field, self::allowed_fields(), true ) ) {
@@ -109,7 +109,7 @@ final class FieldShortcode extends AbstractShortcode {
 					'procore_connect_field_not_allowed',
 					sprintf(
 						/* translators: %s: requested field name. */
-						__( 'The field "%s" is not available for display. Add it with the procore_connect_allowed_project_fields filter.', 'procore-connect' ),
+						__( 'The field "%s" is not available for display. Add it with the procore_connect_allowed_project_fields filter.', 'connect-for-procore' ),
 						$field
 					)
 				)
@@ -178,6 +178,6 @@ final class FieldShortcode extends AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'Not available.', 'procore-connect' );
+			: __( 'Not available.', 'connect-for-procore' );
 	}
 }

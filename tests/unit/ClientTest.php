@@ -62,7 +62,8 @@ final class ClientTest extends TestCase {
 
 		$this->assertSame( 15, $calls[0]['args']['timeout'] );
 		$this->assertTrue( $calls[0]['args']['sslverify'] );
-		$this->assertStringContainsString( 'Procore Connect/2.0.0', $calls[0]['args']['user-agent'] );
+		// A product token may not contain spaces, so the display name is collapsed.
+		$this->assertStringContainsString( 'ConnectForProcore/2.0.0', $calls[0]['args']['user-agent'] );
 	}
 
 	/**

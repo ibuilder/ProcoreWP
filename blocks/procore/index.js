@@ -1,5 +1,5 @@
 /**
- * Procore Connect block editor integration.
+ * Connect for Procore block editor integration.
  *
  * Hand-written ES5 against the global `wp.*` runtime, with no build step, so
  * the file that ships is the file that was authored.
@@ -34,24 +34,24 @@
 	 * Everything else remains reachable through the equivalent shortcode.
 	 */
 	var CONTROLS = [
-		{ key: 'project_id', label: __( 'Project ID', 'procore-connect' ), type: 'number' },
-		{ key: 'company_id', label: __( 'Company ID', 'procore-connect' ), type: 'number' },
-		{ key: 'endpoint', label: __( 'Endpoint', 'procore-connect' ), type: 'text' },
-		{ key: 'field', label: __( 'Field', 'procore-connect' ), type: 'text' },
-		{ key: 'label', label: __( 'Label', 'procore-connect' ), type: 'text' },
-		{ key: 'title', label: __( 'Heading', 'procore-connect' ), type: 'text' },
-		{ key: 'limit', label: __( 'Maximum rows', 'procore-connect' ), type: 'number' },
-		{ key: 'status', label: __( 'Filter by status', 'procore-connect' ), type: 'text' },
-		{ key: 'orderby', label: __( 'Sort by field', 'procore-connect' ), type: 'text' },
-		{ key: 'order', label: __( 'Sort direction', 'procore-connect' ), type: 'select', options: [
-			{ label: __( 'Ascending', 'procore-connect' ), value: 'asc' },
-			{ label: __( 'Descending', 'procore-connect' ), value: 'desc' },
+		{ key: 'project_id', label: __( 'Project ID', 'connect-for-procore' ), type: 'number' },
+		{ key: 'company_id', label: __( 'Company ID', 'connect-for-procore' ), type: 'number' },
+		{ key: 'endpoint', label: __( 'Endpoint', 'connect-for-procore' ), type: 'text' },
+		{ key: 'field', label: __( 'Field', 'connect-for-procore' ), type: 'text' },
+		{ key: 'label', label: __( 'Label', 'connect-for-procore' ), type: 'text' },
+		{ key: 'title', label: __( 'Heading', 'connect-for-procore' ), type: 'text' },
+		{ key: 'limit', label: __( 'Maximum rows', 'connect-for-procore' ), type: 'number' },
+		{ key: 'status', label: __( 'Filter by status', 'connect-for-procore' ), type: 'text' },
+		{ key: 'orderby', label: __( 'Sort by field', 'connect-for-procore' ), type: 'text' },
+		{ key: 'order', label: __( 'Sort direction', 'connect-for-procore' ), type: 'select', options: [
+			{ label: __( 'Ascending', 'connect-for-procore' ), value: 'asc' },
+			{ label: __( 'Descending', 'connect-for-procore' ), value: 'desc' },
 		] },
-		{ key: 'columns', label: __( 'Columns', 'procore-connect' ), type: 'text' },
-		{ key: 'width', label: __( 'Image width', 'procore-connect' ), type: 'number' },
-		{ key: 'show_email', label: __( 'Show email addresses', 'procore-connect' ), type: 'toggle' },
-		{ key: 'all', label: __( 'Fetch every page', 'procore-connect' ), type: 'toggle' },
-		{ key: 'class', label: __( 'Extra CSS classes', 'procore-connect' ), type: 'text' },
+		{ key: 'columns', label: __( 'Columns', 'connect-for-procore' ), type: 'text' },
+		{ key: 'width', label: __( 'Image width', 'connect-for-procore' ), type: 'number' },
+		{ key: 'show_email', label: __( 'Show email addresses', 'connect-for-procore' ), type: 'toggle' },
+		{ key: 'all', label: __( 'Fetch every page', 'connect-for-procore' ), type: 'toggle' },
+		{ key: 'class', label: __( 'Extra CSS classes', 'connect-for-procore' ), type: 'text' },
 	];
 
 	/**
@@ -122,7 +122,7 @@
 					key: control.key,
 					label: control.label,
 					value: value,
-					options: [ { label: __( 'Default', 'procore-connect' ), value: '' } ].concat( control.options ),
+					options: [ { label: __( 'Default', 'connect-for-procore' ), value: '' } ].concat( control.options ),
 					onChange: function ( next ) {
 						update( control.key, next );
 					},
@@ -155,9 +155,9 @@
 				{},
 				el(
 					PanelBody,
-					{ title: __( 'Procore data', 'procore-connect' ), initialOpen: true },
+					{ title: __( 'Procore data', 'connect-for-procore' ), initialOpen: true },
 					el( SelectControl, {
-						label: __( 'Show', 'procore-connect' ),
+						label: __( 'Show', 'connect-for-procore' ),
 						value: attributes.shortcode,
 						options: variations.map( function ( item ) {
 							return { label: item.title, value: item.shortcode };
@@ -171,7 +171,7 @@
 				),
 				el(
 					PanelBody,
-					{ title: __( 'Options', 'procore-connect' ), initialOpen: true },
+					{ title: __( 'Options', 'connect-for-procore' ), initialOpen: true },
 					buildControls( attributes, setAttributes )
 				)
 			);
@@ -183,14 +183,14 @@
 						EmptyResponsePlaceholder: function () {
 							return el(
 								Placeholder,
-								{ icon: 'building', label: __( 'Procore', 'procore-connect' ) },
-								__( 'Nothing to display yet. Check the project and company IDs in the block settings.', 'procore-connect' )
+								{ icon: 'building', label: __( 'Procore', 'connect-for-procore' ) },
+								__( 'Nothing to display yet. Check the project and company IDs in the block settings.', 'connect-for-procore' )
 							);
 						},
 				  } )
 				: el(
 						Placeholder,
-						{ icon: 'building', label: __( 'Procore', 'procore-connect' ) },
+						{ icon: 'building', label: __( 'Procore', 'connect-for-procore' ) },
 						variation ? variation.title : attributes.shortcode
 				  );
 

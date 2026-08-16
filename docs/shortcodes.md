@@ -263,7 +263,7 @@ Nothing outside this registry is callable. That boundary is what makes both
 ## Privacy
 
 Procore project directories contain personal data. Publishing them exposes staff and
-subcontractors to address harvesting, so Procore Connect will not output an email address
+subcontractors to address harvesting, so Connect for Procore will not output an email address
 unless **both** of the following are true:
 
 1. **Procore → Display → Never output email addresses** is unticked, and

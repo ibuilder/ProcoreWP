@@ -53,7 +53,7 @@ final class AuthorizationCode extends AbstractAuth {
 		if ( '' === TokenStore::refresh_token() ) {
 			return new \WP_Error(
 				'procore_connect_not_connected',
-				__( 'This site is not connected to Procore. Open Procore → Connection and choose "Connect to Procore".', 'procore-connect' )
+				__( 'This site is not connected to Procore. Open Procore → Connection and choose "Connect to Procore".', 'connect-for-procore' )
 			);
 		}
 
@@ -64,7 +64,7 @@ final class AuthorizationCode extends AbstractAuth {
 
 			return new \WP_Error(
 				'procore_connect_token_busy',
-				__( 'Another request is currently refreshing the Procore connection. Please try again in a moment.', 'procore-connect' )
+				__( 'Another request is currently refreshing the Procore connection. Please try again in a moment.', 'connect-for-procore' )
 			);
 		}
 
@@ -78,7 +78,7 @@ final class AuthorizationCode extends AbstractAuth {
 			if ( '' === $refresh_token ) {
 				return new \WP_Error(
 					'procore_connect_not_connected',
-					__( 'This site is not connected to Procore.', 'procore-connect' )
+					__( 'This site is not connected to Procore.', 'connect-for-procore' )
 				);
 			}
 
@@ -98,7 +98,7 @@ final class AuthorizationCode extends AbstractAuth {
 
 					return new \WP_Error(
 						'procore_connect_reconnect_required',
-						__( 'The Procore connection has expired. Open Procore → Connection and reconnect.', 'procore-connect' )
+						__( 'The Procore connection has expired. Open Procore → Connection and reconnect.', 'connect-for-procore' )
 					);
 				}
 
@@ -146,7 +146,7 @@ final class AuthorizationCode extends AbstractAuth {
 		if ( '' === $state || false === get_transient( self::STATE_PREFIX . $state ) ) {
 			return new \WP_Error(
 				'procore_connect_bad_state',
-				__( 'The Procore authorization response could not be verified. Please start the connection again.', 'procore-connect' )
+				__( 'The Procore authorization response could not be verified. Please start the connection again.', 'connect-for-procore' )
 			);
 		}
 
@@ -155,7 +155,7 @@ final class AuthorizationCode extends AbstractAuth {
 		if ( '' === $code ) {
 			return new \WP_Error(
 				'procore_connect_missing_code',
-				__( 'Procore did not return an authorization code.', 'procore-connect' )
+				__( 'Procore did not return an authorization code.', 'connect-for-procore' )
 			);
 		}
 
@@ -210,6 +210,6 @@ final class AuthorizationCode extends AbstractAuth {
 	 * @return string Label.
 	 */
 	public function label(): string {
-		return __( 'User Account (Authorization Code)', 'procore-connect' );
+		return __( 'User Account (Authorization Code)', 'connect-for-procore' );
 	}
 }

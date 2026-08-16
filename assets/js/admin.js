@@ -1,5 +1,5 @@
 /**
- * Procore Connect admin behaviour.
+ * Connect for Procore admin behaviour.
  *
  * Plain ES5 with no build step, so the shipped file is the source file.
  *

@@ -12,17 +12,17 @@ nav_order: 11
 
 Two renames happened, and both were unavoidable.
 
-**The plugin is now called Procore Connect**, with the slug `procore-connect`. The old
+**The plugin is now called Connect for Procore**, with the slug `procore-connect`. The old
 name contained "wp", which wordpress.org disallows outright in both a plugin name and a
 slug — keeping it would have ruled out the plugin directory permanently. The GitHub
 repository is unchanged and still lives at
 [ibuilder/ProcoreWP](https://github.com/ibuilder/ProcoreWP).
 
-**The main file moved** from `index.php` to `procore-connect.php`, because a main file
+**The main file moved** from `index.php` to `connect-for-procore.php`, because a main file
 called `index.php` fails Plugin Check. WordPress identifies a plugin by its file path, so
 it treats 2.0.0 as a different plugin and shows it as inactive.
 
-Go to **Plugins**, find **Procore Connect**, and activate it. Your settings are imported
+Go to **Plugins**, find **Connect for Procore**, and activate it. Your settings are imported
 automatically by the upgrade routine — you do not need to re-enter anything.
 
 ### 2. Re-run the connection test

@@ -171,7 +171,7 @@ final class Plugin {
 		$settings = sprintf(
 			'<a href="%s">%s</a>',
 			esc_url( admin_url( 'admin.php?page=procore-connect' ) ),
-			esc_html__( 'Settings', 'procore-connect' )
+			esc_html__( 'Settings', 'connect-for-procore' )
 		);
 
 		array_unshift( $links, $settings );

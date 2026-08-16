@@ -73,8 +73,8 @@ final class ImageShortcode extends AbstractShortcode {
 			? (string) $atts['alt']
 			: sprintf(
 				/* translators: %s: project name. */
-				__( '%s project image', 'procore-connect' ),
-				Arr::str( $data, 'name', __( 'Procore', 'procore-connect' ) )
+				__( '%s project image', 'connect-for-procore' ),
+				Arr::str( $data, 'name', __( 'Procore', 'connect-for-procore' ) )
 			);
 
 		return Renderer::render(
@@ -101,6 +101,6 @@ final class ImageShortcode extends AbstractShortcode {
 	protected function empty_text( array $atts ): string {
 		return '' !== $atts['empty_text']
 			? (string) $atts['empty_text']
-			: __( 'No project image is available.', 'procore-connect' );
+			: __( 'No project image is available.', 'connect-for-procore' );
 	}
 }

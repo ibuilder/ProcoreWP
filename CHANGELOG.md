@@ -1,9 +1,44 @@
 # Changelog
 
-All notable changes to Procore Connect are documented here.
+All notable changes to Connect for Procore are documented here.
 
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [3.0.0] — 2026-08-15
+
+### Changed
+
+- **Renamed to Connect for Procore.** WordPress.org guideline 17 forbids a plugin slug
+  or display name that *begins* with someone else's trademark, and "Procore" is a
+  registered trademark of Procore Technologies, Inc. "Procore Connect" would have been
+  rejected on review. The new name follows the format the guideline itself prescribes
+  for integrations built by non-employees.
+
+  Worth stating plainly: Plugin Check passes this either way. Its trademark test
+  compares against a hardcoded list of well-known brands, and "procore" is not on it,
+  so the automated result was a false negative. The rule is enforced by a human
+  reviewer.
+
+  What changed: the plugin slug, directory, main file, display name, text domain and
+  the WordPress.org banner and icon. **You must reactivate the plugin once**, because
+  WordPress identifies a plugin by its directory and now sees a different one.
+
+  What deliberately did *not* change, so that existing sites keep working: every option
+  name, the `procore_connect_` hook prefix, the `/wp-json/procore-connect/v1/` REST
+  namespace, the `yourtheme/procore-connect/` template override directory, the
+  `procore-connect` CSS classes, the block name and the `wp procore-connect` CLI
+  command. Your settings, template overrides and custom CSS all survive the rename
+  untouched.
+
+### Fixed
+
+- **The REST proxy sent a malformed HTTP header.** The cache-status header was named
+  `X-Procore Connect-Cached` — a field name containing a space, which RFC 7230 does not
+  permit. It is now `X-Connect-For-Procore-Cached`. Introduced by an earlier blanket
+  rename and found while auditing this one.
+- **The User-Agent contained a space inside its product token.** `Procore Connect/2.0.6`
+  is not a valid product token; it is now `ConnectForProcore/3.0.0`.
 
 ## [2.0.6] — 2026-08-09
 
@@ -160,12 +195,12 @@ every install was non-functional regardless of configuration.
 
 ### ⚠️ Action required when upgrading
 
-- **The plugin is now called Procore Connect**, with the slug `procore-connect`. The
+- **The plugin is now called Connect for Procore**, with the slug `procore-connect`. The
   previous name contained "wp", which wordpress.org disallows in both a plugin name and
   a slug, making the directory listing impossible. The GitHub repository stays at
   `ibuilder/ProcoreWP`.
 - The main plugin file was renamed from `index.php` to `procore-connect.php`. WordPress
-  treats this as a different plugin, so **Procore Connect must be activated once** after
+  treats this as a different plugin, so **Connect for Procore must be activated once** after
   updating. Settings are imported automatically by the upgrade routine.
 - Because 1.x never obtained a token, any stored token is discarded. **Re-run
   Procore → Connection → Test connection** after upgrading.

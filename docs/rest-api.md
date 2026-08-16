@@ -71,7 +71,7 @@ GET /wp-json/procore-connect/v1/data/rfis?project_id=123&per_page=25
 
 `cached` tells you the response came from the plugin's cache rather than a live API call;
 `stale` tells you Procore was unreachable and this is the last good copy. Responses also
-carry an `X-Procore Connect-Cached` header.
+carry an `X-Connect for Procore-Cached` header.
 
 ## Example
 

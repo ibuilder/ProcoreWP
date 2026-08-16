@@ -132,7 +132,7 @@ final class Registrar {
 			)
 		);
 
-		wp_set_script_translations( $handle, 'procore-connect', PROCORE_CONNECT_PATH . 'languages' );
+		wp_set_script_translations( $handle, 'connect-for-procore', PROCORE_CONNECT_PATH . 'languages' );
 	}
 
 	/**
@@ -146,14 +146,14 @@ final class Registrar {
 		if ( '' !== (string) ( $definition['title'] ?? '' ) ) {
 			return sprintf(
 				/* translators: %s: shortcode display name, e.g. "RFIs". */
-				__( 'Procore: %s', 'procore-connect' ),
+				__( 'Procore: %s', 'connect-for-procore' ),
 				(string) $definition['title']
 			);
 		}
 
 		return sprintf(
 			/* translators: %s: shortcode display name. */
-			__( 'Procore: %s', 'procore-connect' ),
+			__( 'Procore: %s', 'connect-for-procore' ),
 			ucwords( str_replace( array( 'procore_', '_' ), array( '', ' ' ), $tag ) )
 		);
 	}

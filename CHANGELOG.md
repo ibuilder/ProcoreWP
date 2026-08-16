@@ -5,6 +5,20 @@ All notable changes to Connect for Procore are documented here.
 The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] — 2026-08-16
+
+### Changed
+
+- Documented, at the top of `Support\Encryption`, why the class calls `base64_encode()`.
+  AES-256-GCM emits raw bytes — IV, auth tag and cipher text — which cannot be stored
+  in a `wp_option` as-is; base64 is the transport encoding applied after encryption and
+  reversed before decryption. Every automated scan flags base64 as possible obfuscation,
+  and a WordPress.org reviewer reads that flag by hand, so the justification belongs
+  where they will look rather than only in per-line annotations.
+
+  No behaviour change. Released so the artifact submitted to WordPress.org corresponds
+  exactly to a tag.
+
 ## [3.0.0] — 2026-08-15
 
 ### Changed

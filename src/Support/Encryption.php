@@ -18,6 +18,14 @@ defined( 'ABSPATH' ) || exit;
  * without `wp-config.php` does not disclose credentials. If OpenSSL is not
  * available the payload is stored base64-encoded and `is_strong()` reports
  * false, which the admin screen surfaces as a warning.
+ *
+ * On the use of base64: AES-256-GCM produces raw bytes — an initialisation
+ * vector, an authentication tag and cipher text — which cannot be stored in a
+ * `wp_option` as-is. base64 is the transport encoding that makes those bytes
+ * text-safe, applied *after* encryption and reversed *before* decryption. It is
+ * not hiding anything: every call is on a value that is either already cipher
+ * text or is about to be, and the plugin ships no encoded source, no encoded
+ * payloads and no encoded URLs.
  */
 final class Encryption {
 

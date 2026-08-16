@@ -4,7 +4,7 @@ Tags: procore, construction, project management, shortcode, api
 Requires at least: 6.5
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -127,6 +127,10 @@ Yes. Caching goes through the transient API, so a persistent object cache such a
 
 == Changelog ==
 
+= 3.0.1 =
+
+* Documented why the encryption class uses base64: AES-256-GCM produces raw bytes that cannot be stored in a WordPress option as-is, so base64 is the transport encoding applied after encryption. No behaviour change.
+
 = 3.0.0 =
 
 * Renamed from "Procore Connect" to "Connect for Procore". WordPress.org does not permit a plugin name or slug to begin with someone else's trademark, and Procore is a registered trademark of Procore Technologies, Inc. The new name follows the format WordPress.org prescribes for integrations built by non-employees.
@@ -200,6 +204,9 @@ A complete rewrite. See the upgrade notice below before updating.
 * Initial release.
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Documentation only. No functional change from 3.0.0.
 
 = 3.0.0 =
 The plugin is now called Connect for Procore, to comply with WordPress.org's trademark naming rule. Activate it once after updating — WordPress sees the renamed directory as a new plugin. Your settings, template overrides and custom CSS are preserved.

@@ -3,7 +3,7 @@
  * Plugin Name:       Connect for Procore
  * Plugin URI:        https://github.com/ibuilder/ProcoreWP
  * Description:       Connect WordPress to the Procore construction management platform. Display projects, teams, drawings, RFIs and more with shortcodes, blocks and a cached REST proxy.
- * Version:           3.0.0
+ * Version:           3.0.1
  * Requires at least: 6.5
  * Requires PHP:      7.4
  * Author:            ibuilder
@@ -22,7 +22,7 @@ namespace ProcoreConnect;
 
 defined( 'ABSPATH' ) || exit;
 
-const VERSION = '3.0.0';
+const VERSION = '3.0.1';
 
 define( 'PROCORE_CONNECT_VERSION', VERSION );
 define( 'PROCORE_CONNECT_FILE', __FILE__ );
